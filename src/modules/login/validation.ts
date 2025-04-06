@@ -1,10 +1,11 @@
 "use server";
 
-import { getUserByEmail } from "@/db/queries/users";
+import { getUserByEmail } from "@/db/queries";
+import { User } from "@/db/schema";
 import { verifyPasswordHash } from "@/lib/auth/password";
 import { LOGIN_ERRORS, loginSchema } from "@/modules/login";
 
-export async function validate(formData: FormData) {
+export async function validate(formData: FormData): Promise<User> {
   const unparsed = Object.fromEntries(formData);
   const result = loginSchema.safeParse(unparsed);
   if (!result.success) throw Error(LOGIN_ERRORS.VALIDATION_FAILED);

@@ -22,4 +22,4 @@ export const userTable = pgTable(
 );
 
 export type User = InferSelectModel<typeof userTable>;
-export type UserInsert = InferInsertModel<typeof userTable>;
+export type InsertUser = InferInsertModel<typeof userTable>;

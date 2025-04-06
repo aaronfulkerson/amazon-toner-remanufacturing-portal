@@ -1,13 +1,14 @@
 import { redirect } from "next/navigation";
-import { checkInitialSetup } from "@/db/queries/users";
+import { verifyInitialSetup } from "@/db/queries";
+import { ROUTES } from "@/modules";
 
 export default async function SetupLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isSetUp = await checkInitialSetup();
-  if (isSetUp) redirect("/login");
+  const setupComplete = await verifyInitialSetup();
+  if (setupComplete) redirect(ROUTES.ROOT);
 
   return (
     <div className="flex justify-center items-center min-h-screen p-5 bg-gray-100">

@@ -26,5 +26,5 @@ export async function login(
       return { message: e.message, type: ERROR_TYPES.ERROR };
   }
 
-  return redirect(ROUTES.ROOT);
+  redirect(ROUTES.DASHBOARD);
 }

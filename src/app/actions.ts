@@ -6,24 +6,26 @@ import {
   getCurrentSession,
   invalidateSession,
 } from "@/lib/auth/session";
+import { ERROR_TYPES, ROUTES } from "@/modules";
+
+import type { ActionResult } from "@/modules";
 
 export async function logout(): Promise<ActionResult> {
-  const { session } = await getCurrentSession();
+  try {
+    const { session } = await getCurrentSession();
 
-  if (session === null) {
-    return {
-      message: "Not authenticated",
-    };
+    if (session === null) throw Error("Not authenticated.");
+
+    await invalidateSession(session.id);
+    await deleteSessionTokenCookie();
+  } catch (e) {
+    if (e instanceof Error) {
+      return {
+        message: e.message,
+        type: ERROR_TYPES.ERROR,
+      };
+    }
   }
 
-  await invalidateSession(session.id);
-  await deleteSessionTokenCookie();
-
-  return redirect("/login");
+  redirect(ROUTES.LOGIN);
 }
-
-type ActionResult =
-  | {
-      message: string;
-    }
-  | never;
