@@ -1,14 +1,13 @@
 "use server";
 
 import { redirect } from "next/navigation";
-
 import {
   deleteSessionTokenCookie,
   getCurrentSession,
   invalidateSession,
-} from "@/lib/server/session";
+} from "@/lib/auth/session";
 
-export async function logoutAction(): Promise<ActionResult> {
+export async function logout(): Promise<ActionResult> {
   const { session } = await getCurrentSession();
 
   if (session === null) {
@@ -23,6 +22,8 @@ export async function logoutAction(): Promise<ActionResult> {
   return redirect("/login");
 }
 
-interface ActionResult {
-  message: string;
-}
+type ActionResult =
+  | {
+      message: string;
+    }
+  | never;

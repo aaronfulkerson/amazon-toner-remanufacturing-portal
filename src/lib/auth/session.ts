@@ -33,9 +33,9 @@ export async function createSession(
 ): Promise<Session> {
   const sessionId = encodeSessionId(token);
   const session: Session = {
+    expiresAt: daysFromToday(30),
     id: sessionId,
     userId,
-    expiresAt: daysFromToday(30),
   };
   await db.insert(sessionTable).values(session);
   return session;
@@ -53,11 +53,14 @@ export async function validateSessionToken(
   if (result.length < 1) {
     return { session: null, user: null };
   }
+
   const { user, session } = result[0];
+
   if (Date.now() >= session.expiresAt.getTime()) {
     await db.delete(sessionTable).where(eq(sessionTable.id, session.id));
     return { session: null, user: null };
   }
+
   if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 15) {
     session.expiresAt = daysFromToday(30);
     await db
@@ -67,6 +70,7 @@ export async function validateSessionToken(
       })
       .where(eq(sessionTable.id, session.id));
   }
+
   return { session, user };
 }
 
