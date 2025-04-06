@@ -16,7 +16,7 @@ import {
 import type { InsertSession, Session, User } from "@/db/schema";
 
 export type SessionValidationResult =
-  | { session: Session; user: User }
+  | { session: Session; user: Omit<User, "passwordHash"> }
   | { session: null; user: null };
 
 function encodeSessionId(token: string): string {

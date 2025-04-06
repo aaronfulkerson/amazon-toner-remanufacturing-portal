@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, getTableColumns } from "drizzle-orm";
 import { db } from "@/db";
 import { sessionTable, userTable } from "@/db/schema";
 
@@ -13,8 +13,12 @@ export async function deleteSessionsByUserId(userId: number) {
 }
 
 export async function getSessionById(sessionId: string) {
+  const { passwordHash, ...userColumns } = getTableColumns(userTable);
   return await db
-    .select({ user: userTable, session: sessionTable })
+    .select({
+      user: userColumns,
+      session: sessionTable,
+    })
     .from(sessionTable)
     .innerJoin(userTable, eq(sessionTable.userId, userTable.id))
     .where(eq(sessionTable.id, sessionId));
