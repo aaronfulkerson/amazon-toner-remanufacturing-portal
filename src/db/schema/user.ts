@@ -22,4 +22,5 @@ export const userTable = pgTable(
 );
 
 export type User = InferSelectModel<typeof userTable>;
+export type UserWithoutPasswordHash = Omit<User, "passwordHash">;
 export type InsertUser = InferInsertModel<typeof userTable>;

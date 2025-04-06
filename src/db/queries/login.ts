@@ -4,10 +4,12 @@ import { userTable } from "@/db/schema";
 
 import type { User } from "@/db/schema";
 
-export async function getUserByEmail(email: User["email"]) {
-  const [user] = await db
+export async function getUserByEmail(
+  email: User["email"]
+): Promise<User | undefined> {
+  const result = await db
     .select()
     .from(userTable)
     .where(eq(userTable.email, email));
-  return user;
+  if (result.length) return result[0];
 }

@@ -13,10 +13,14 @@ import {
   updateSession,
 } from "@/db/queries";
 
-import type { InsertSession, Session, User } from "@/db/schema";
+import type {
+  InsertSession,
+  Session,
+  UserWithoutPasswordHash,
+} from "@/db/schema";
 
 export type SessionValidationResult =
-  | { session: Session; user: Omit<User, "passwordHash"> }
+  | { session: Session; user: UserWithoutPasswordHash }
   | { session: null; user: null };
 
 function encodeSessionId(token: string): string {
@@ -53,7 +57,7 @@ export async function validateSessionToken(
 ): Promise<SessionValidationResult> {
   const sessionId = encodeSessionId(token);
   const result = await getSessionById(sessionId);
-  if (result.length < 1) {
+  if (!result.length) {
     return { session: null, user: null };
   }
 

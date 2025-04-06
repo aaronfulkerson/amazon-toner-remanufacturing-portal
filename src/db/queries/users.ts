@@ -3,6 +3,6 @@ import { userTable } from "@/db/schema";
 
 import type { InsertUser } from "@/db/schema";
 
-export async function insertUser(user: InsertUser) {
+export async function insertUser(user: InsertUser): Promise<void> {
   await db.insert(userTable).values(user);
 }
