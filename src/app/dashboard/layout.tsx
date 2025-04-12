@@ -3,12 +3,19 @@ import { getCurrentSession } from "@/lib/auth/session";
 import { ROUTES } from "@/modules";
 
 export default async function DashboardLayout({
-  children,
+  admin,
+  employee,
 }: Readonly<{
-  children: React.ReactNode;
+  admin: React.ReactNode;
+  employee: React.ReactNode;
 }>) {
-  const { session } = await getCurrentSession();
+  const { session, user } = await getCurrentSession();
   if (!session) redirect(ROUTES.LOGIN);
 
-  return children;
+  const component = {
+    admin,
+    employee,
+  };
+
+  return component[user.role];
 }

@@ -3,10 +3,11 @@
 import { redirect } from "next/navigation";
 import { insertUser } from "@/db/queries";
 import { hashPassword } from "@/lib/auth/password";
-import { ActionResult, ERROR_TYPES, ROUTES } from "@/modules";
+import { ERROR_TYPES, ROUTES } from "@/modules";
 import { validate } from "@/modules/setup";
 
 import type { InsertUser } from "@/db/schema";
+import type { ActionResult } from "@/modules";
 
 export async function createAdmin(
   prev: unknown,

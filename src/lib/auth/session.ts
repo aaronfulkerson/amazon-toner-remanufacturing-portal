@@ -13,15 +13,8 @@ import {
   updateSession,
 } from "@/db/queries";
 
-import type {
-  InsertSession,
-  Session,
-  UserWithoutPasswordHash,
-} from "@/db/schema";
-
-export type SessionValidationResult =
-  | { session: Session; user: UserWithoutPasswordHash }
-  | { session: null; user: null };
+import type { SessionValidationResult } from "@/db/queries";
+import type { InsertSession, Session } from "@/db/schema";
 
 function encodeSessionId(token: string): string {
   return encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
@@ -57,11 +50,9 @@ export async function validateSessionToken(
 ): Promise<SessionValidationResult> {
   const sessionId = encodeSessionId(token);
   const result = await getSessionById(sessionId);
-  if (!result.length) {
-    return { session: null, user: null };
-  }
+  if (!result) return { session: null, user: null };
 
-  const { user, session } = result[0];
+  const { session } = result;
 
   if (Date.now() >= session.expiresAt.getTime()) {
     await deleteSessionById(session.id);
@@ -73,7 +64,7 @@ export async function validateSessionToken(
     await updateSession(session.id, { expiresAt: session.expiresAt });
   }
 
-  return { session, user };
+  return result;
 }
 
 export async function invalidateSession(sessionId: string): Promise<void> {

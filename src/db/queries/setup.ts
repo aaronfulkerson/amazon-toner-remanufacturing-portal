@@ -3,9 +3,9 @@ import { db } from "@/db";
 import { roleEnum, userTable } from "@/db/schema";
 
 export async function verifyInitialSetup(): Promise<boolean> {
-  const [user] = await db
+  const result = await db
     .select()
     .from(userTable)
     .where(eq(userTable.role, roleEnum.enumValues[0]));
-  return !!user;
+  return !!result.length;
 }
