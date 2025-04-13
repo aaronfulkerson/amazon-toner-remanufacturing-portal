@@ -14,7 +14,7 @@ import {
 } from "@/db/queries";
 
 import type { SessionValidationResult } from "@/db/queries";
-import type { InsertSession, Session } from "@/db/schema";
+import type { InsertSession, SelectSession } from "@/db/schema";
 
 function encodeSessionId(token: string): string {
   return encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
@@ -34,7 +34,7 @@ export function generateSessionToken(): string {
 export async function createSession(
   token: string,
   userId: number
-): Promise<Session> {
+): Promise<SelectSession> {
   const sessionId = encodeSessionId(token);
   const session: InsertSession = {
     expiresAt: daysFromToday(30),

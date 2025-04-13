@@ -19,12 +19,8 @@ export async function logout(): Promise<ActionResult> {
     await invalidateSession(session.id);
     await deleteSessionTokenCookie();
   } catch (e) {
-    if (e instanceof Error) {
-      return {
-        message: e.message,
-        type: ERROR_TYPES.ERROR,
-      };
-    }
+    if (e instanceof Error)
+      return { message: e.message, type: ERROR_TYPES.ERROR };
   }
 
   redirect(ROUTES.LOGIN);

@@ -6,9 +6,11 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
-import type { InferInsertModel, InferSelectModel } from "drizzle-orm";
-
-export const roleEnum = pgEnum("role", ["admin", "employee"]);
+export const UserRole = {
+  ADMIN: "admin",
+  EMPLOYEE: "employee",
+} as const;
+export const roleEnum = pgEnum("role", [UserRole.ADMIN, UserRole.EMPLOYEE]);
 
 export const userTable = pgTable(
   "user",
@@ -20,7 +22,3 @@ export const userTable = pgTable(
   },
   (table) => [uniqueIndex("email").on(table.email)]
 );
-
-export type User = InferSelectModel<typeof userTable>;
-export type UserWithoutPasswordHash = Omit<User, "passwordHash">;
-export type InsertUser = InferInsertModel<typeof userTable>;

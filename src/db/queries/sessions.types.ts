@@ -1,8 +1,8 @@
-import type { Session, UserWithoutPasswordHash } from "@/db/schema";
+import type { SelectSession, SelectUserOmitPasswordHash } from "@/db/schema";
 
 export type ValidSession = {
-  session: Session;
-  user: UserWithoutPasswordHash;
+  session: SelectSession;
+  user: SelectUserOmitPasswordHash;
 };
 
 export type SessionValidationResult =

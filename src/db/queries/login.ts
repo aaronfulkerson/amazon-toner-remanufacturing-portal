@@ -2,11 +2,11 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { userTable } from "@/db/schema";
 
-import type { User } from "@/db/schema";
+import type { SelectUser } from "@/db/schema";
 
 export async function getUserByEmail(
-  email: User["email"]
-): Promise<User | undefined> {
+  email: SelectUser["email"]
+): Promise<SelectUser | undefined> {
   const result = await db
     .select()
     .from(userTable)
