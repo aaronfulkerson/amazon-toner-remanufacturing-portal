@@ -1,0 +1,1 @@
+ALTER TABLE "drum" ADD COLUMN "id" serial PRIMARY KEY NOT NULL;

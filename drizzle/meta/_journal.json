@@ -8,6 +8,13 @@
       "when": 1744567738344,
       "tag": "0000_fine_dreadnoughts",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1744570300855,
+      "tag": "0001_misty_madame_hydra",
+      "breakpoints": true
     }
   ]
 }
