@@ -41,7 +41,7 @@ export function SetupForm() {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    return form.handleSubmit(() => {
+    form.handleSubmit(() => {
       startTransition(() => action(new FormData(formRef.current!)));
     })(e);
   };
