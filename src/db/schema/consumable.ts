@@ -1,10 +1,14 @@
-import { integer, pgTable, serial, text } from "drizzle-orm/pg-core";
+import { index, integer, pgTable, serial, text } from "drizzle-orm/pg-core";
 import { manufacturerTable } from "@/db/schema";
 
-export const consumableTable = pgTable("consumable", {
-  id: serial("id").primaryKey(),
-  manufacturerId: integer("manufacturer_id").references(
-    () => manufacturerTable.id
-  ),
-  model: text("model").notNull(),
-});
+export const consumableTable = pgTable(
+  "consumable",
+  {
+    id: serial("id").primaryKey(),
+    manufacturerId: integer("manufacturer_id")
+      .notNull()
+      .references(() => manufacturerTable.id),
+    model: text("model").notNull(),
+  },
+  (t) => [index("manufacturer_id_idx").on(t.manufacturerId)]
+);

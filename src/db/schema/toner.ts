@@ -25,7 +25,9 @@ export const tonerYieldEnum = pgEnum("toner_yield", [
 
 export const tonerTable = pgTable("toner", {
   id: serial("id").primaryKey(),
-  consumableId: integer("consumable_id").references(() => consumableTable.id),
-  color: tonerColorEnum("color"),
-  yield: tonerYieldEnum("yield"),
+  consumableId: integer("consumable_id")
+    .notNull()
+    .references(() => consumableTable.id),
+  color: tonerColorEnum("color").notNull(),
+  yield: tonerYieldEnum("yield").notNull(),
 });

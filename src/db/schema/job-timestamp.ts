@@ -42,6 +42,6 @@ export const jobTimestampTable = pgTable("job_timestamp", {
     .notNull()
     .references(() => userTable.id),
   comment: text("comment"),
-  timestamp: timestamp("timestamp"),
+  timestamp: timestamp("timestamp").defaultNow(),
   type: jobTimestampTypeEnum("type").notNull(),
 });
