@@ -10,17 +10,17 @@ import {
 
 import type { ActionResult } from "@/modules/types";
 
-export type Toast = ActionResult & {
-  duration?: number;
+export interface Toast extends NonNullable<ActionResult> {
   id: number;
+  duration?: number;
   title?: string;
-};
+}
 type ToastState = Toast[];
 type ToastSetState = Dispatch<SetStateAction<ToastState>>;
-type ToastContext = {
+interface ToastContext {
   state: ToastState;
   setState: ToastSetState;
-};
+}
 
 const DEFAULT_TOAST_DURATION = 5000;
 
