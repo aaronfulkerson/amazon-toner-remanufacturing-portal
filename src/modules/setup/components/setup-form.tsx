@@ -1,13 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  FormEventHandler,
-  useActionState,
-  useEffect,
-  useRef,
-  useTransition,
-} from "react";
+import { useActionState, useEffect, useRef, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components";
 import { FormTextField } from "@/components/form-components";
@@ -17,6 +11,8 @@ import {
   createAdminSchema,
   SetupFormContainer,
 } from "@/modules/setup";
+
+import type { FormEventHandler } from "react";
 
 export function SetupForm() {
   const [state, action] = useActionState(createAdmin, null);

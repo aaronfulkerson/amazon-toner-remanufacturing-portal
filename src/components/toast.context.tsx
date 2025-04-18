@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
+import { createContext, useContext, useState } from "react";
 
+import type { Dispatch, SetStateAction } from "react";
 import type { ActionResult } from "@/modules/types";
 
 export interface Toast extends NonNullable<ActionResult> {
