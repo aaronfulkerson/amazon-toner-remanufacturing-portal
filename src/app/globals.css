@@ -1,9 +1,17 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: Inter;
+  src: url("../fonts/InterVariable.woff2") format("woff2");
+}
+
 @theme {
   --color-primary: var(--color-indigo-600);
   --color-primary-background: var(--color-gray-300);
   --color-primary-foreground: var(--color-white);
+  --font-sans: Inter, sans-serif;
+  --font-sans--font-feature-settings: "calt" 1, "dlig" 1, "liga" 1, "ss01" 1,
+    "tnum" 1;
 }
 
 html,
