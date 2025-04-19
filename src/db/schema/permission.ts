@@ -1,7 +1,7 @@
 import { integer, pgEnum, pgTable, serial } from "drizzle-orm/pg-core";
 import { userTable } from "@/db/schema";
 
-const Permission = {
+export const Permission = {
   REMANUFACTURING: "remanufacturing",
   SERVICE: "service",
   TONER: "toner",
