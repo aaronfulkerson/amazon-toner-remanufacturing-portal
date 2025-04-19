@@ -1,5 +1,5 @@
 {
-  "id": "60127704-9d09-4b4c-bab7-18285e8b4bd6",
+  "id": "5822aab1-1ebb-4bb2-9b4d-c8478a7dfe27",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -12,13 +12,20 @@
           "name": "consumable_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "part_id": {
           "name": "part_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
         }
       },
       "indexes": {},
@@ -78,7 +85,7 @@
           "name": "manufacturer_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "model": {
           "name": "model",
@@ -87,7 +94,23 @@
           "notNull": true
         }
       },
-      "indexes": {},
+      "indexes": {
+        "manufacturer_id_idx": {
+          "name": "manufacturer_id_idx",
+          "columns": [
+            {
+              "expression": "manufacturer_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
         "consumable_manufacturer_id_manufacturer_id_fk": {
           "name": "consumable_manufacturer_id_manufacturer_id_fk",
@@ -113,11 +136,17 @@
       "name": "drum",
       "schema": "",
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
         "consumable_id": {
           "name": "consumable_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -174,7 +203,8 @@
           "name": "timestamp",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": "now()"
         },
         "type": {
           "name": "type",
@@ -440,21 +470,21 @@
           "name": "consumable_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "color": {
           "name": "color",
           "type": "toner_color",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "yield": {
           "name": "yield",
           "type": "toner_yield",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -506,8 +536,7 @@
           "type": "role",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'employee'"
+          "notNull": true
         }
       },
       "indexes": {
@@ -538,6 +567,52 @@
           ]
         }
       },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.permission": {
+      "name": "permission",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permission": {
+          "name": "permission",
+          "type": "permission_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "permission_user_id_user_id_fk": {
+          "name": "permission_user_id_user_id_fk",
+          "tableFrom": "permission",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -583,7 +658,18 @@
       "schema": "public",
       "values": [
         "admin",
-        "employee"
+        "customer",
+        "employee",
+        "technician"
+      ]
+    },
+    "public.permission_enum": {
+      "name": "permission_enum",
+      "schema": "public",
+      "values": [
+        "remanufacturing",
+        "service",
+        "toner"
       ]
     }
   },

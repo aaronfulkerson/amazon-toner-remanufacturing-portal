@@ -8,9 +8,16 @@ import {
 
 export const UserRole = {
   ADMIN: "admin",
+  CUSTOMER: "customer",
   EMPLOYEE: "employee",
+  TECHNICIAN: "technician",
 } as const;
-export const roleEnum = pgEnum("role", [UserRole.ADMIN, UserRole.EMPLOYEE]);
+export const roleEnum = pgEnum("role", [
+  UserRole.ADMIN,
+  UserRole.CUSTOMER,
+  UserRole.EMPLOYEE,
+  UserRole.TECHNICIAN,
+]);
 
 export const userTable = pgTable(
   "user",
@@ -18,7 +25,7 @@ export const userTable = pgTable(
     id: serial("id").primaryKey(),
     email: text("email").notNull().unique(),
     passwordHash: text("passwordHash").notNull(),
-    role: roleEnum("role").notNull().default(UserRole.EMPLOYEE),
+    role: roleEnum("role").notNull(),
   },
   (table) => [uniqueIndex("email").on(table.email)]
 );
