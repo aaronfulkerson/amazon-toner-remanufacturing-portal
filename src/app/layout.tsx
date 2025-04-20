@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 import { ToastProvider } from "@/components";
+import { getCurrentSession } from "@/lib/auth/session";
+import { AppShell } from "@/modules/app-shell";
 
 import type { Metadata } from "next";
 
@@ -16,15 +18,19 @@ export const metadata: Metadata = {
   description: "Amazon Toner Remanufacturing Portal",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { session } = await getCurrentSession();
+
   return (
     <html lang="en" className={`${inter.variable} antialiased`}>
       <body>
-        <ToastProvider>{children}</ToastProvider>
+        <ToastProvider>
+          {session ? <AppShell>{children}</AppShell> : children}
+        </ToastProvider>
       </body>
     </html>
   );

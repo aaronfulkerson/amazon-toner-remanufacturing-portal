@@ -14,6 +14,8 @@ export * from "./manufacturer";
 export * from "./manufacturer.types";
 export * from "./part";
 export * from "./part.types";
+export * from "./permission";
+export * from "./permission.types";
 export * from "./session";
 export * from "./session.types";
 export * from "./toner";
