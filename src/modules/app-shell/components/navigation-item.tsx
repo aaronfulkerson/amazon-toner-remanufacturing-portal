@@ -32,8 +32,8 @@ export async function NavigationItem({
   }
 
   if (typeof roles[role] === "object") {
-    const shouldRender = roles[role].some((p) => permissions.includes(p));
-    if (!shouldRender) return null;
+    const roleHasPermission = roles[role].some((p) => permissions.includes(p));
+    if (!roleHasPermission) return null;
   }
 
   return (
