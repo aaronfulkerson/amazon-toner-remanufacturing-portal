@@ -27,18 +27,19 @@ export async function NavigationItem({
 }: NavigationItemProps) {
   const { permissions, role } = await getPermissions();
 
-  if (roles[role] === false) {
-    return null;
+  let roleHasPermission = false;
+
+  if (typeof roles[role] === "boolean") {
+    roleHasPermission = roles[role];
   }
 
   if (typeof roles[role] === "object") {
-    const roleHasPermission = roles[role].some((p) => permissions.includes(p));
-    if (!roleHasPermission) return null;
+    roleHasPermission = roles[role].some((p) => permissions.includes(p));
   }
 
-  return (
+  return roleHasPermission ? (
     <NavigationMenu.Item>
       <NavigationLink {...item}>{name}</NavigationLink>
     </NavigationMenu.Item>
-  );
+  ) : null;
 }
