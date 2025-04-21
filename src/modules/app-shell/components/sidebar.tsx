@@ -1,4 +1,4 @@
-import { UserRole } from "@/db/schema";
+import { Permission, UserRole } from "@/db/schema";
 import { NavigationItem, NavigationContainer } from "@/modules/app-shell";
 import { Routes } from "@/modules/routes";
 
@@ -23,7 +23,7 @@ const navigation: NavigationItemProps[] = [
     roles: {
       [UserRole.ADMIN]: true,
       [UserRole.CUSTOMER]: false,
-      [UserRole.EMPLOYEE]: ["remanufacturing"],
+      [UserRole.EMPLOYEE]: [Permission.REMANUFACTURING],
       [UserRole.TECHNICIAN]: false,
     },
   },
@@ -34,8 +34,8 @@ const navigation: NavigationItemProps[] = [
     roles: {
       [UserRole.ADMIN]: true,
       [UserRole.CUSTOMER]: false,
-      [UserRole.EMPLOYEE]: ["service"],
-      [UserRole.TECHNICIAN]: ["service"],
+      [UserRole.EMPLOYEE]: [Permission.SERVICE],
+      [UserRole.TECHNICIAN]: [Permission.SERVICE],
     },
   },
   {
@@ -44,8 +44,8 @@ const navigation: NavigationItemProps[] = [
     icon: "printer",
     roles: {
       [UserRole.ADMIN]: true,
-      [UserRole.CUSTOMER]: ["toner"],
-      [UserRole.EMPLOYEE]: ["toner"],
+      [UserRole.CUSTOMER]: [Permission.TONER],
+      [UserRole.EMPLOYEE]: [Permission.TONER],
       [UserRole.TECHNICIAN]: false,
     },
   },
