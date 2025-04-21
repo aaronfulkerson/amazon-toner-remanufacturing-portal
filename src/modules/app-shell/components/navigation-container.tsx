@@ -6,8 +6,10 @@ interface NavigationContainerProps {
 
 export function NavigationContainer({ children }: NavigationContainerProps) {
   return (
-    <NavigationMenu.Root className="-mx-2 space-y-1" orientation="vertical">
-      <NavigationMenu.List>{children}</NavigationMenu.List>
+    <NavigationMenu.Root orientation="vertical">
+      <NavigationMenu.List className="-mx-2 space-y-1">
+        {children}
+      </NavigationMenu.List>
     </NavigationMenu.Root>
   );
 }
