@@ -27,7 +27,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${inter.variable} antialiased`}>
-      <body>
+      <body className="bg-gray-50">
         <ToastProvider>
           {session ? <AppShell>{children}</AppShell> : children}
         </ToastProvider>

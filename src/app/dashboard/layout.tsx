@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getCurrentSession } from "@/lib/auth/session";
-import { ROUTES } from "@/modules";
+import { Routes } from "@/modules";
 
 export default async function DashboardLayout({
   admin,
@@ -14,7 +14,7 @@ export default async function DashboardLayout({
   technician: React.ReactNode;
 }>) {
   const { session, user } = await getCurrentSession();
-  if (!session) redirect(ROUTES.LOGIN);
+  if (!session) redirect(Routes.LOGIN);
 
   const component = {
     admin,

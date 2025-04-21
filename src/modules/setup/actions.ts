@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { insertUser } from "@/db/queries";
 import { UserRole } from "@/db/schema";
 import { hashPassword } from "@/lib/auth/password";
-import { ERROR_TYPES, ROUTES } from "@/modules";
+import { ErrorType, Routes } from "@/modules";
 import { validate } from "@/modules/setup";
 
 import type { InsertUser } from "@/db/schema";
@@ -26,8 +26,8 @@ export async function createAdmin(
     await insertUser(user);
   } catch (e) {
     if (e instanceof Error)
-      return { message: e.message, type: ERROR_TYPES.ERROR };
+      return { message: e.message, type: ErrorType.ERROR };
   }
 
-  redirect(ROUTES.LOGIN);
+  redirect(Routes.LOGIN);
 }

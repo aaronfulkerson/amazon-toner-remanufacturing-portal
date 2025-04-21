@@ -6,21 +6,21 @@ import {
   getCurrentSession,
   invalidateSession,
 } from "@/lib/auth/session";
-import { ERROR_TYPES, ERRORS, ROUTES } from "@/modules";
+import { ErrorType, Errors, Routes } from "@/modules";
 
 import type { ActionResult } from "@/modules";
 
 export async function logout(): Promise<ActionResult> {
   try {
     const { session } = await getCurrentSession();
-    if (session === null) throw Error(ERRORS.NOT_AUTHENTICATED);
+    if (session === null) throw Error(Errors.NOT_AUTHENTICATED);
 
     await invalidateSession(session.id);
     await deleteSessionTokenCookie();
   } catch (e) {
     if (e instanceof Error)
-      return { message: e.message, type: ERROR_TYPES.ERROR };
+      return { message: e.message, type: ErrorType.ERROR };
   }
 
-  redirect(ROUTES.LOGIN);
+  redirect(Routes.LOGIN);
 }

@@ -1,3 +1,3 @@
-export const SETUP_ERRORS = {
+export const SetupErrors = {
   VALIDATION_FAILED: "Form did not pass validation.",
 } as const;

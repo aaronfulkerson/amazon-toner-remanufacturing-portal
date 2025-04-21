@@ -6,7 +6,7 @@ import {
   generateSessionToken,
   setSessionTokenCookie,
 } from "@/lib/auth/session";
-import { ERROR_TYPES, ROUTES } from "@/modules";
+import { ErrorType, Routes } from "@/modules";
 import { validate } from "@/modules/login";
 
 import type { ActionResult } from "@/modules/types";
@@ -23,8 +23,8 @@ export async function login(
     await setSessionTokenCookie(token, session.expiresAt);
   } catch (e) {
     if (e instanceof Error)
-      return { message: e.message, type: ERROR_TYPES.ERROR };
+      return { message: e.message, type: ErrorType.ERROR };
   }
 
-  redirect(ROUTES.DASHBOARD);
+  redirect(Routes.DASHBOARD);
 }

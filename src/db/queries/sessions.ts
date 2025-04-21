@@ -3,18 +3,22 @@ import { db } from "@/db";
 import { sessionTable, userTable } from "@/db/schema";
 
 import type { ValidSession } from "@/db/queries";
-import type { InsertSession, UpdateSession } from "@/db/schema";
+import type { InsertSession, SelectSession, UpdateSession } from "@/db/schema";
 
-export async function deleteSessionById(sessionId: string): Promise<void> {
+export async function deleteSessionById(
+  sessionId: SelectSession["id"]
+): Promise<void> {
   await db.delete(sessionTable).where(eq(sessionTable.id, sessionId));
 }
 
-export async function deleteSessionsByUserId(userId: number): Promise<void> {
+export async function deleteSessionsByUserId(
+  userId: SelectSession["userId"]
+): Promise<void> {
   await db.delete(sessionTable).where(eq(sessionTable.userId, userId));
 }
 
 export async function getSessionById(
-  sessionId: string
+  sessionId: SelectSession["id"]
 ): Promise<ValidSession | undefined> {
   const result = await db
     .select({
@@ -27,12 +31,15 @@ export async function getSessionById(
   if (result.length) return result[0];
 }
 
-export async function insertSession(session: InsertSession): Promise<void> {
-  await db.insert(sessionTable).values(session);
+export async function insertSession(
+  session: InsertSession,
+  tx = db
+): Promise<void> {
+  await tx.insert(sessionTable).values(session);
 }
 
 export async function updateSession(
-  sessionId: string,
+  sessionId: SelectSession["id"],
   session: UpdateSession
 ): Promise<void> {
   await db
