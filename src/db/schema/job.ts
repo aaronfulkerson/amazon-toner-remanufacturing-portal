@@ -1,9 +1,5 @@
-import { integer, pgTable, serial } from "drizzle-orm/pg-core";
-import { consumableTable } from "@/db/schema";
+import { pgTable, serial } from "drizzle-orm/pg-core";
 
 export const jobTable = pgTable("job", {
   id: serial("id").primaryKey(),
-  consumableId: integer("consumable_id")
-    .notNull()
-    .references(() => consumableTable.id),
 });

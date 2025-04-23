@@ -1,4 +1,5 @@
 import {
+  boolean,
   pgEnum,
   pgTable,
   serial,
@@ -23,6 +24,7 @@ export const userTable = pgTable(
   "user",
   {
     id: serial("id").primaryKey(),
+    active: boolean("active").notNull().default(true),
     email: text("email").notNull().unique(),
     passwordHash: text("passwordHash").notNull(),
     role: roleEnum("role").notNull(),

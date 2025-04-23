@@ -27,7 +27,10 @@ export const tonerTable = pgTable("toner", {
   id: serial("id").primaryKey(),
   consumableId: integer("consumable_id")
     .notNull()
-    .references(() => consumableTable.id),
+    .references(() => consumableTable.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
   color: tonerColorEnum("color").notNull(),
   yield: tonerYieldEnum("yield").notNull(),
 });

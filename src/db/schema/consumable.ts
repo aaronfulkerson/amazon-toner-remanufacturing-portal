@@ -7,7 +7,10 @@ export const consumableTable = pgTable(
     id: serial("id").primaryKey(),
     manufacturerId: integer("manufacturer_id")
       .notNull()
-      .references(() => manufacturerTable.id),
+      .references(() => manufacturerTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
     model: text("model").notNull(),
   },
   (t) => [index("manufacturer_id_idx").on(t.manufacturerId)]

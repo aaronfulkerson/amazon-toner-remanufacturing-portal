@@ -6,10 +6,16 @@ export const consumablePartTable = pgTable(
   {
     consumableId: integer("consumable_id")
       .notNull()
-      .references(() => consumableTable.id),
+      .references(() => consumableTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
     partId: integer("part_id")
       .notNull()
-      .references(() => partTable.id),
+      .references(() => partTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
     quantity: integer("quantity").default(1),
   },
   (t) => [primaryKey({ columns: [t.consumableId, t.partId] })]

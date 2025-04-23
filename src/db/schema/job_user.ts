@@ -6,7 +6,10 @@ export const jobUserTable = pgTable(
   {
     jobId: integer("job_id")
       .notNull()
-      .references(() => jobTable.id),
+      .references(() => jobTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
     userId: integer("user_id")
       .notNull()
       .references(() => userTable.id),
