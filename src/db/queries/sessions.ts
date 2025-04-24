@@ -2,13 +2,8 @@ import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { permissionTable, sessionTable, userTable } from "@/db/schema";
 
-import type { ValidSession } from "@/db/queries";
-import type {
-  InsertSession,
-  SelectPermission,
-  SelectSession,
-  UpdateSession,
-} from "@/db/schema";
+import type { Permissions, ValidSession } from "@/db/queries";
+import type { InsertSession, SelectSession, UpdateSession } from "@/db/schema";
 
 export async function deleteSessionById(
   sessionId: SelectSession["id"]
@@ -27,9 +22,7 @@ export async function getSessionById(
 ): Promise<ValidSession | undefined> {
   const result = await db
     .select({
-      permissions: sql<
-        SelectPermission["permission"][]
-      >`coalesce(json_agg(${permissionTable.permission}) filter (where ${permissionTable.permission} is not null), '[]'::json)`,
+      permissions: sql<Permissions>`json_agg(${permissionTable.permission})`,
       session: sessionTable,
       user: {
         active: userTable.active,

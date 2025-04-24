@@ -1,11 +1,12 @@
-import { SelectPermission, SelectUser } from "@/db/schema";
+import { SelectUser } from "@/db/schema";
 
+import type { Permissions } from "@/db/queries";
 import type { Roles } from "@/modules";
 
 export function checkPermissions(
   roles: Roles,
   role: SelectUser["role"],
-  permissions: SelectPermission["permission"][]
+  permissions: Permissions
 ) {
   let hasPermission = false;
 

@@ -4,8 +4,9 @@ import type {
   SelectUserOmitPasswordHash,
 } from "@/db/schema";
 
+export type Permissions = (SelectPermission["permission"] | null)[];
 export interface ValidSession {
-  permissions: SelectPermission["permission"][];
+  permissions: Permissions;
   session: SelectSession;
   user: SelectUserOmitPasswordHash;
 }
