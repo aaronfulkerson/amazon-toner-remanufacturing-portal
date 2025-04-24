@@ -4,7 +4,7 @@ import { Routes } from "@/modules/routes";
 
 import type { NavigationItemProps } from "@/modules/app-shell";
 
-const navigation: NavigationItemProps[] = [
+const mainNavigation: NavigationItemProps[] = [
   {
     name: "Dashboard",
     href: Routes.DASHBOARD,
@@ -40,12 +40,48 @@ const navigation: NavigationItemProps[] = [
   },
   {
     name: "Toner Sales",
-    href: Routes.TONER,
-    icon: "printer",
+    href: Routes.SALES,
+    icon: "badge-dollar-sign",
     roles: {
       [UserRole.ADMIN]: true,
       [UserRole.CUSTOMER]: [Permission.TONER],
       [UserRole.EMPLOYEE]: [Permission.TONER],
+      [UserRole.TECHNICIAN]: false,
+    },
+  },
+];
+
+const subNavigation: NavigationItemProps[] = [
+  {
+    name: "Parts",
+    href: Routes.PARTS,
+    icon: "bolt",
+    roles: {
+      [UserRole.ADMIN]: true,
+      [UserRole.CUSTOMER]: false,
+      [UserRole.EMPLOYEE]: false,
+      [UserRole.TECHNICIAN]: false,
+    },
+  },
+  {
+    name: "Toner Cartridges",
+    href: Routes.CARTRIDGES,
+    icon: "printer",
+    roles: {
+      [UserRole.ADMIN]: true,
+      [UserRole.CUSTOMER]: false,
+      [UserRole.EMPLOYEE]: false,
+      [UserRole.TECHNICIAN]: false,
+    },
+  },
+  {
+    name: "Users",
+    href: Routes.USERS,
+    icon: "users",
+    roles: {
+      [UserRole.ADMIN]: true,
+      [UserRole.CUSTOMER]: false,
+      [UserRole.EMPLOYEE]: false,
       [UserRole.TECHNICIAN]: false,
     },
   },
@@ -62,7 +98,14 @@ export function Sidebar() {
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
             <li>
               <NavigationContainer>
-                {navigation.map((item) => (
+                {mainNavigation.map((item) => (
+                  <NavigationItem {...item} key={item.name} />
+                ))}
+              </NavigationContainer>
+            </li>
+            <li>
+              <NavigationContainer>
+                {subNavigation.map((item) => (
                   <NavigationItem {...item} key={item.name} />
                 ))}
               </NavigationContainer>

@@ -15,7 +15,7 @@ export async function createAdmin(
   formData: FormData
 ): Promise<ActionResult> {
   try {
-    const { email, password } = validate(formData);
+    const { email, password } = await validate(formData);
 
     const passwordHash = await hashPassword(password);
     const user: InsertUser = {
