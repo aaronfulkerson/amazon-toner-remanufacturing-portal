@@ -3,8 +3,8 @@
 import { cookies } from "next/headers";
 import { cache } from "react";
 import { SessionErrors } from "@/lib/auth/errors";
+import { validatePermissions } from "@/lib/auth/permission";
 import { validateSessionToken } from "@/lib/auth/session";
-import { checkPermissions } from "@/lib/auth/permission";
 
 import type { SessionValidationResult } from "@/db/queries";
 import type { Roles } from "@/modules";
@@ -26,6 +26,6 @@ export const authorizeCurrentSession = cache(
     const { permissions, user } = await getCurrentSession();
     if (!user) throw Error(SessionErrors.SESSION_NOT_FOUND);
 
-    return checkPermissions(roles, user.role, permissions);
+    return validatePermissions(roles, user.role, permissions);
   }
 );
