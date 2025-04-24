@@ -1,9 +1,14 @@
-import { eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { sessionTable, userTable } from "@/db/schema";
+import { permissionTable, sessionTable, userTable } from "@/db/schema";
 
 import type { ValidSession } from "@/db/queries";
-import type { InsertSession, SelectSession, UpdateSession } from "@/db/schema";
+import type {
+  InsertSession,
+  SelectPermission,
+  SelectSession,
+  UpdateSession,
+} from "@/db/schema";
 
 export async function deleteSessionById(
   sessionId: SelectSession["id"]
@@ -22,12 +27,28 @@ export async function getSessionById(
 ): Promise<ValidSession | undefined> {
   const result = await db
     .select({
-      user: { email: userTable.email, id: userTable.id, role: userTable.role },
+      permissions: sql<
+        SelectPermission["permission"][]
+      >`coalesce(json_agg(${permissionTable.permission}) filter (where ${permissionTable.permission} is not null), '[]'::json)`,
       session: sessionTable,
+      user: {
+        active: userTable.active,
+        email: userTable.email,
+        id: userTable.id,
+        role: userTable.role,
+      },
     })
     .from(sessionTable)
     .innerJoin(userTable, eq(sessionTable.userId, userTable.id))
-    .where(eq(sessionTable.id, sessionId));
+    .leftJoin(permissionTable, eq(sessionTable.userId, permissionTable.userId))
+    .where(and(eq(sessionTable.id, sessionId), eq(userTable.active, true)))
+    .groupBy(
+      sessionTable.id,
+      userTable.active,
+      userTable.email,
+      userTable.id,
+      userTable.role
+    );
   if (result.length) return result[0];
 }
 

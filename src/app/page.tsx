@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { verifyInitialSetup } from "@/db/queries";
-import { getCurrentSession } from "@/lib/auth/session";
+import { getCurrentSession } from "@/lib/auth/actions";
 import { Routes } from "@/modules";
 
 export default async function Home() {

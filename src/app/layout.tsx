@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import { ToastProvider } from "@/components";
-import { getCurrentSession } from "@/lib/auth/session";
+import { getCurrentSession } from "@/lib/auth/actions";
 import { AppShell } from "@/modules/app-shell";
 
 import type { Metadata } from "next";

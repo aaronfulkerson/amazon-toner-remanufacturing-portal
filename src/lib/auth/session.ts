@@ -4,7 +4,6 @@ import {
   encodeHexLowerCase,
 } from "@oslojs/encoding";
 import { cookies } from "next/headers";
-import { cache } from "react";
 import {
   deleteSessionById,
   deleteSessionsByUserId,
@@ -50,13 +49,13 @@ export async function validateSessionToken(
 ): Promise<SessionValidationResult> {
   const sessionId = encodeSessionId(token);
   const result = await getSessionById(sessionId);
-  if (!result) return { session: null, user: null };
+  if (!result) return { permissions: null, session: null, user: null };
 
   const { session } = result;
 
   if (Date.now() >= session.expiresAt.getTime()) {
     await deleteSessionById(session.id);
-    return { session: null, user: null };
+    return { permissions: null, session: null, user: null };
   }
 
   if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 15) {
@@ -99,15 +98,3 @@ export async function deleteSessionTokenCookie(): Promise<void> {
     path: "/",
   });
 }
-
-export const getCurrentSession = cache(
-  async (): Promise<SessionValidationResult> => {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("session")?.value ?? null;
-    if (token === null) {
-      return { session: null, user: null };
-    }
-    const result = await validateSessionToken(token);
-    return result;
-  }
-);

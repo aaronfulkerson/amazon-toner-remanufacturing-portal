@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { userTable } from "@/db/schema";
 
@@ -10,6 +10,6 @@ export async function getUserByEmail(
   const result = await db
     .select()
     .from(userTable)
-    .where(eq(userTable.email, email));
+    .where(and(eq(userTable.email, email), eq(userTable.active, true)));
   if (result.length) return result[0];
 }

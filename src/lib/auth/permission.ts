@@ -1,24 +1,21 @@
-"use server";
-
-import { cache } from "react";
-import { getPermissionsByUserId } from "@/db/queries/permissions";
 import { SelectPermission, SelectUser } from "@/db/schema";
-import { getCurrentSession } from "@/lib/auth/session";
 
-export const getPermissions = cache(
-  async (): Promise<{
-    permissions: SelectPermission["permission"][];
-    role: SelectUser["role"];
-  }> => {
-    const { user } = await getCurrentSession();
+import type { Roles } from "@/modules";
 
-    if (!user) throw Error("getCurrentSession returned null.");
+export function checkPermissions(
+  roles: Roles,
+  role: SelectUser["role"],
+  permissions: SelectPermission["permission"][]
+) {
+  let hasPermission = false;
 
-    const permissions = await getPermissionsByUserId(user.id);
-
-    return {
-      permissions: permissions.map((p) => p.permission),
-      role: user.role,
-    };
+  if (typeof roles[role] === "boolean") {
+    hasPermission = roles[role];
   }
-);
+
+  if (typeof roles[role] === "object") {
+    hasPermission = roles[role].some((p) => permissions.includes(p));
+  }
+
+  return hasPermission;
+}

@@ -2,9 +2,18 @@ import { Permission, UserRole } from "@/db/schema";
 import { NavigationItem, NavigationContainer } from "@/modules/app-shell";
 import { Routes } from "@/modules/routes";
 
-import type { NavigationItemProps } from "@/modules/app-shell";
+import type { IconName } from "lucide-react/dynamic";
+import type { Roles } from "@/modules/types";
 
-const mainNavigation: NavigationItemProps[] = [
+type Route = typeof Routes;
+export interface Navigation {
+  name: string;
+  href: Route[keyof Route];
+  icon?: IconName;
+  roles: Roles;
+}
+
+const mainNavigation: Navigation[] = [
   {
     name: "Dashboard",
     href: Routes.DASHBOARD,
@@ -51,7 +60,7 @@ const mainNavigation: NavigationItemProps[] = [
   },
 ];
 
-const subNavigation: NavigationItemProps[] = [
+const subNavigation: Navigation[] = [
   {
     name: "Parts",
     href: Routes.PARTS,
