@@ -15,6 +15,8 @@ import {
 import type { SessionValidationResult } from "@/db/queries";
 import type { InsertSession, SelectSession } from "@/db/schema";
 
+export const SESSION_COOKIE_NAME = "session";
+
 function encodeSessionId(token: string): string {
   return encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 }
@@ -79,7 +81,7 @@ export async function setSessionTokenCookie(
   expiresAt: Date
 ): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.set("session", token, {
+  cookieStore.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -90,7 +92,7 @@ export async function setSessionTokenCookie(
 
 export async function deleteSessionTokenCookie(): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.set("session", "", {
+  cookieStore.set(SESSION_COOKIE_NAME, "", {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
