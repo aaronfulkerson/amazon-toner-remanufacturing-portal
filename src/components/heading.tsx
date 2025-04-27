@@ -2,7 +2,7 @@ import { headingVariants } from "@/components/heading.variants";
 
 import type { HeadingVariantProps } from "@/components/heading.variants";
 
-interface HeadingProps extends HeadingVariantProps {
+export interface HeadingProps extends HeadingVariantProps {
   children: React.ReactNode;
 }
 
