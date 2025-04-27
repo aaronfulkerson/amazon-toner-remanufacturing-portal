@@ -1,3 +1,5 @@
+import { Heading } from "@/components";
+
 export default function AdminDashboardPage() {
-  return "Admin Dashboard";
+  return <Heading>Admin Dashboard</Heading>;
 }

@@ -1,3 +1,5 @@
+import { Heading } from "@/components";
+
 export default function UsersPage() {
-  return "Users Page";
+  return <Heading>Users Page</Heading>;
 }

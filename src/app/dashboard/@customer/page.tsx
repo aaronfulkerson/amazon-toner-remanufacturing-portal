@@ -1,3 +1,5 @@
+import { Heading } from "@/components";
+
 export default function CustomerDashboardPage() {
-  return "Customer Dashboard";
+  return <Heading>Customer Dashboard</Heading>;
 }

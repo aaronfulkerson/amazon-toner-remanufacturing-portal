@@ -1,3 +1,5 @@
+import { Heading } from "@/components";
+
 export default function EmployeeDashboardPage() {
-  return "Employee Dashboard";
+  return <Heading>Employee Dashboard</Heading>;
 }

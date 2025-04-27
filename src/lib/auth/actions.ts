@@ -18,16 +18,15 @@ export const getCurrentSession = cache(
     if (token === null) {
       return { permissions: null, session: null, user: null };
     }
-    const result = await validateSessionToken(token);
-    return result;
+    return await validateSessionToken(token);
   }
 );
 
 export const authorizeCurrentSession = cache(
   async (roles: Roles): Promise<boolean | undefined> => {
     try {
-      const { permissions, user } = await getCurrentSession();
-      if (!user) throw Error(SessionErrors.SESSION_NOT_FOUND);
+      const { permissions, session, user } = await getCurrentSession();
+      if (!session) throw Error(SessionErrors.SESSION_NOT_FOUND);
 
       return validatePermissions(roles, user.role, permissions);
     } catch (e) {
