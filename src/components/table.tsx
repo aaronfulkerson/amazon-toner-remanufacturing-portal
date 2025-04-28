@@ -36,13 +36,13 @@ function TableDataCell({
   alignment,
   children,
   className,
-  isAction,
+  isActionCell,
   ...props
 }: TableDataCellProps) {
   return (
     <td
       className={cnMerge(
-        tableDataCellVariants({ alignment, isAction }),
+        tableDataCellVariants({ alignment, isActionCell }),
         className
       )}
       {...props}
@@ -68,11 +68,11 @@ function TableBody<TData>({
         <tr key={row.id}>
           {row.getVisibleCells().map((cell) => {
             const alignment = getTableDataCellAlignment(cell);
-            const isAction = typeof cell.renderValue() === "object";
+            const isActionCell = typeof cell.renderValue() === "object";
             return (
               <TableDataCell
                 alignment={alignment}
-                isAction={isAction}
+                isActionCell={isActionCell}
                 key={cell.id}
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
