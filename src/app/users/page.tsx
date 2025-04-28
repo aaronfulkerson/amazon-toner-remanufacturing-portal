@@ -52,7 +52,7 @@ const columns = [
   }),
 ];
 
-function Actions() {
+function PageActions() {
   return (
     <Button icon="user" size="lg">
       Create New User
@@ -63,7 +63,7 @@ function Actions() {
 export default function UsersPage() {
   return (
     <div className="flex flex-col gap-8">
-      <PageHeading actions={<Actions />}>Users</PageHeading>
+      <PageHeading actions={<PageActions />}>Users</PageHeading>
       <Table columns={columns} data={people} />
     </div>
   );
