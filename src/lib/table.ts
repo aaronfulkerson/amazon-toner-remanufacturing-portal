@@ -4,8 +4,8 @@ import {
 } from "@/components/table.variants";
 import type { Cell, Header } from "@tanstack/react-table";
 
-type HeaderAlignment = TableHeaderVariantProps["alignment"];
-type CellAlignment = TableDataCellVariantProps["alignment"];
+type HeaderAlignment = NonNullable<TableHeaderVariantProps["alignment"]>;
+type CellAlignment = NonNullable<TableDataCellVariantProps["alignment"]>;
 
 export function getTableHeaderAlignment<TData>(
   header: Header<TData, unknown>
