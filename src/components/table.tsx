@@ -142,7 +142,7 @@ interface TableContainerProps {
 function TableContainer({ children }: TableContainerProps) {
   return (
     <div className="inline-block min-w-full pb-2 align-middle">
-      <div className="overflow-hidden shadow-sm ring-1 ring-black/5 sm:rounded-lg">
+      <div className="overflow-hidden shadow-sm ring-1 ring-black/5 rounded-lg">
         <table className="min-w-full divide-y divide-gray-300">
           {children}
         </table>
