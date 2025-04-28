@@ -1,10 +1,21 @@
 import { Pool, neonConfig } from "@neondatabase/serverless";
-import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import ws from "ws";
-import { sessionTable, userTable } from "@/db/schema";
-
-config({ path: ".env" });
+import {
+  consumableJobTable,
+  consumablePartTable,
+  consumableTable,
+  drumTable,
+  jobTable,
+  jobTimestampTable,
+  jobUserTable,
+  manufacturerTable,
+  partTable,
+  permissionTable,
+  sessionTable,
+  tonerTable,
+  userTable,
+} from "@/db/schema";
 
 neonConfig.webSocketConstructor = ws;
 
@@ -12,7 +23,18 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
 export const db = drizzle({
   client: pool,
   schema: {
+    ...consumableJobTable,
+    ...consumablePartTable,
+    ...consumableTable,
+    ...drumTable,
+    ...jobUserTable,
+    ...jobTimestampTable,
+    ...jobTable,
+    ...manufacturerTable,
+    ...partTable,
+    ...permissionTable,
     ...sessionTable,
+    ...tonerTable,
     ...userTable,
   },
 });
