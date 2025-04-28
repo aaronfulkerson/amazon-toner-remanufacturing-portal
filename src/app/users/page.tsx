@@ -1,7 +1,9 @@
 "use client";
 
-import { createColumnHelper, Row } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { Button, PageHeading, Table } from "@/components";
+
+import type { Row } from "@tanstack/react-table";
 
 interface RowActionsProps<TData> {
   row: Row<TData>;
