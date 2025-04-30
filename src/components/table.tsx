@@ -89,9 +89,7 @@ function TableBody<TData>({
 
 interface TableHeaderProps
   extends React.ComponentProps<"th">,
-    TableHeaderVariantProps {
-  children: React.ReactNode;
-}
+    TableHeaderVariantProps {}
 
 function TableHeader({ alignment, children, className }: TableHeaderProps) {
   return (
