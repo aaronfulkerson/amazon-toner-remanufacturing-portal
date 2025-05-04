@@ -5,7 +5,6 @@ export function getParam<T>(
   paramName: string,
   conversionFn: (param: string) => T
 ): T | undefined {
-  const searchParams = request.nextUrl.searchParams;
-  const param = searchParams.get(paramName);
+  const param = request.nextUrl.searchParams.get(paramName);
   return param ? conversionFn(param) : undefined;
 }
