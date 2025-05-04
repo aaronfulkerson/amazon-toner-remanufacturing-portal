@@ -7,13 +7,13 @@ import { cookies } from "next/headers";
 import {
   deleteSessionById,
   deleteSessionsByUserId,
-  getSessionById,
   insertSession,
   updateSession,
 } from "@/db/queries";
+import { getSessionById } from "@/lib/auth/session.queries";
 
-import type { SessionValidationResult } from "@/db/queries";
 import type { InsertSession, SelectSession } from "@/db/schema";
+import type { SessionValidationResult } from "@/lib/auth";
 
 export const SESSION_COOKIE_NAME = "session";
 

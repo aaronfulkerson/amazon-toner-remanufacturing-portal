@@ -1,48 +1,21 @@
-import { and, eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { permissionTable, sessionTable, userTable } from "@/db/schema";
+import { sessionTable } from "@/db/schema";
 
-import type { Permissions, ValidSession } from "@/db/queries";
 import type { InsertSession, SelectSession, UpdateSession } from "@/db/schema";
 
 export async function deleteSessionById(
-  sessionId: SelectSession["id"]
+  sessionId: SelectSession["id"],
+  tx = db
 ): Promise<void> {
-  await db.delete(sessionTable).where(eq(sessionTable.id, sessionId));
+  await tx.delete(sessionTable).where(eq(sessionTable.id, sessionId));
 }
 
 export async function deleteSessionsByUserId(
-  userId: SelectSession["userId"]
+  userId: SelectSession["userId"],
+  tx = db
 ): Promise<void> {
-  await db.delete(sessionTable).where(eq(sessionTable.userId, userId));
-}
-
-export async function getSessionById(
-  sessionId: SelectSession["id"]
-): Promise<ValidSession | undefined> {
-  const result = await db
-    .select({
-      permissions: sql<Permissions>`json_agg(${permissionTable.permission})`,
-      session: sessionTable,
-      user: {
-        active: userTable.active,
-        email: userTable.email,
-        id: userTable.id,
-        role: userTable.role,
-      },
-    })
-    .from(sessionTable)
-    .innerJoin(userTable, eq(sessionTable.userId, userTable.id))
-    .leftJoin(permissionTable, eq(sessionTable.userId, permissionTable.userId))
-    .where(and(eq(sessionTable.id, sessionId), eq(userTable.active, true)))
-    .groupBy(
-      sessionTable.id,
-      userTable.active,
-      userTable.email,
-      userTable.id,
-      userTable.role
-    );
-  if (result.length) return result[0];
+  await tx.delete(sessionTable).where(eq(sessionTable.userId, userId));
 }
 
 export async function insertSession(
@@ -54,9 +27,10 @@ export async function insertSession(
 
 export async function updateSession(
   sessionId: SelectSession["id"],
-  session: UpdateSession
+  session: UpdateSession,
+  tx = db
 ): Promise<void> {
-  await db
+  await tx
     .update(sessionTable)
     .set(session)
     .where(eq(sessionTable.id, sessionId));

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { verifyInitialSetup } from "@/db/queries";
 import { getCurrentSession } from "@/lib/auth/actions";
 import { ROUTES } from "@/modules";
+import { verifyInitialSetup } from "@/modules/setup";
 
 export default async function Home() {
   const setupComplete = await verifyInitialSetup();

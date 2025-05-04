@@ -1,5 +1,8 @@
-import { verifyInitialSetup } from "@/db/queries";
-import { createAdminSchema, SETUP_ERRORS } from "@/modules/setup";
+import {
+  createAdminSchema,
+  SETUP_ERRORS,
+  verifyInitialSetup,
+} from "@/modules/setup";
 
 import type { CreateAdminSchema } from "@/modules/setup";
 

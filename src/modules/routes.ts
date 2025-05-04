@@ -1,12 +1,16 @@
-export const ROUTES = {
+export const FEATURE_ROUTES = {
   CARTRIDGES: "/cartridges",
   DASHBOARD: "/dashboard",
-  LOGIN: "/login",
   PARTS: "/parts",
   REMANUFACTURING: "/remanufacturing",
-  ROOT: "/",
   SALES: "/sales",
   SERVICE: "/service",
-  SETUP: "/setup",
   USERS: "/users",
+} as const;
+
+export const ROUTES = {
+  ...FEATURE_ROUTES,
+  LOGIN: "/login",
+  ROOT: "/",
+  SETUP: "/setup",
 } as const;

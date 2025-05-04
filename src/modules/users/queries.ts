@@ -2,7 +2,7 @@ import { eq, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { permissionTable, SelectUser, userTable } from "@/db/schema";
 
-import type { Permissions } from "@/db/queries";
+import type { Permissions } from "@/lib";
 
 interface User {
   active: SelectUser["active"];
@@ -12,7 +12,10 @@ interface User {
   role: SelectUser["role"];
 }
 
-export async function getUsers(limit: number = 20, offset: number = 0) {
+export async function getUsers(
+  limit: number = 20,
+  offset: number = 0
+): Promise<{ count: number; users: User[] }> {
   const usersCte = db.$with("users_cte").as(
     db
       .select({

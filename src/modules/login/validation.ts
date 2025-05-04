@@ -1,8 +1,7 @@
 "use server";
 
-import { getUserByEmail } from "@/db/queries";
 import { verifyPasswordHash } from "@/lib/auth/password";
-import { LOGIN_ERRORS, loginSchema } from "@/modules/login";
+import { getUserByEmail, LOGIN_ERRORS, loginSchema } from "@/modules/login";
 
 import type { SelectUser } from "@/db/schema";
 

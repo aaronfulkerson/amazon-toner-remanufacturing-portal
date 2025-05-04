@@ -1,7 +1,6 @@
 import { SelectUser } from "@/db/schema";
 
-import type { Permissions } from "@/db/queries";
-import type { AllowedRoles } from "@/lib";
+import type { AllowedRoles, Permissions } from "@/lib";
 
 export function validatePermissions(
   allowedRoles: AllowedRoles,

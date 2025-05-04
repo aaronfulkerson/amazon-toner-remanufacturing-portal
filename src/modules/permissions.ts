@@ -1,13 +1,11 @@
 import { PERMISSION, USER_ROLE } from "@/db/schema";
-import { ROUTES } from "@/modules";
+import { FEATURE_ROUTES } from "@/modules";
 
 import type { AllowedRoles } from "@/lib";
 
-type RoutesKeys = keyof typeof ROUTES;
-type ExcludedRoutesKeys = "LOGIN" | "ROOT" | "SETUP";
-type AllowedRoutesKeys = Exclude<RoutesKeys, ExcludedRoutesKeys>;
+type FeatureRoutesKeys = keyof typeof FEATURE_ROUTES;
 type Permissions = {
-  [k in AllowedRoutesKeys]: AllowedRoles;
+  [k in FeatureRoutesKeys]: AllowedRoles;
 };
 
 export const PERMISSIONS: Permissions = {
