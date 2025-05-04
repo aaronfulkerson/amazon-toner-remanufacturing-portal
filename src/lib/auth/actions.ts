@@ -8,8 +8,7 @@ import { validatePermissions } from "@/lib/auth/permissions";
 import { SESSION_COOKIE_NAME, validateSessionToken } from "@/lib/auth/session";
 import { ROUTES } from "@/modules";
 
-import type { SessionValidationResult } from "@/db/queries";
-import type { AllowedRoles } from "@/lib";
+import type { AllowedRoles, SessionValidationResult } from "@/lib";
 
 export const getCurrentSession = cache(
   async (): Promise<SessionValidationResult> => {

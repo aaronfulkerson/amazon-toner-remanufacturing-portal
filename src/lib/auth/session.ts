@@ -13,7 +13,7 @@ import {
 import { getSessionById } from "@/lib/auth/session.queries";
 
 import type { InsertSession, SelectSession } from "@/db/schema";
-import type { SessionValidationResult } from "@/lib/auth";
+import type { SessionValidationResult } from "@/lib";
 
 export const SESSION_COOKIE_NAME = "session";
 
