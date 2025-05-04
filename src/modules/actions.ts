@@ -8,9 +8,9 @@ import {
 } from "@/lib/auth/session";
 import { ErrorType, Errors, Routes } from "@/modules";
 
-import type { ActionResult } from "@/modules";
+import type { ServerResult } from "@/modules";
 
-export async function logout(): Promise<ActionResult> {
+export async function logout(): Promise<ServerResult> {
   try {
     const { session } = await getCurrentSession();
     if (session === null) throw Error(Errors.NOT_AUTHENTICATED);

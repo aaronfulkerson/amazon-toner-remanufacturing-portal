@@ -9,12 +9,12 @@ import {
 import { ErrorType, Routes } from "@/modules";
 import { validate } from "@/modules/login";
 
-import type { ActionResult } from "@/modules/types";
+import type { ServerResult } from "@/modules/types";
 
 export async function login(
   prev: unknown,
   formData: FormData
-): Promise<ActionResult> {
+): Promise<ServerResult> {
   try {
     const user = await validate(formData);
 

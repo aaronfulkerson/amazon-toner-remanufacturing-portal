@@ -1,8 +1,8 @@
 import { Permission, UserRole } from "@/db/schema";
 
-export type ActionResultType = "error" | "info";
-export type ActionResult =
-  | { message: string; type: ActionResultType }
+export type ServerResultType = "error" | "info";
+export type ServerResult =
+  | { message: string; type: ServerResultType }
   | undefined;
 
 type UserRoles = typeof UserRole;

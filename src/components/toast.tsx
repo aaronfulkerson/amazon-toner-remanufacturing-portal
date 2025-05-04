@@ -13,9 +13,9 @@ import { cnMerge } from "@/lib/ui";
 
 import type { IconName } from "lucide-react/dynamic";
 import type { Toast as ToastItemProps } from "@/components/toast.context";
-import type { ActionResultType } from "@/modules/types";
+import type { ServerResultType } from "@/modules/types";
 
-type ToastIcon = { [k in ActionResultType]: IconName };
+type ToastIcon = { [k in ServerResultType]: IconName };
 
 const iconMap: ToastIcon = { error: "circle-x", info: "info" };
 

@@ -1,3 +1,4 @@
+import { QueryProvider } from "@/components/query-provider";
 import { Sidebar } from "@/modules/app-shell";
 
 interface AppShellContentProps {
@@ -18,9 +19,11 @@ interface AppShellProps {
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <div className="min-h-screen">
-      <Sidebar />
-      <AppShellContent>{children}</AppShellContent>
-    </div>
+    <QueryProvider>
+      <div className="min-h-screen">
+        <Sidebar />
+        <AppShellContent>{children}</AppShellContent>
+      </div>
+    </QueryProvider>
   );
 }

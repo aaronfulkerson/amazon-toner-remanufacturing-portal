@@ -8,12 +8,12 @@ import { ErrorType, Routes } from "@/modules";
 import { validate } from "@/modules/setup";
 
 import type { InsertUser } from "@/db/schema";
-import type { ActionResult } from "@/modules";
+import type { ServerResult } from "@/modules";
 
 export async function createAdmin(
   prev: unknown,
   formData: FormData
-): Promise<ActionResult> {
+): Promise<ServerResult> {
   try {
     const { email, password } = await validate(formData);
 

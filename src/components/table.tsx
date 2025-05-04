@@ -70,7 +70,7 @@ function TableBody<TData>({
         <tr key={row.id}>
           {row.getVisibleCells().map((cell) => {
             const alignment = getTableDataCellAlignment(cell);
-            const isActionCell = typeof cell.renderValue() === "object";
+            const isActionCell = cell.column.id === "actions";
             return (
               <TableDataCell
                 alignment={alignment}
@@ -149,12 +149,25 @@ function TableContainer({ children }: TableContainerProps) {
   );
 }
 
+type RequiredTableOptions<TData> = Pick<
+  TableOptions<TData>,
+  "columns" | "data"
+>;
+type OmittedTableOptions<TData> = RequiredTableOptions<TData> &
+  Pick<TableOptions<TData>, "getCoreRowModel">;
+export type CustomTableOptions<TData> = Omit<
+  TableOptions<TData>,
+  keyof OmittedTableOptions<TData>
+>;
 interface TableProps<TData>
-  extends Pick<TableOptions<TData>, "columns" | "data">,
-    TableVariantProps {}
+  extends RequiredTableOptions<TData>,
+    TableVariantProps {
+  options?: CustomTableOptions<TData>;
+}
 
-export function Table<TData>({ columns, data }: TableProps<TData>) {
+export function Table<TData>({ columns, data, options }: TableProps<TData>) {
   const table = useReactTable({
+    ...options,
     columns,
     data,
     getCoreRowModel: getCoreRowModel(),

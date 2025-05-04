@@ -3,9 +3,9 @@
 import { createContext, useContext, useState } from "react";
 
 import type { Dispatch, SetStateAction } from "react";
-import type { ActionResult } from "@/modules/types";
+import type { ServerResult } from "@/modules/types";
 
-export interface Toast extends NonNullable<ActionResult> {
+export interface Toast extends NonNullable<ServerResult> {
   id: number;
   duration?: number;
   title?: string;
