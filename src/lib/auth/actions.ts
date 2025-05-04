@@ -9,7 +9,7 @@ import { SESSION_COOKIE_NAME, validateSessionToken } from "@/lib/auth/session";
 import { ROUTES } from "@/modules";
 
 import type { SessionValidationResult } from "@/db/queries";
-import type { Roles } from "@/lib";
+import type { AllowedRoles } from "@/lib";
 
 export const getCurrentSession = cache(
   async (): Promise<SessionValidationResult> => {
@@ -23,12 +23,12 @@ export const getCurrentSession = cache(
 );
 
 export const authorizeCurrentSession = cache(
-  async (roles: Roles): Promise<boolean | undefined> => {
+  async (allowedRoles: AllowedRoles): Promise<boolean | undefined> => {
     try {
       const { permissions, session, user } = await getCurrentSession();
       if (!session) throw Error(SESSION_ERRORS.SESSION_NOT_FOUND);
 
-      return validatePermissions(roles, user.role, permissions);
+      return validatePermissions(allowedRoles, user.role, permissions);
     } catch (e) {
       if (
         e instanceof Error &&

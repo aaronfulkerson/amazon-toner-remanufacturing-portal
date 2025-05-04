@@ -1,21 +1,23 @@
 import { SelectUser } from "@/db/schema";
 
 import type { Permissions } from "@/db/queries";
-import type { Roles } from "@/lib";
+import type { AllowedRoles } from "@/lib";
 
 export function validatePermissions(
-  roles: Roles,
+  allowedRoles: AllowedRoles,
   userRole: SelectUser["role"],
   userPermissions: Permissions
 ): boolean {
   let hasPermission = false;
 
-  if (typeof roles[userRole] === "boolean") {
-    hasPermission = roles[userRole];
+  if (typeof allowedRoles[userRole] === "boolean") {
+    hasPermission = allowedRoles[userRole];
   }
 
-  if (typeof roles[userRole] === "object") {
-    hasPermission = roles[userRole].some((p) => userPermissions.includes(p));
+  if (typeof allowedRoles[userRole] === "object") {
+    hasPermission = allowedRoles[userRole].some((p) =>
+      userPermissions.includes(p)
+    );
   }
 
   return hasPermission;

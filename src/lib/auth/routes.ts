@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 import { AUTHENTICATION, ERROR_TYPE } from "@/lib";
 import { authorizeCurrentSession } from "@/lib/auth/actions";
 
-import type { Roles, ServerResult } from "@/lib";
+import type { AllowedRoles, ServerResult } from "@/lib";
 
 export async function authorizeRoute(
-  roles: Roles
+  allowedRoles: AllowedRoles
 ): Promise<NextResponse<ServerResult> | undefined> {
-  const hasPermission = await authorizeCurrentSession(roles);
+  const hasPermission = await authorizeCurrentSession(allowedRoles);
   if (!hasPermission)
     return NextResponse.json<ServerResult>(
       {

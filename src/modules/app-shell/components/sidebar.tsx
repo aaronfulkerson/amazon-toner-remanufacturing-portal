@@ -1,16 +1,15 @@
-import { PERMISSION, USER_ROLE } from "@/db/schema";
 import { NavigationItem, NavigationContainer } from "@/modules/app-shell";
-import { ROUTES } from "@/modules/routes";
+import { PERMISSIONS, ROUTES } from "@/modules";
 
 import type { IconName } from "lucide-react/dynamic";
-import type { Roles } from "@/lib";
+import type { AllowedRoles } from "@/lib";
 
-type Route = typeof ROUTES;
+type RoutesObj = typeof ROUTES;
 export interface Navigation {
   name: string;
-  href: Route[keyof Route];
+  href: RoutesObj[keyof RoutesObj];
   icon?: IconName;
-  roles: Roles;
+  allowedRoles: AllowedRoles;
 }
 
 const mainNavigation: Navigation[] = [
@@ -18,45 +17,25 @@ const mainNavigation: Navigation[] = [
     name: "Dashboard",
     href: ROUTES.DASHBOARD,
     icon: "layout-dashboard",
-    roles: {
-      [USER_ROLE.ADMIN]: true,
-      [USER_ROLE.CUSTOMER]: true,
-      [USER_ROLE.EMPLOYEE]: true,
-      [USER_ROLE.TECHNICIAN]: true,
-    },
+    allowedRoles: PERMISSIONS.DASHBOARD,
   },
   {
     name: "Remanufacturing",
     href: ROUTES.REMANUFACTURING,
     icon: "recycle",
-    roles: {
-      [USER_ROLE.ADMIN]: true,
-      [USER_ROLE.CUSTOMER]: false,
-      [USER_ROLE.EMPLOYEE]: [PERMISSION.REMANUFACTURING],
-      [USER_ROLE.TECHNICIAN]: false,
-    },
+    allowedRoles: PERMISSIONS.REMANUFACTURING,
   },
   {
     name: "Service",
     href: ROUTES.SERVICE,
     icon: "cog",
-    roles: {
-      [USER_ROLE.ADMIN]: true,
-      [USER_ROLE.CUSTOMER]: false,
-      [USER_ROLE.EMPLOYEE]: [PERMISSION.SERVICE],
-      [USER_ROLE.TECHNICIAN]: [PERMISSION.SERVICE],
-    },
+    allowedRoles: PERMISSIONS.SERVICE,
   },
   {
     name: "Toner Sales",
     href: ROUTES.SALES,
     icon: "badge-dollar-sign",
-    roles: {
-      [USER_ROLE.ADMIN]: true,
-      [USER_ROLE.CUSTOMER]: [PERMISSION.TONER],
-      [USER_ROLE.EMPLOYEE]: [PERMISSION.TONER],
-      [USER_ROLE.TECHNICIAN]: false,
-    },
+    allowedRoles: PERMISSIONS.SALES,
   },
 ];
 
@@ -65,34 +44,19 @@ const subNavigation: Navigation[] = [
     name: "Parts",
     href: ROUTES.PARTS,
     icon: "bolt",
-    roles: {
-      [USER_ROLE.ADMIN]: true,
-      [USER_ROLE.CUSTOMER]: false,
-      [USER_ROLE.EMPLOYEE]: false,
-      [USER_ROLE.TECHNICIAN]: false,
-    },
+    allowedRoles: PERMISSIONS.PARTS,
   },
   {
     name: "Toner Cartridges",
     href: ROUTES.CARTRIDGES,
     icon: "printer",
-    roles: {
-      [USER_ROLE.ADMIN]: true,
-      [USER_ROLE.CUSTOMER]: false,
-      [USER_ROLE.EMPLOYEE]: false,
-      [USER_ROLE.TECHNICIAN]: false,
-    },
+    allowedRoles: PERMISSIONS.CARTRIDGES,
   },
   {
     name: "Users",
     href: ROUTES.USERS,
     icon: "users",
-    roles: {
-      [USER_ROLE.ADMIN]: true,
-      [USER_ROLE.CUSTOMER]: false,
-      [USER_ROLE.EMPLOYEE]: false,
-      [USER_ROLE.TECHNICIAN]: false,
-    },
+    allowedRoles: PERMISSIONS.USERS,
   },
 ];
 

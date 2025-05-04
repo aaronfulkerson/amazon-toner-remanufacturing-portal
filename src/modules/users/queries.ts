@@ -1,16 +1,15 @@
 import { eq, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { permissionTable, userTable } from "@/db/schema";
+import { permissionTable, SelectUser, userTable } from "@/db/schema";
 
 import type { Permissions } from "@/db/queries";
-import type { Roles } from "@/lib";
 
 interface User {
-  active: boolean;
-  email: string;
-  id: number;
+  active: SelectUser["active"];
+  email: SelectUser["email"];
+  id: SelectUser["id"];
   permissions: Permissions;
-  role: Roles;
+  role: SelectUser["role"];
 }
 
 export async function getUsers(limit: number = 20, offset: number = 0) {

@@ -6,10 +6,10 @@ import type { Navigation as NavigationItemProps } from "@/modules/app-shell";
 
 export async function NavigationItem({
   name,
-  roles,
+  allowedRoles,
   ...item
 }: NavigationItemProps) {
-  const hasPermission = await authorizeCurrentSession(roles);
+  const hasPermission = await authorizeCurrentSession(allowedRoles);
 
   return hasPermission ? (
     <NavigationMenu.Item>

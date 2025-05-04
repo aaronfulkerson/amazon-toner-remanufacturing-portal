@@ -12,8 +12,10 @@ export type ServerResult =
   | { message: string; type: ServerResultType }
   | undefined;
 
-type USER_ROLEs = typeof USER_ROLE;
-type Permissions = typeof PERMISSION;
-export type Roles = {
-  [r in USER_ROLEs[keyof USER_ROLEs]]: boolean | Permissions[keyof Permissions][];
+type UserRoleObj = typeof USER_ROLE;
+type UserRoles = UserRoleObj[keyof UserRoleObj];
+type PermissionObj = typeof PERMISSION;
+type Permissions = PermissionObj[keyof PermissionObj][];
+export type AllowedRoles = {
+  [k in UserRoles]: boolean | Permissions;
 };

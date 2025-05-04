@@ -1,18 +1,13 @@
 import { NextResponse } from "next/server";
-import { USER_ROLE } from "@/db/schema";
 import { authorizeRoute } from "@/lib/auth/routes";
 import { getParam } from "@/lib/routes";
 import { getUsers } from "@/modules/users";
 
 import type { NextRequest } from "next/server";
+import { PERMISSIONS } from "@/modules";
 
 export async function GET(request: NextRequest) {
-  const response = await authorizeRoute({
-    [USER_ROLE.ADMIN]: true,
-    [USER_ROLE.CUSTOMER]: false,
-    [USER_ROLE.EMPLOYEE]: false,
-    [USER_ROLE.TECHNICIAN]: false,
-  });
+  const response = await authorizeRoute(PERMISSIONS.USERS);
   if (response) return response;
 
   const limit = getParam(request, "limit", Number);
