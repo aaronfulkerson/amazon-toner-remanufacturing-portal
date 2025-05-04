@@ -17,9 +17,9 @@ export type SessionValidationResult =
   | { permissions: null; session: null; user: null };
 
 type UserRoleObj = typeof USER_ROLE;
-type UserRolesValues = UserRoleObj[keyof UserRoleObj];
+type UserRoleValues = UserRoleObj[keyof UserRoleObj];
 type PermissionObj = typeof PERMISSION;
-type PermissionsValues = PermissionObj[keyof PermissionObj][];
+type PermissionValues = PermissionObj[keyof PermissionObj][];
 export type AllowedRoles = {
-  [k in UserRolesValues]: boolean | PermissionsValues;
+  [k in UserRoleValues]: boolean | PermissionValues;
 };
