@@ -2,10 +2,10 @@
 
 import { redirect } from "next/navigation";
 import { insertUser } from "@/db/queries";
-import { UserRole } from "@/db/schema";
+import { USER_ROLE } from "@/db/schema";
 import { ERROR_TYPE } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
-import { Routes } from "@/modules";
+import { ROUTES } from "@/modules";
 import { validate } from "@/modules/setup";
 
 import type { InsertUser } from "@/db/schema";
@@ -22,7 +22,7 @@ export async function createAdmin(
     const user: InsertUser = {
       email,
       passwordHash,
-      role: UserRole.ADMIN,
+      role: USER_ROLE.ADMIN,
     };
     await insertUser(user);
   } catch (e) {
@@ -30,5 +30,5 @@ export async function createAdmin(
       return { message: e.message, type: ERROR_TYPE.ERROR };
   }
 
-  redirect(Routes.LOGIN);
+  redirect(ROUTES.LOGIN);
 }

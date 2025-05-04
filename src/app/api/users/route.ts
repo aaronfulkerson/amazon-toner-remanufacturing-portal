@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { UserRole } from "@/db/schema";
+import { USER_ROLE } from "@/db/schema";
 import { authorizeRoute } from "@/lib/auth/routes";
 import { getParam } from "@/lib/routes";
 import { getUsers } from "@/modules/users";
@@ -8,10 +8,10 @@ import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   const response = await authorizeRoute({
-    [UserRole.ADMIN]: true,
-    [UserRole.CUSTOMER]: false,
-    [UserRole.EMPLOYEE]: false,
-    [UserRole.TECHNICIAN]: false,
+    [USER_ROLE.ADMIN]: true,
+    [USER_ROLE.CUSTOMER]: false,
+    [USER_ROLE.EMPLOYEE]: false,
+    [USER_ROLE.TECHNICIAN]: false,
   });
   if (response) return response;
 

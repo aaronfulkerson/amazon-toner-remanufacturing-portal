@@ -7,7 +7,7 @@ import {
   generateSessionToken,
   setSessionTokenCookie,
 } from "@/lib/auth/session";
-import { Routes } from "@/modules";
+import { ROUTES } from "@/modules";
 import { validate } from "@/modules/login";
 
 import type { ServerResult } from "@/lib";
@@ -27,5 +27,5 @@ export async function login(
       return { message: e.message, type: ERROR_TYPE.ERROR };
   }
 
-  redirect(Routes.DASHBOARD);
+  redirect(ROUTES.DASHBOARD);
 }

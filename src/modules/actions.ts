@@ -7,7 +7,7 @@ import {
   deleteSessionTokenCookie,
   invalidateSession,
 } from "@/lib/auth/session";
-import { Routes } from "@/modules";
+import { ROUTES } from "@/modules";
 
 import type { ServerResult } from "@/lib";
 
@@ -23,5 +23,5 @@ export async function logout(): Promise<ServerResult> {
       return { message: e.message, type: ERROR_TYPE.ERROR };
   }
 
-  redirect(Routes.LOGIN);
+  redirect(ROUTES.LOGIN);
 }

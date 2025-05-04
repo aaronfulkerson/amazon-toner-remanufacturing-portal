@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { verifyInitialSetup } from "@/db/queries";
-import { Routes } from "@/modules";
+import { ROUTES } from "@/modules";
 
 export default async function SetupLayout({
   children,
@@ -8,7 +8,7 @@ export default async function SetupLayout({
   children: React.ReactNode;
 }>) {
   const setupComplete = await verifyInitialSetup();
-  if (setupComplete) redirect(Routes.ROOT);
+  if (setupComplete) redirect(ROUTES.ROOT);
 
   return (
     <div className="flex justify-center items-center min-h-screen p-5 bg-gray-100">

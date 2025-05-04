@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation";
 import { verifyInitialSetup } from "@/db/queries";
 import { getCurrentSession } from "@/lib/auth/actions";
-import { Routes } from "@/modules";
+import { ROUTES } from "@/modules";
 
 export default async function Home() {
   const setupComplete = await verifyInitialSetup();
-  if (!setupComplete) redirect(Routes.SETUP);
+  if (!setupComplete) redirect(ROUTES.SETUP);
 
   const { session } = await getCurrentSession();
-  if (!session) redirect(Routes.LOGIN);
+  if (!session) redirect(ROUTES.LOGIN);
 
-  redirect(Routes.DASHBOARD);
+  redirect(ROUTES.DASHBOARD);
 }

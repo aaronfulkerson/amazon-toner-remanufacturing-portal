@@ -1,15 +1,15 @@
 import { integer, pgEnum, pgTable, serial } from "drizzle-orm/pg-core";
 import { userTable } from "@/db/schema";
 
-export const Permission = {
+export const PERMISSION = {
   REMANUFACTURING: "remanufacturing",
   SERVICE: "service",
   TONER: "toner",
 } as const;
 export const permissionEnum = pgEnum("permission_enum", [
-  Permission.REMANUFACTURING,
-  Permission.SERVICE,
-  Permission.TONER,
+  PERMISSION.REMANUFACTURING,
+  PERMISSION.SERVICE,
+  PERMISSION.TONER,
 ]);
 
 export const permissionTable = pgTable("permission", {

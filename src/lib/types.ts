@@ -1,5 +1,5 @@
 import type { NextRequest, NextResponse } from "next/server";
-import type { Permission, UserRole } from "@/db/schema";
+import type { PERMISSION, USER_ROLE } from "@/db/schema";
 
 export type InferRoute<T> = T extends (
   request: NextRequest
@@ -12,8 +12,8 @@ export type ServerResult =
   | { message: string; type: ServerResultType }
   | undefined;
 
-type UserRoles = typeof UserRole;
-type Permissions = typeof Permission;
+type USER_ROLEs = typeof USER_ROLE;
+type Permissions = typeof PERMISSION;
 export type Roles = {
-  [r in UserRoles[keyof UserRoles]]: boolean | Permissions[keyof Permissions][];
+  [r in USER_ROLEs[keyof USER_ROLEs]]: boolean | Permissions[keyof Permissions][];
 };

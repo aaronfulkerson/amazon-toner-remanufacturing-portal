@@ -6,7 +6,7 @@ import { cache } from "react";
 import { SESSION_ERRORS } from "@/lib";
 import { validatePermissions } from "@/lib/auth/permissions";
 import { SESSION_COOKIE_NAME, validateSessionToken } from "@/lib/auth/session";
-import { Routes } from "@/modules";
+import { ROUTES } from "@/modules";
 
 import type { SessionValidationResult } from "@/db/queries";
 import type { Roles } from "@/lib";
@@ -34,7 +34,7 @@ export const authorizeCurrentSession = cache(
         e instanceof Error &&
         e.message === SESSION_ERRORS.SESSION_NOT_FOUND
       ) {
-        redirect(Routes.LOGIN);
+        redirect(ROUTES.LOGIN);
       }
     }
   }

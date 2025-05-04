@@ -1,4 +1,4 @@
-export const Routes = {
+export const ROUTES = {
   CARTRIDGES: "/cartridges",
   DASHBOARD: "/dashboard",
   LOGIN: "/login",

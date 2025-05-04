@@ -1,11 +1,11 @@
-import { Permission, UserRole } from "@/db/schema";
+import { PERMISSION, USER_ROLE } from "@/db/schema";
 import { NavigationItem, NavigationContainer } from "@/modules/app-shell";
-import { Routes } from "@/modules/routes";
+import { ROUTES } from "@/modules/routes";
 
 import type { IconName } from "lucide-react/dynamic";
 import type { Roles } from "@/lib";
 
-type Route = typeof Routes;
+type Route = typeof ROUTES;
 export interface Navigation {
   name: string;
   href: Route[keyof Route];
@@ -16,46 +16,46 @@ export interface Navigation {
 const mainNavigation: Navigation[] = [
   {
     name: "Dashboard",
-    href: Routes.DASHBOARD,
+    href: ROUTES.DASHBOARD,
     icon: "layout-dashboard",
     roles: {
-      [UserRole.ADMIN]: true,
-      [UserRole.CUSTOMER]: true,
-      [UserRole.EMPLOYEE]: true,
-      [UserRole.TECHNICIAN]: true,
+      [USER_ROLE.ADMIN]: true,
+      [USER_ROLE.CUSTOMER]: true,
+      [USER_ROLE.EMPLOYEE]: true,
+      [USER_ROLE.TECHNICIAN]: true,
     },
   },
   {
     name: "Remanufacturing",
-    href: Routes.REMANUFACTURING,
+    href: ROUTES.REMANUFACTURING,
     icon: "recycle",
     roles: {
-      [UserRole.ADMIN]: true,
-      [UserRole.CUSTOMER]: false,
-      [UserRole.EMPLOYEE]: [Permission.REMANUFACTURING],
-      [UserRole.TECHNICIAN]: false,
+      [USER_ROLE.ADMIN]: true,
+      [USER_ROLE.CUSTOMER]: false,
+      [USER_ROLE.EMPLOYEE]: [PERMISSION.REMANUFACTURING],
+      [USER_ROLE.TECHNICIAN]: false,
     },
   },
   {
     name: "Service",
-    href: Routes.SERVICE,
+    href: ROUTES.SERVICE,
     icon: "cog",
     roles: {
-      [UserRole.ADMIN]: true,
-      [UserRole.CUSTOMER]: false,
-      [UserRole.EMPLOYEE]: [Permission.SERVICE],
-      [UserRole.TECHNICIAN]: [Permission.SERVICE],
+      [USER_ROLE.ADMIN]: true,
+      [USER_ROLE.CUSTOMER]: false,
+      [USER_ROLE.EMPLOYEE]: [PERMISSION.SERVICE],
+      [USER_ROLE.TECHNICIAN]: [PERMISSION.SERVICE],
     },
   },
   {
     name: "Toner Sales",
-    href: Routes.SALES,
+    href: ROUTES.SALES,
     icon: "badge-dollar-sign",
     roles: {
-      [UserRole.ADMIN]: true,
-      [UserRole.CUSTOMER]: [Permission.TONER],
-      [UserRole.EMPLOYEE]: [Permission.TONER],
-      [UserRole.TECHNICIAN]: false,
+      [USER_ROLE.ADMIN]: true,
+      [USER_ROLE.CUSTOMER]: [PERMISSION.TONER],
+      [USER_ROLE.EMPLOYEE]: [PERMISSION.TONER],
+      [USER_ROLE.TECHNICIAN]: false,
     },
   },
 ];
@@ -63,35 +63,35 @@ const mainNavigation: Navigation[] = [
 const subNavigation: Navigation[] = [
   {
     name: "Parts",
-    href: Routes.PARTS,
+    href: ROUTES.PARTS,
     icon: "bolt",
     roles: {
-      [UserRole.ADMIN]: true,
-      [UserRole.CUSTOMER]: false,
-      [UserRole.EMPLOYEE]: false,
-      [UserRole.TECHNICIAN]: false,
+      [USER_ROLE.ADMIN]: true,
+      [USER_ROLE.CUSTOMER]: false,
+      [USER_ROLE.EMPLOYEE]: false,
+      [USER_ROLE.TECHNICIAN]: false,
     },
   },
   {
     name: "Toner Cartridges",
-    href: Routes.CARTRIDGES,
+    href: ROUTES.CARTRIDGES,
     icon: "printer",
     roles: {
-      [UserRole.ADMIN]: true,
-      [UserRole.CUSTOMER]: false,
-      [UserRole.EMPLOYEE]: false,
-      [UserRole.TECHNICIAN]: false,
+      [USER_ROLE.ADMIN]: true,
+      [USER_ROLE.CUSTOMER]: false,
+      [USER_ROLE.EMPLOYEE]: false,
+      [USER_ROLE.TECHNICIAN]: false,
     },
   },
   {
     name: "Users",
-    href: Routes.USERS,
+    href: ROUTES.USERS,
     icon: "users",
     roles: {
-      [UserRole.ADMIN]: true,
-      [UserRole.CUSTOMER]: false,
-      [UserRole.EMPLOYEE]: false,
-      [UserRole.TECHNICIAN]: false,
+      [USER_ROLE.ADMIN]: true,
+      [USER_ROLE.CUSTOMER]: false,
+      [USER_ROLE.EMPLOYEE]: false,
+      [USER_ROLE.TECHNICIAN]: false,
     },
   },
 ];

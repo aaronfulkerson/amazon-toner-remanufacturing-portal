@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { UserRole } from "@/db/schema";
+import { USER_ROLE } from "@/db/schema";
 import { authorizeCurrentSession } from "@/lib/auth/actions";
-import { Routes } from "@/modules";
+import { ROUTES } from "@/modules";
 
 interface UsersLayoutProps {
   children: React.ReactNode;
@@ -9,12 +9,12 @@ interface UsersLayoutProps {
 
 export default async function UsersLayout({ children }: UsersLayoutProps) {
   const hasPermission = await authorizeCurrentSession({
-    [UserRole.ADMIN]: true,
-    [UserRole.CUSTOMER]: false,
-    [UserRole.EMPLOYEE]: false,
-    [UserRole.TECHNICIAN]: false,
+    [USER_ROLE.ADMIN]: true,
+    [USER_ROLE.CUSTOMER]: false,
+    [USER_ROLE.EMPLOYEE]: false,
+    [USER_ROLE.TECHNICIAN]: false,
   });
-  if (!hasPermission) redirect(Routes.DASHBOARD);
+  if (!hasPermission) redirect(ROUTES.DASHBOARD);
 
   return children;
 }

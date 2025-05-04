@@ -8,7 +8,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { jobTable, userTable } from "@/db/schema";
 
-export const JobTimestampType = {
+export const JOB_TIMESTAMP_TYPE = {
   BREAK_END: "break_end",
   BREAK_START: "break_start",
   JOB_END: "job_end",
@@ -21,16 +21,16 @@ export const JobTimestampType = {
   REPAIR_START: "repair_start",
 } as const;
 export const jobTimestampTypeEnum = pgEnum("job_timestamp_type", [
-  JobTimestampType.BREAK_END,
-  JobTimestampType.BREAK_START,
-  JobTimestampType.JOB_END,
-  JobTimestampType.JOB_PAUSE,
-  JobTimestampType.JOB_RESUME,
-  JobTimestampType.JOB_START,
-  JobTimestampType.LUNCH_END,
-  JobTimestampType.LUNCH_START,
-  JobTimestampType.REPAIR_END,
-  JobTimestampType.REPAIR_START,
+  JOB_TIMESTAMP_TYPE.BREAK_END,
+  JOB_TIMESTAMP_TYPE.BREAK_START,
+  JOB_TIMESTAMP_TYPE.JOB_END,
+  JOB_TIMESTAMP_TYPE.JOB_PAUSE,
+  JOB_TIMESTAMP_TYPE.JOB_RESUME,
+  JOB_TIMESTAMP_TYPE.JOB_START,
+  JOB_TIMESTAMP_TYPE.LUNCH_END,
+  JOB_TIMESTAMP_TYPE.LUNCH_START,
+  JOB_TIMESTAMP_TYPE.REPAIR_END,
+  JOB_TIMESTAMP_TYPE.REPAIR_START,
 ]);
 
 export const jobTimestampTable = pgTable("job_timestamp", {
