@@ -8,7 +8,7 @@ import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   const response = await authorizeRoute({
-    [UserRole.ADMIN]: false,
+    [UserRole.ADMIN]: true,
     [UserRole.CUSTOMER]: false,
     [UserRole.EMPLOYEE]: false,
     [UserRole.TECHNICIAN]: false,
