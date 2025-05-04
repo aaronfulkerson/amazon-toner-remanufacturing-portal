@@ -1,12 +1,12 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { getCurrentSession } from "@/lib/auth/session.server";
 import { ERROR_TYPE, SESSION_ERRORS } from "@/lib";
 import {
   deleteSessionTokenCookie,
   invalidateSession,
 } from "@/lib/auth/session";
+import { getCurrentSession } from "@/lib/auth/session.cached";
 import { ROUTES } from "@/modules";
 
 import type { ServerResult } from "@/lib";

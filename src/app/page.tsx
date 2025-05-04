@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getCurrentSession } from "@/lib/auth/session.server";
+import { getCurrentSession } from "@/lib/auth/session.cached";
 import { ROUTES } from "@/modules";
 import { verifyInitialSetup } from "@/modules/setup";
 

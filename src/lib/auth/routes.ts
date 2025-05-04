@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { AUTHENTICATION_ERRORS, ERROR_TYPE } from "@/lib";
-import { authorizeCurrentSession } from "@/lib/auth/session.server";
+import { authorizeCurrentSession } from "@/lib/auth/session.cached";
 
 import type { AllowedRoles, ServerResult } from "@/lib";
 
