@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { Errors, ErrorType } from "@/modules";
+import { AUTHENTICATION, ERROR_TYPE } from "@/lib";
 import { authorizeCurrentSession } from "@/lib/auth/actions";
 
-import type { ServerResult, Roles } from "@/modules";
+import type { Roles, ServerResult } from "@/lib";
 
 export async function authorizeRoute(
   roles: Roles
@@ -11,8 +11,8 @@ export async function authorizeRoute(
   if (!hasPermission)
     return NextResponse.json<ServerResult>(
       {
-        message: Errors.NOT_AUTHENTICATED,
-        type: ErrorType.ERROR,
+        message: AUTHENTICATION.NOT_AUTHENTICATED,
+        type: ERROR_TYPE.ERROR,
       },
       { status: 500 }
     );

@@ -1,15 +1,16 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { ERROR_TYPE } from "@/lib";
 import {
   createSession,
   generateSessionToken,
   setSessionTokenCookie,
 } from "@/lib/auth/session";
-import { ErrorType, Routes } from "@/modules";
+import { Routes } from "@/modules";
 import { validate } from "@/modules/login";
 
-import type { ServerResult } from "@/modules/types";
+import type { ServerResult } from "@/lib";
 
 export async function login(
   prev: unknown,
@@ -23,7 +24,7 @@ export async function login(
     await setSessionTokenCookie(token, session.expiresAt);
   } catch (e) {
     if (e instanceof Error)
-      return { message: e.message, type: ErrorType.ERROR };
+      return { message: e.message, type: ERROR_TYPE.ERROR };
   }
 
   redirect(Routes.DASHBOARD);

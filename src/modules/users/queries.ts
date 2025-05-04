@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { permissionTable, userTable } from "@/db/schema";
 
 import type { Permissions } from "@/db/queries";
-import type { Roles } from "@/modules/types";
+import type { Roles } from "@/lib";
 
 interface User {
   active: boolean;

@@ -3,7 +3,7 @@
 import { createContext, useContext, useState } from "react";
 
 import type { Dispatch, SetStateAction } from "react";
-import type { ServerResult } from "@/modules/types";
+import type { ServerResult } from "@/lib";
 
 export interface Toast extends NonNullable<ServerResult> {
   id: number;

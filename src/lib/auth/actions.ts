@@ -3,13 +3,13 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { cache } from "react";
-import { SessionErrors } from "@/lib/auth/errors";
-import { validatePermissions } from "@/lib/auth/permission";
+import { SESSION_ERRORS } from "@/lib";
+import { validatePermissions } from "@/lib/auth/permissions";
 import { SESSION_COOKIE_NAME, validateSessionToken } from "@/lib/auth/session";
 import { Routes } from "@/modules";
 
 import type { SessionValidationResult } from "@/db/queries";
-import type { Roles } from "@/modules";
+import type { Roles } from "@/lib";
 
 export const getCurrentSession = cache(
   async (): Promise<SessionValidationResult> => {
@@ -26,11 +26,14 @@ export const authorizeCurrentSession = cache(
   async (roles: Roles): Promise<boolean | undefined> => {
     try {
       const { permissions, session, user } = await getCurrentSession();
-      if (!session) throw Error(SessionErrors.SESSION_NOT_FOUND);
+      if (!session) throw Error(SESSION_ERRORS.SESSION_NOT_FOUND);
 
       return validatePermissions(roles, user.role, permissions);
     } catch (e) {
-      if (e instanceof Error && e.message === SessionErrors.SESSION_NOT_FOUND) {
+      if (
+        e instanceof Error &&
+        e.message === SESSION_ERRORS.SESSION_NOT_FOUND
+      ) {
         redirect(Routes.LOGIN);
       }
     }

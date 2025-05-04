@@ -3,7 +3,7 @@ import { NavigationItem, NavigationContainer } from "@/modules/app-shell";
 import { Routes } from "@/modules/routes";
 
 import type { IconName } from "lucide-react/dynamic";
-import type { Roles } from "@/modules/types";
+import type { Roles } from "@/lib";
 
 type Route = typeof Routes;
 export interface Navigation {

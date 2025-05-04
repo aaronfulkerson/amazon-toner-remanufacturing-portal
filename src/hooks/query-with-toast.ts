@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useToast } from "@/components/toast.context";
 
 import type { UseQueryOptions } from "@tanstack/react-query";
-import type { ServerResult } from "@/modules";
+import type { ServerResult } from "@/lib";
 
 export function useQueryWithToast<T>(
   options: UseQueryOptions<T, ServerResult>

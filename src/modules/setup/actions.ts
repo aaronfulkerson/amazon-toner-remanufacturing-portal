@@ -3,12 +3,13 @@
 import { redirect } from "next/navigation";
 import { insertUser } from "@/db/queries";
 import { UserRole } from "@/db/schema";
+import { ERROR_TYPE } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
-import { ErrorType, Routes } from "@/modules";
+import { Routes } from "@/modules";
 import { validate } from "@/modules/setup";
 
 import type { InsertUser } from "@/db/schema";
-import type { ServerResult } from "@/modules";
+import type { ServerResult } from "@/lib";
 
 export async function createAdmin(
   prev: unknown,
@@ -26,7 +27,7 @@ export async function createAdmin(
     await insertUser(user);
   } catch (e) {
     if (e instanceof Error)
-      return { message: e.message, type: ErrorType.ERROR };
+      return { message: e.message, type: ERROR_TYPE.ERROR };
   }
 
   redirect(Routes.LOGIN);
