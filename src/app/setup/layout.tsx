@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { verifyInitialSetup } from "@/db/queries";
 import { ROUTES } from "@/modules";
+import { verifyInitialSetup } from "@/modules/setup";
 
 export default async function SetupLayout({
   children,

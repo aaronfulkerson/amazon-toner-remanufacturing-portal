@@ -1,5 +1,5 @@
 import { NavigationMenu } from "radix-ui";
-import { authorizeCurrentSession } from "@/lib/auth/actions";
+import { authorizeCurrentSession } from "@/lib/auth/session.server";
 import { NavigationLink } from "@/modules/app-shell";
 
 import type { Navigation as NavigationItemProps } from "@/modules/app-shell";

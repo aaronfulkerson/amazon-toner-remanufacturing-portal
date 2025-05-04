@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { authorizeCurrentSession } from "@/lib/auth/actions";
+import { authorizeCurrentSession } from "@/lib/auth/session.server";
 import { PERMISSIONS, ROUTES } from "@/modules";
 
 interface UsersLayoutProps {

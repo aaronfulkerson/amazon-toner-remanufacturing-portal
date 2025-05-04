@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { authorizeRoute } from "@/lib/auth/routes";
 import { getParam } from "@/lib/routes";
+import { PERMISSIONS } from "@/modules";
 import { getUsers } from "@/modules/users";
 
 import type { NextRequest } from "next/server";
-import { PERMISSIONS } from "@/modules";
 
 export async function GET(request: NextRequest) {
   const response = await authorizeRoute(PERMISSIONS.USERS);

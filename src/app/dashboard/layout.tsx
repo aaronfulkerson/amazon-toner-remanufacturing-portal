@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getCurrentSession } from "@/lib/auth/actions";
+import { getCurrentSession } from "@/lib/auth/session.server";
 import { ROUTES } from "@/modules";
 
 export default async function DashboardLayout({

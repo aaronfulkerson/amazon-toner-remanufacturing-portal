@@ -1,4 +1,4 @@
-export const AUTHENTICATION = {
+export const AUTHENTICATION_ERRORS = {
   NOT_AUTHENTICATED: "Not authenticated.",
 } as const;
 

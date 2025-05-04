@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { getCurrentSession } from "@/lib/auth/actions";
+import { getCurrentSession } from "@/lib/auth/session.server";
 import { ERROR_TYPE, SESSION_ERRORS } from "@/lib";
 import {
   deleteSessionTokenCookie,
