@@ -4,7 +4,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useState } from "react";
 import { Table } from "@/components";
 import { useQueryWithToast } from "@/hooks";
-import { getFetchUrl } from "@/lib/fetch";
+import { getApiUrl } from "@/lib/api";
 
 import type { Cell, PaginationState, Row } from "@tanstack/react-table";
 import type { GetUsersSuccess } from "@/app/api/users/route";
@@ -58,7 +58,7 @@ export function UserTable() {
     pageSize: 10,
   });
 
-  const fetchUrl = getFetchUrl("/users", pagination);
+  const fetchUrl = getApiUrl("/users", pagination);
 
   const { data } = useQueryWithToast<GetUsersSuccess>({
     queryKey: ["users", pagination],

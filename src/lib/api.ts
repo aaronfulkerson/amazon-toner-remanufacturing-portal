@@ -1,10 +1,13 @@
-import { FETCH_ERRORS } from "@/lib";
+import { API_URL } from "@/lib";
 
 import type { PaginationState } from "@tanstack/react-table";
 
-export function getFetchUrl(apiPath: string, pagination: PaginationState) {
+export function getApiUrl(
+  apiPath: string,
+  pagination: PaginationState
+): string {
   if (!/^\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+\/?)*$/.test(apiPath)) {
-    throw Error(FETCH_ERRORS.MALFORMED_PATH);
+    throw Error(API_URL.MALFORMED_PATH);
   }
 
   const baseUrl = "/api" + apiPath + "?";
