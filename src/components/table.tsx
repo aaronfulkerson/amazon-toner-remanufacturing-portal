@@ -5,6 +5,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { TablePagination } from "@/components";
 import {
   tableBodyVariants,
   tableDataCellVariants,
@@ -141,9 +142,7 @@ function TableContainer({ children }: TableContainerProps) {
   return (
     <div className="inline-block min-w-full pb-2 align-middle">
       <div className="overflow-hidden shadow-sm ring-1 ring-black/5 rounded-lg">
-        <table className="min-w-full divide-y divide-gray-300">
-          {children}
-        </table>
+        {children}
       </div>
     </div>
   );
@@ -175,8 +174,11 @@ export function Table<TData>({ columns, data, options }: TableProps<TData>) {
 
   return (
     <TableContainer>
-      <TableHead getHeaderGroups={table.getHeaderGroups} />
-      <TableBody getRowModel={table.getRowModel} />
+      <table className="min-w-full divide-y divide-gray-300">
+        <TableHead getHeaderGroups={table.getHeaderGroups} />
+        <TableBody getRowModel={table.getRowModel} />
+      </table>
+      {options?.manualPagination && <TablePagination {...table} />}
     </TableContainer>
   );
 }

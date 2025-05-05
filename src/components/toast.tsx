@@ -21,7 +21,7 @@ const iconMap: ToastIcon = { error: "circle-x", info: "info" };
 
 function ToastItem({ message, title, type }: ToastItemProps) {
   return (
-    <Toast.Root className={cnMerge(toastRootVariants({ type }))} open={true}>
+    <Toast.Root className={cnMerge(toastRootVariants({ type }))} open>
       <Toast.Title className={toastTitleVariants({ type })}>
         <DynamicIcon name={iconMap[type]} size={20} />
         {title ?? type.toUpperCase()}

@@ -1,4 +1,4 @@
-import { Slot } from "@radix-ui/react-slot";
+import { Slot } from "radix-ui";
 import { DynamicIcon } from "lucide-react/dynamic";
 import { buttonVariants, iconVariants } from "@/components/button.variants";
 import { cnMerge } from "@/lib/ui";
@@ -23,7 +23,7 @@ export function Button({
   intent,
   ...props
 }: ButtonProps) {
-  const Comp = asChild ? Slot : "button";
+  const Comp = asChild ? Slot.Root : "button";
 
   return (
     <Comp

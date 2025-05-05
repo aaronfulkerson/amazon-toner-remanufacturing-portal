@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority";
 import type { VariantProps } from "class-variance-authority";
 
 export const buttonVariants = cva(
-  "inline-flex justify-center items-center rounded-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2",
+  "inline-flex justify-center items-center rounded-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer",
   {
     variants: {
       intent: {
@@ -21,9 +21,21 @@ export const buttonVariants = cva(
       },
       disabled: {
         false: null,
-        true: "bg-gray-400 text-gray-200 hover:bg-unset",
+        true: "hover:bg-unset cursor-not-allowed",
       },
     },
+    compoundVariants: [
+      {
+        intent: "primary",
+        disabled: true,
+        class: "bg-gray-400 text-gray-200",
+      },
+      {
+        intent: "secondary",
+        disabled: true,
+        class: "bg-gray-50 text-gray-300 ring-gray-100",
+      },
+    ],
     defaultVariants: {
       intent: "primary",
       size: "md",
