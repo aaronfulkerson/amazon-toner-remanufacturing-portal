@@ -15,5 +15,5 @@ export function useQueryWithToast<T>(
     if (error) createToast(error);
   }, [error]);
 
-  return rest;
+  return { error, ...rest };
 }
