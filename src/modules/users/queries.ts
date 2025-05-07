@@ -1,14 +1,15 @@
 import { eq, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { permissionTable, SelectUser, userTable } from "@/db/schema";
+import { permissionTable, userTable } from "@/db/schema";
 
-import type { Permissions } from "@/lib";
+import type { SelectPermission, SelectUser } from "@/db/schema";
 
+export type UserPermissions = (SelectPermission["permission"] | null)[];
 interface User {
   active: SelectUser["active"];
   email: SelectUser["email"];
   id: SelectUser["id"];
-  permissions: Permissions;
+  permissions: UserPermissions;
   role: SelectUser["role"];
 }
 
@@ -23,7 +24,7 @@ export async function getUsers(
         email: userTable.email,
         id: userTable.id,
         permissions:
-          sql<Permissions>`json_agg(${permissionTable.permission})`.as(
+          sql<UserPermissions>`json_agg(${permissionTable.permission})`.as(
             "permissions"
           ),
         role: userTable.role,

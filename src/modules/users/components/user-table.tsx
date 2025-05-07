@@ -11,11 +11,11 @@ import type { GetUsersSuccess } from "@/app/api/users/route";
 import type { CustomTableOptions } from "@/components";
 
 type User = GetUsersSuccess["users"][number];
-interface PermissionsProps<TData> {
+interface PermissionsCellProps<TData> {
   cell: Cell<TData, User["permissions"]>;
 }
 
-function Permissions<TData>({ cell }: PermissionsProps<TData>) {
+function PermissionsCell<TData>({ cell }: PermissionsCellProps<TData>) {
   const value = cell.getValue();
   if (value.includes(null)) return "none";
   return value.join(", ");
@@ -44,7 +44,7 @@ const columns = [
   columnHelper.accessor("role", { header: "Role" }),
   columnHelper.accessor("permissions", {
     header: "Permissions",
-    cell: (props) => <Permissions cell={props.cell} />,
+    cell: (props) => <PermissionsCell cell={props.cell} />,
   }),
   columnHelper.display({
     id: "actions",

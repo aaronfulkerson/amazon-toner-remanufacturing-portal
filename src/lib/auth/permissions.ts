@@ -1,11 +1,12 @@
 import { SelectUser } from "@/db/schema";
 
-import type { AllowedRoles, Permissions } from "@/lib";
+import type { AllowedRoles } from "@/lib";
+import type { UserPermissions } from "@/modules/users";
 
 export function validatePermissions(
   allowedRoles: AllowedRoles,
   userRole: SelectUser["role"],
-  userPermissions: Permissions
+  userPermissions: UserPermissions
 ): boolean {
   let hasPermission = false;
 

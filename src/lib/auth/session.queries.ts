@@ -3,14 +3,15 @@ import { db } from "@/db";
 import { permissionTable, sessionTable, userTable } from "@/db/schema";
 
 import type { SelectSession } from "@/db/schema";
-import type { Permissions, ValidSession } from "@/lib";
+import type { ValidSession } from "@/lib";
+import type { UserPermissions } from "@/modules/users";
 
 export async function getSessionById(
   sessionId: SelectSession["id"]
 ): Promise<ValidSession | undefined> {
   const result = await db
     .select({
-      permissions: sql<Permissions>`json_agg(${permissionTable.permission})`,
+      permissions: sql<UserPermissions>`json_agg(${permissionTable.permission})`,
       session: sessionTable,
       user: {
         active: userTable.active,
