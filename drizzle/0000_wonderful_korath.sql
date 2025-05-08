@@ -81,6 +81,7 @@ CREATE TABLE "user" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"active" boolean DEFAULT true NOT NULL,
 	"email" text NOT NULL,
+	"name" text NOT NULL,
 	"passwordHash" text NOT NULL,
 	"role" "role" NOT NULL,
 	CONSTRAINT "user_email_unique" UNIQUE("email")

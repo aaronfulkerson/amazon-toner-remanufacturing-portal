@@ -12,8 +12,9 @@ export async function GET(request: NextRequest) {
 
   const limit = getParam(request, "limit", Number);
   const offset = getParam(request, "offset", Number);
+  const search = getParam(request, "search");
 
-  const users = await getUsers(limit, offset);
+  const users = await getUsers(limit, offset, search);
 
   return NextResponse.json(users);
 }

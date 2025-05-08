@@ -18,6 +18,7 @@ import {
 } from "@/lib/table";
 import { cnMerge } from "@/lib/ui";
 
+import type { UseQueryResult } from "@tanstack/react-query";
 import type {
   CoreInstance,
   HeadersInstance,
@@ -84,6 +85,29 @@ function TableBody<TData>({
           })}
         </tr>
       ))}
+    </tbody>
+  );
+}
+
+interface TableBodyPlaceholderProps {
+  children: React.ReactNode;
+  colSpan: number;
+}
+
+function TableBodyPlaceholder({
+  children,
+  colSpan,
+}: TableBodyPlaceholderProps) {
+  return (
+    <tbody className={cnMerge(tableBodyVariants())}>
+      <tr>
+        <td
+          colSpan={colSpan}
+          className={cnMerge(tableDataCellVariants({ isPlaceHolder: true }))}
+        >
+          {children}
+        </td>
+      </tr>
     </tbody>
   );
 }
@@ -160,11 +184,18 @@ export type CustomTableOptions<TData> = Omit<
 >;
 interface TableProps<TData>
   extends RequiredTableOptions<TData>,
+    Partial<Pick<UseQueryResult<TData>, "isError" | "isLoading">>,
     TableVariantProps {
   options?: CustomTableOptions<TData>;
 }
 
-export function Table<TData>({ columns, data, options }: TableProps<TData>) {
+export function Table<TData>({
+  columns,
+  data,
+  isError,
+  isLoading,
+  options,
+}: TableProps<TData>) {
   const table = useReactTable({
     ...options,
     columns,
@@ -176,7 +207,21 @@ export function Table<TData>({ columns, data, options }: TableProps<TData>) {
     <TableContainer>
       <table className="min-w-full divide-y divide-gray-300">
         <TableHead getHeaderGroups={table.getHeaderGroups} />
-        <TableBody getRowModel={table.getRowModel} />
+        {isLoading ? (
+          <TableBodyPlaceholder colSpan={columns.length}>
+            Loading
+          </TableBodyPlaceholder>
+        ) : isError ? (
+          <TableBodyPlaceholder colSpan={columns.length}>
+            Error
+          </TableBodyPlaceholder>
+        ) : data.length === 0 ? (
+          <TableBodyPlaceholder colSpan={columns.length}>
+            No Results
+          </TableBodyPlaceholder>
+        ) : (
+          <TableBody getRowModel={table.getRowModel} />
+        )}
       </table>
       {options?.manualPagination && <TablePagination {...table} />}
     </TableContainer>

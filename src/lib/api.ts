@@ -4,7 +4,8 @@ import type { PaginationState } from "@tanstack/react-table";
 
 export function getApiUrl(
   apiPath: string,
-  pagination: PaginationState
+  pagination: PaginationState,
+  queryObj?: Record<string, string>
 ): string {
   if (!/^\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+\/?)*$/.test(apiPath)) {
     throw Error(API_URL.MALFORMED_PATH);
@@ -14,6 +15,7 @@ export function getApiUrl(
   const searchParams = new URLSearchParams({
     limit: pagination.pageSize.toString(),
     offset: pagination.pageIndex.toString(),
+    ...queryObj,
   }).toString();
 
   return baseUrl + searchParams;

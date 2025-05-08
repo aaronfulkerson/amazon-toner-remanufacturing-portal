@@ -40,6 +40,7 @@ function RowActions<TData>({ row }: RowActionsProps<TData>) {
 const columnHelper = createColumnHelper<User>();
 
 const columns = [
+  columnHelper.accessor("name", { header: "Name" }),
   columnHelper.accessor("email", { header: "Email" }),
   columnHelper.accessor("role", { header: "Role" }),
   columnHelper.accessor("permissions", {
@@ -52,16 +53,21 @@ const columns = [
   }),
 ];
 
-export function UserTable() {
+interface UserTableProps {
+  search?: string;
+}
+
+export function UserTable(props: UserTableProps) {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const fetchUrl = getApiUrl("/users", pagination);
+  const queryObj = props.search ? { search: props.search } : undefined;
+  const fetchUrl = getApiUrl("/users", pagination, queryObj);
 
-  const { data } = useQueryWithToast<GetUsersSuccess>({
-    queryKey: ["users", pagination],
+  const { data, isError, isLoading } = useQueryWithToast<GetUsersSuccess>({
+    queryKey: ["users", pagination, queryObj],
     queryFn: async () => {
       const response = await fetch(fetchUrl);
       if (response.status !== 200) throw await response.json();
@@ -77,5 +83,13 @@ export function UserTable() {
     state: { pagination },
   };
 
-  return <Table columns={columns} data={data?.users ?? []} options={options} />;
+  return (
+    <Table
+      columns={columns}
+      data={data?.users ?? []}
+      isError={isError}
+      isLoading={isLoading}
+      options={options}
+    />
+  );
 }

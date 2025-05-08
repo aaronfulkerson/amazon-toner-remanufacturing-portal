@@ -40,6 +40,9 @@ export const tableDataCellVariants = cva(
       isActionCell: {
         true: "relative text-right font-medium",
       },
+      isPlaceHolder: {
+        true: "text-center",
+      },
       alignment: {
         left: "pl-6 pr-3 font-medium text-gray-900",
         right: "pl-3 pr-6",

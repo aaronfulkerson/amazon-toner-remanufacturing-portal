@@ -16,11 +16,12 @@ export async function createAdmin(
   formData: FormData
 ): Promise<ServerResult> {
   try {
-    const { email, password } = await validate(formData);
+    const { email, name, password } = await validate(formData);
 
     const passwordHash = await hashPassword(password);
     const user: InsertUser = {
       email,
+      name,
       passwordHash,
       role: USER_ROLE.ADMIN,
     };

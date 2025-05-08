@@ -27,6 +27,7 @@ export function SetupForm() {
   const form = useForm({
     defaultValues: {
       email: "",
+      name: "",
       password: "",
       passwordConfirmation: "",
     },
@@ -59,6 +60,19 @@ export function SetupForm() {
               id="email"
               label="Email"
               type="email"
+              {...field}
+            />
+          )}
+        />
+        <Controller
+          control={form.control}
+          name="name"
+          render={({ field, fieldState }) => (
+            <FormTextField
+              error={fieldState?.error?.message}
+              id="name"
+              label="Name"
+              type="text"
               {...field}
             />
           )}

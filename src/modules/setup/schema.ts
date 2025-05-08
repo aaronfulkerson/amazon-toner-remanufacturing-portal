@@ -3,6 +3,7 @@ import { z } from "zod";
 export const createAdminSchema = z
   .object({
     email: z.string().email(),
+    name: z.string().nonempty(),
     password: z.string().min(8).max(24),
     passwordConfirmation: z.string().min(8).max(24),
   })

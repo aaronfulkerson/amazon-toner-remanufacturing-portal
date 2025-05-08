@@ -26,6 +26,7 @@ export const userTable = pgTable(
     id: serial("id").primaryKey(),
     active: boolean("active").notNull().default(true),
     email: text("email").notNull().unique(),
+    name: text("name").notNull(),
     passwordHash: text("passwordHash").notNull(),
     role: roleEnum("role").notNull(),
   },
