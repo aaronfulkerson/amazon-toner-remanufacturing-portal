@@ -4,10 +4,7 @@ import { TextField } from "@/components/text-field";
 import type { TextFieldProps } from "@/components/text-field";
 
 interface FormTextFieldProps
-  extends Omit<
-      TextFieldProps,
-      "name" | "onBlur" | "onChange" | "ref" | "value"
-    >,
+  extends Omit<TextFieldProps, keyof ControllerRenderProps>,
     ControllerRenderProps {}
 
 export function FormTextField(props: FormTextFieldProps) {
