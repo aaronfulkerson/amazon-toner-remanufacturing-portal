@@ -40,7 +40,7 @@ export const toastDescriptionVariants = cva("text-xs ml-8", {
 });
 
 export const toastViewportVariants = cva(
-  "fixed bottom-0 right-0 w-100 p-8 z-999 flex flex-col gap-2.5 outline-none list-none"
+  "fixed bottom-0 right-0 w-100 p-8 z-200 flex flex-col gap-2.5 outline-none list-none"
 );
 
 export type ToastRootVariantProps = VariantProps<typeof toastRootVariants>;
