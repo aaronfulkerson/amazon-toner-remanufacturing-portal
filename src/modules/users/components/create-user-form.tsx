@@ -48,19 +48,6 @@ export function CreateUserForm() {
     >
       <Controller
         control={form.control}
-        name="email"
-        render={({ field, fieldState }) => (
-          <FormTextField
-            error={fieldState?.error?.message}
-            id="email"
-            label="Email"
-            type="email"
-            {...field}
-          />
-        )}
-      />
-      <Controller
-        control={form.control}
         name="name"
         render={({ field, fieldState }) => (
           <FormTextField
@@ -68,6 +55,19 @@ export function CreateUserForm() {
             id="name"
             label="Name"
             type="text"
+            {...field}
+          />
+        )}
+      />
+      <Controller
+        control={form.control}
+        name="email"
+        render={({ field, fieldState }) => (
+          <FormTextField
+            error={fieldState?.error?.message}
+            id="email"
+            label="Email"
+            type="email"
             {...field}
           />
         )}
