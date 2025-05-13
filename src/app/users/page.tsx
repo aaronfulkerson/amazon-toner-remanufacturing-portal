@@ -2,15 +2,21 @@
 
 import { ChangeEventHandler, useState } from "react";
 import { useDebounce } from "use-debounce";
-import { Button, PageHeading } from "@/components";
-import { Input } from "@/components/input";
-import { UserTable } from "@/modules/users";
+import { Button, Input, Modal, PageHeading } from "@/components";
+import { CreateUserForm, UserTable } from "@/modules/users";
 
 function PageActions() {
   return (
-    <Button icon="user" size="lg">
-      Create New User
-    </Button>
+    <Modal
+      title="Create User"
+      trigger={
+        <Button icon="user" size="lg">
+          Create User
+        </Button>
+      }
+    >
+      <CreateUserForm />
+    </Modal>
   );
 }
 
@@ -21,7 +27,7 @@ export default function UsersPage() {
     setSearch(e.target.value);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 mt-1">
       <PageHeading actions={<PageActions />}>Users</PageHeading>
       <div className="flex flex-col gap-3">
         <Input placeholder="Search" onChange={handleSetSearch} value={search} />

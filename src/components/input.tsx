@@ -15,8 +15,8 @@ export function Input({
   className,
   hasError,
   icon,
+  intent,
   size,
-  variant,
   ...props
 }: InputProps) {
   const iconName = hasError ? "circle-alert" : icon;
@@ -25,7 +25,7 @@ export function Input({
     <div className="grid grid-cols-1">
       <input
         className={cnMerge(
-          inputVariants({ className, hasError, size, variant })
+          inputVariants({ className, hasError, intent, size })
         )}
         {...props}
       />

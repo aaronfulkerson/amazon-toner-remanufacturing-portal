@@ -1,34 +1,32 @@
 import { Error } from "@/components/error";
-import { Input } from "@/components/input";
+import { Select } from "@/components/select";
 import { Label } from "@/components/label";
 
 import type { ErrorProps } from "@/components/error";
-import type { InputProps } from "@/components/input";
+import type { SelectProps } from "@/components/select";
 import type { LabelProps } from "@/components/label";
-import type { TextFieldVariantProps } from "@/components/text-field.variants";
+import type { SelectFieldVariantProps } from "@/components/select-field.variants";
 
-export interface TextFieldProps extends InputProps, TextFieldVariantProps {
+export interface SelectFieldProps extends SelectProps, SelectFieldVariantProps {
   error?: string;
   label?: string;
   wrapperClassName?: string;
 }
 
-export function TextField({
+export function SelectField({
   className,
   error,
-  icon,
   intent,
   label,
   size,
   wrapperClassName,
   ...props
-}: TextFieldProps) {
+}: SelectFieldProps) {
   const errorId = `${props.id}-error`;
 
-  const inputProps: InputProps = {
+  const selectProps: SelectProps = {
     className,
     hasError: !!error,
-    icon,
     intent,
     size,
     ...(error && { "aria-invalid": true }),
@@ -53,7 +51,7 @@ export function TextField({
   return (
     <div className={wrapperClassName}>
       {label && <Label className="mb-1" {...labelProps} />}
-      <Input {...inputProps} />
+      <Select {...selectProps} />
       {error && <Error className="mt-1" {...errorProps} />}
     </div>
   );
