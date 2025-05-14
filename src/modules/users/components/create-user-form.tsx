@@ -3,12 +3,23 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState, useEffect, useRef, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Button } from "@/components";
+import { Button, CheckboxGroup } from "@/components";
 import { FormSelectField, FormTextField } from "@/components/form-components";
 import { useToast } from "@/components/toast.context";
+import { PERMISSION, USER_ROLE } from "@/db/schema";
 import { createUser, createUserSchema } from "@/modules/users";
 
 import type { FormEventHandler } from "react";
+
+const permissionsGroups = {
+  [USER_ROLE.CUSTOMER]: [PERMISSION.TONER],
+  [USER_ROLE.EMPLOYEE]: [
+    PERMISSION.REMANUFACTURING,
+    PERMISSION.SERVICE,
+    PERMISSION.TONER,
+  ],
+  [USER_ROLE.TECHNICIAN]: [PERMISSION.SERVICE],
+} as const;
 
 export function CreateUserForm() {
   const [state, action] = useActionState(createUser, null);
@@ -92,7 +103,15 @@ export function CreateUserForm() {
       <Controller
         control={form.control}
         name="permissions"
-        render={() => <>permissions</>}
+        render={({ field }) => (
+          <CheckboxGroup
+            options={permissionsGroups[form.watch("role")].map((p) => ({
+              label: p,
+              value: p,
+            }))}
+            {...field}
+          />
+        )}
       />
       <Button className="mt-5" disabled={isPending} size="xl" type="submit">
         Create User

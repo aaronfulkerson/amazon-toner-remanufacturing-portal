@@ -1,4 +1,5 @@
 export * from "./button";
+export * from "./checkbox-group";
 export * from "./heading";
 export * from "./input";
 export * from "./modal";
