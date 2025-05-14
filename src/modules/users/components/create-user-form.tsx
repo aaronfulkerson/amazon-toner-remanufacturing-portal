@@ -41,6 +41,10 @@ export function CreateUserForm() {
     resolver: zodResolver(createUserSchema),
   });
 
+  useEffect(() => {
+    form.resetField("permissions");
+  }, [form.watch("role")]);
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {

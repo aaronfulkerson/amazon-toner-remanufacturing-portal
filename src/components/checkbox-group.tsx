@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import type { ChangeEventHandler } from "react";
 import type { ControllerRenderProps } from "react-hook-form";
 
@@ -11,27 +9,28 @@ type CheckboxGroupOption = {
 };
 interface CheckboxGroupOptionProps
   extends Omit<React.ComponentProps<"input">, "onChange" | "value">,
-    Pick<ControllerRenderProps, "onChange">,
+    NonNullable<Pick<ControllerRenderProps, "onChange">>,
     CheckboxGroupOption {
   groupValue: CheckboxGroupOption["value"][];
 }
 
 function CheckboxGroupOption({
+  groupValue,
   label,
   onChange,
   value,
 }: CheckboxGroupOptionProps) {
-  const [checked, setChecked] = useState(false);
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setChecked(e.target.checked);
-    const newValue = ["a"];
-    if (!!onChange) onChange(newValue);
+    const newValue = e.target.checked
+      ? [...groupValue, value]
+      : groupValue.filter((v) => v !== value);
+    onChange(newValue);
   };
 
   return (
     <label>
       <input
-        checked={checked}
+        checked={groupValue.includes(value)}
         onChange={handleOnChange}
         type="checkbox"
         value={value}
