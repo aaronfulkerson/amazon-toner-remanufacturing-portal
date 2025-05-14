@@ -17,6 +17,7 @@ export async function getSessionById(
         active: userTable.active,
         email: userTable.email,
         id: userTable.id,
+        name: userTable.name,
         role: userTable.role,
       },
     })
