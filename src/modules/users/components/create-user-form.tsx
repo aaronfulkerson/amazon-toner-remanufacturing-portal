@@ -26,7 +26,6 @@ export function CreateUserForm() {
   const [isPending, startTransition] = useTransition();
 
   const { createToast } = useToast();
-
   useEffect(() => {
     if (state) createToast(state);
   }, [state]);
@@ -41,12 +40,12 @@ export function CreateUserForm() {
     resolver: zodResolver(createUserSchema),
   });
 
+  const role = form.watch("role");
   useEffect(() => {
     form.resetField("permissions");
-  }, [form.watch("role")]);
+  }, [form, role]);
 
   const formRef = useRef<HTMLFormElement>(null);
-
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     form.handleSubmit(() => {
