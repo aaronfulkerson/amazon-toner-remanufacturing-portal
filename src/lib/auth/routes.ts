@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { AUTHENTICATION_ERRORS, ERROR_TYPE } from "@/lib";
+import { AUTHENTICATION_ERRORS, RESULT_TYPE } from "@/lib";
 import { authorizeCurrentSession } from "@/lib/auth/session.cached";
 
 import type { AllowedRoles, ServerResult } from "@/lib";
@@ -12,7 +12,7 @@ export async function authorizeRoute(
     return NextResponse.json<ServerResult>(
       {
         message: AUTHENTICATION_ERRORS.NOT_AUTHENTICATED,
-        type: ERROR_TYPE.ERROR,
+        type: RESULT_TYPE.ERROR,
       },
       { status: 500 }
     );

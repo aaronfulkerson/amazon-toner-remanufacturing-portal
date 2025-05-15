@@ -1,6 +1,6 @@
 "use server";
 
-import { ERROR_TYPE } from "@/lib";
+import { RESULT_TYPE } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import { validate } from "@/modules/users";
 import { createUser as createUserQuery } from "@/modules/users/queries";
@@ -26,8 +26,10 @@ export async function createUser(
       role,
     };
     await createUserQuery(user, permissions);
+
+    return { message: "User successfully created", type: RESULT_TYPE.SUCCESS };
   } catch (e) {
     if (e instanceof Error)
-      return { message: e.message, type: ERROR_TYPE.ERROR };
+      return { message: e.message, type: RESULT_TYPE.ERROR };
   }
 }
