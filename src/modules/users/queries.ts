@@ -2,7 +2,12 @@ import { eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { permissionTable, userTable } from "@/db/schema";
 
-import type { SelectPermission, SelectUser } from "@/db/schema";
+import type {
+  InsertPermission,
+  InsertUser,
+  SelectPermission,
+  SelectUser,
+} from "@/db/schema";
 
 export type UserPermissions = (SelectPermission["permission"] | null)[];
 interface User {
@@ -58,4 +63,20 @@ export async function getUsers(
     .from(usersCte);
 
   return result[0];
+}
+
+export async function createUser(
+  user: InsertUser,
+  permissions: InsertPermission["permission"][]
+) {
+  await db.transaction(async (tx) => {
+    const [{ userId }] = await tx
+      .insert(userTable)
+      .values(user)
+      .returning({ userId: userTable.id });
+    if (permissions.length)
+      await tx
+        .insert(permissionTable)
+        .values(permissions.map((permission) => ({ permission, userId })));
+  });
 }

@@ -4,8 +4,7 @@ import { permissionTable } from "@/db/schema";
 import type { InsertPermission } from "@/db/schema";
 
 export async function insertPermission(
-  permission: InsertPermission,
-  tx = db
+  permission: InsertPermission
 ): Promise<void> {
-  await tx.insert(permissionTable).values(permission);
+  await db.insert(permissionTable).values(permission);
 }

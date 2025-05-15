@@ -4,10 +4,9 @@ import { userTable } from "@/db/schema";
 import type { InsertUser, SelectUser } from "@/db/schema";
 
 export async function insertUser(
-  user: InsertUser,
-  tx = db
+  user: InsertUser
 ): Promise<{ userId: SelectUser["id"] }[]> {
-  return await tx
+  return await db
     .insert(userTable)
     .values(user)
     .returning({ userId: userTable.id });
