@@ -50,7 +50,9 @@ function OptionGrid({ children, cols, id }: OptionGridProps) {
   );
 }
 
-export interface CheckboxGroupProps extends Pick<HTMLDivElement, "id"> {
+export interface CheckboxGroupProps
+  extends Pick<HTMLDivElement, "id">,
+    Pick<HTMLInputElement, "name"> {
   cols: number;
   label?: string;
   onChange: (...args: unknown[]) => unknown;
@@ -62,6 +64,7 @@ export interface CheckboxGroupProps extends Pick<HTMLDivElement, "id"> {
 export function CheckboxGroup({
   cols,
   label,
+  name,
   onChange,
   options,
   value,
@@ -81,6 +84,7 @@ export function CheckboxGroup({
           <CheckboxGroupOption
             groupValue={value}
             key={option.value}
+            name={name}
             onChange={onChange}
             {...option}
           />
