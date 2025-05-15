@@ -18,24 +18,21 @@ interface CheckboxGroupOptionProps
 
 function CheckboxGroupOption({
   groupValue,
-  label,
   onChange,
-  value,
+  ...props
 }: CheckboxGroupOptionProps) {
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const newValue = e.target.checked
-      ? [...groupValue, value]
-      : groupValue.filter((v) => v !== value);
+      ? [...groupValue, props.value]
+      : groupValue.filter((v) => v !== props.value);
     onChange(newValue);
   };
 
   return (
     <Checkbox
-      checked={groupValue.includes(value)}
-      label={label}
+      checked={groupValue.includes(props.value)}
       onChange={handleOnChange}
-      type="checkbox"
-      value={value}
+      {...props}
     />
   );
 }
@@ -80,16 +77,14 @@ export function CheckboxGroup({
     <div className={wrapperClassName}>
       {label && <Label className="mb-1" {...labelProps} />}
       <OptionGrid cols={cols}>
-        {options.map((option) => {
-          return (
-            <CheckboxGroupOption
-              groupValue={value}
-              key={option.value}
-              onChange={onChange}
-              {...option}
-            />
-          );
-        })}
+        {options.map((option) => (
+          <CheckboxGroupOption
+            groupValue={value}
+            key={option.value}
+            onChange={onChange}
+            {...option}
+          />
+        ))}
       </OptionGrid>
     </div>
   );

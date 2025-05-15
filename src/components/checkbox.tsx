@@ -1,8 +1,5 @@
-import { CheckboxGroupOption } from "@/components";
-import {
-  checkboxVariants,
-  labelVariants,
-} from "@/components/checkbox.variants";
+import { CheckboxGroupOption, Label } from "@/components";
+import { checkboxVariants } from "@/components/checkbox.variants";
 
 interface CheckboxProps
   extends Omit<React.ComponentProps<"input">, "value">,
@@ -15,6 +12,7 @@ export function Checkbox({ label, ...props }: CheckboxProps) {
   };
 
   const labelProps = {
+    children: label,
     htmlFor: props.value.toString(),
   };
 
@@ -49,11 +47,7 @@ export function Checkbox({ label, ...props }: CheckboxProps) {
           </svg>
         </div>
       </div>
-      {label && (
-        <label className={labelVariants()} {...labelProps}>
-          {label}
-        </label>
-      )}
+      {label && <Label className="font-normal" {...labelProps} />}
     </div>
   );
 }
