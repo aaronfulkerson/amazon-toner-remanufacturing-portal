@@ -3,8 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState, useEffect, useRef, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Button, CheckboxGroup } from "@/components";
-import { FormSelectField, FormTextField } from "@/components/form-components";
+import { Button } from "@/components";
+import {
+  FormCheckboxGroup,
+  FormSelectField,
+  FormTextField,
+} from "@/components/form-components";
 import { useToast } from "@/components/toast.context";
 import { PERMISSION, USER_ROLE } from "@/db/schema";
 import { createUser, createUserSchema } from "@/modules/users";
@@ -107,7 +111,10 @@ export function CreateUserForm() {
         control={form.control}
         name="permissions"
         render={({ field }) => (
-          <CheckboxGroup
+          <FormCheckboxGroup
+            cols={2}
+            id="permissions"
+            label="Permissions"
             options={permissionsGroups[form.watch("role")].map((p) => ({
               label: p,
               value: p,
