@@ -1,6 +1,8 @@
 import { CheckboxGroupOption } from "@/components";
-import { checkboxVariants } from "@/components/checkbox.variants";
-import { labelVariants } from "@/components/label.variants";
+import {
+  checkboxVariants,
+  labelVariants,
+} from "@/components/checkbox.variants";
 
 interface CheckboxProps
   extends Omit<React.ComponentProps<"input">, "value">,
