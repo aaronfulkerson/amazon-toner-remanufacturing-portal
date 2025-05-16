@@ -66,15 +66,13 @@ export function UserTable(props: UserTableProps) {
   const queryObj = props.search ? { search: props.search } : undefined;
   const fetchUrl = getApiUrl("/users", pagination, queryObj);
 
-  const { data, isError, isLoading } = useQueryWithToast<GetUsersSuccess>({
-    queryKey: ["users", pagination, queryObj],
-    queryFn: async () => {
-      const response = await fetch(fetchUrl);
-      if (response.status !== 200) throw await response.json();
-      return await response.json();
-    },
-    retry: false,
-  });
+  const { data, isError, isLoading } = useQueryWithToast<GetUsersSuccess>(
+    fetchUrl,
+    {
+      queryKey: ["users", pagination, queryObj],
+      retry: false,
+    }
+  );
 
   const options: CustomTableOptions<User> = {
     manualPagination: true,
