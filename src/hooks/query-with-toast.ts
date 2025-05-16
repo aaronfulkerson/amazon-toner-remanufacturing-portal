@@ -5,8 +5,8 @@ import { useToast } from "@/components/toast.context";
 import type { UseQueryOptions } from "@tanstack/react-query";
 import type { ServerResult } from "@/lib";
 
-export function useQueryWithToast<T>(
-  options: UseQueryOptions<T, ServerResult>
+export function useQueryWithToast<TQueryFnData>(
+  options: UseQueryOptions<TQueryFnData, ServerResult>
 ) {
   const { error, ...rest } = useQuery(options);
 

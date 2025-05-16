@@ -38,13 +38,15 @@ function CheckboxGroupOption({
 }
 
 interface OptionGridProps extends React.ComponentProps<"div"> {
-  cols: number;
+  cols?: number;
 }
 
-function OptionGrid({ children, cols, id }: OptionGridProps) {
-  const gridCols = `grid-cols-${cols}`;
+function OptionGrid({ children, cols = 2 }: OptionGridProps) {
   return (
-    <div className={`grid ${gridCols}`} id={id}>
+    <div
+      className="grid"
+      style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+    >
       {children}
     </div>
   );
@@ -53,7 +55,7 @@ function OptionGrid({ children, cols, id }: OptionGridProps) {
 export interface CheckboxGroupProps
   extends Pick<HTMLDivElement, "id">,
     Pick<HTMLInputElement, "name"> {
-  cols: number;
+  cols?: number;
   label?: string;
   onChange: (...args: unknown[]) => unknown;
   options: CheckboxGroupOption[];
@@ -69,11 +71,9 @@ export function CheckboxGroup({
   options,
   value,
   wrapperClassName,
-  ...props
 }: CheckboxGroupProps) {
   const labelProps: LabelProps = {
     children: label,
-    ...(props.id && { htmlFor: props.id }),
   };
 
   return (
