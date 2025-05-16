@@ -14,7 +14,7 @@ export function getApiUrl(
   const baseUrl = "/api" + apiPath + "?";
   const searchParams = new URLSearchParams({
     limit: pagination.pageSize.toString(),
-    offset: pagination.pageIndex.toString(),
+    offset: (pagination.pageIndex * pagination.pageSize).toString(),
     ...queryObj,
   }).toString();
 
