@@ -1,5 +1,5 @@
-export const AUTHENTICATION_ERRORS = {
-  NOT_AUTHENTICATED: "Not authenticated.",
+export const AUTHORIZATION_ERRORS = {
+  NOT_AUTHORIZED: "Not authorized.",
 } as const;
 
 export const SESSION_ERRORS = {
