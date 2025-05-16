@@ -5,7 +5,7 @@ import { AppShell } from "@/modules/app-shell";
 
 import type { Metadata } from "next";
 
-import "./globals.css";
+import "@/app/globals.css";
 
 const inter = Inter({
   display: "swap",

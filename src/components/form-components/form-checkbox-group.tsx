@@ -1,5 +1,6 @@
-import { ControllerRenderProps } from "react-hook-form";
-import { CheckboxGroup } from "../checkbox-group";
+import { CheckboxGroup } from "@/components";
+
+import type { ControllerRenderProps } from "react-hook-form";
 
 interface FormCheckboxGroupProps
   extends Omit<

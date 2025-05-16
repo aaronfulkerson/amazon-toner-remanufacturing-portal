@@ -4,7 +4,7 @@ import {
   dialogDescriptionVariants,
   dialogOverlayVariants,
   dialogTitleVariants,
-} from "./modal.variants";
+} from "@/components/modal.variants";
 
 interface ModalProps
   extends Pick<
