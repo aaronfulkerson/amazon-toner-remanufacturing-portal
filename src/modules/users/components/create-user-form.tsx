@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { useActionState, useEffect, useRef, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components";
@@ -25,13 +26,23 @@ const permissionsGroups = {
   [USER_ROLE.TECHNICIAN]: [PERMISSION.SERVICE],
 } as const;
 
-export function CreateUserForm() {
+interface CreateUserFormProps {
+  closeModal: () => void;
+}
+
+export function CreateUserForm({ closeModal }: CreateUserFormProps) {
   const [state, action] = useActionState(createUser, null);
   const [isPending, startTransition] = useTransition();
-
+  const formRef = useRef<HTMLFormElement>(null);
+  const queryClient = useQueryClient();
   const { createToast } = useToast();
+
   useEffect(() => {
     if (state) createToast(state);
+    if (state?.type === "success") {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      closeModal();
+    }
   }, [state]);
 
   const form = useForm({
@@ -49,7 +60,6 @@ export function CreateUserForm() {
     form.resetField("permissions");
   }, [form, role]);
 
-  const formRef = useRef<HTMLFormElement>(null);
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     form.handleSubmit(() => {

@@ -6,8 +6,12 @@ import { Button, Input, Modal, PageHeading } from "@/components";
 import { CreateUserForm, UserTable } from "@/modules/users";
 
 function PageActions() {
+  const [open, setOpen] = useState(false);
+
   return (
     <Modal
+      onOpenChange={setOpen}
+      open={open}
       title="Create User"
       trigger={
         <Button icon="user" size="lg">
@@ -15,7 +19,7 @@ function PageActions() {
         </Button>
       }
     >
-      <CreateUserForm />
+      <CreateUserForm closeModal={() => setOpen(false)} />
     </Modal>
   );
 }
