@@ -20,7 +20,7 @@ interface User {
 }
 
 export async function getUsers(
-  limit: number = 20,
+  limit: number = 10,
   offset: number = 0,
   search?: string
 ): Promise<{ count: number; users: User[] }> {
