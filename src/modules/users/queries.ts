@@ -65,7 +65,7 @@ export async function getUsers(
   return result[0];
 }
 
-export async function createUser(
+export async function insertUserWithPermissions(
   user: InsertUser,
   permissions: InsertPermission["permission"][]
 ) {

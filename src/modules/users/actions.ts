@@ -2,8 +2,7 @@
 
 import { RESULT_TYPE } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
-import { validate } from "@/modules/users";
-import { createUser as createUserQuery } from "@/modules/users/queries";
+import { insertUserWithPermissions, validate } from "@/modules/users";
 
 import type { InsertUser } from "@/db/schema";
 import type { ServerResult } from "@/lib";
@@ -25,7 +24,7 @@ export async function createUser(
       passwordHash,
       role,
     };
-    await createUserQuery(user, permissions);
+    await insertUserWithPermissions(user, permissions);
 
     return { message: "User successfully created", type: RESULT_TYPE.SUCCESS };
   } catch (e) {

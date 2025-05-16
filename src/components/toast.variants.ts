@@ -7,6 +7,7 @@ export const toastRootVariants = cva("rounded-md p-4 shadow-sm flex flex-col", {
     type: {
       error: "bg-red-50",
       info: "bg-white",
+      success: "bg-green-50",
     },
   },
   defaultVariants: {
@@ -21,6 +22,7 @@ export const toastTitleVariants = cva(
       type: {
         error: "text-red-800",
         info: "text-gray-600",
+        success: "text-green-800",
       },
     },
     defaultVariants: { type: "info" },
@@ -32,6 +34,7 @@ export const toastDescriptionVariants = cva("text-xs ml-8", {
     type: {
       error: "text-red-700",
       info: "text-gray-700",
+      success: "text-green-700",
     },
   },
   defaultVariants: {

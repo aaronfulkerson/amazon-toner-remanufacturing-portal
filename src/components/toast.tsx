@@ -17,7 +17,11 @@ import type { ServerResultType } from "@/lib";
 
 type ToastIcon = { [k in ServerResultType]: IconName };
 
-const iconMap: ToastIcon = { error: "circle-x", info: "info" };
+const iconMap: ToastIcon = {
+  error: "circle-x",
+  info: "info",
+  success: "check",
+};
 
 function ToastItem({ message, title, type }: ToastItemProps) {
   return (
