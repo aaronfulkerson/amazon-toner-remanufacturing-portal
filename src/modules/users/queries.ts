@@ -1,4 +1,4 @@
-import { eq, ilike, or, sql } from "drizzle-orm";
+import { asc, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { permissionTable, userTable } from "@/db/schema";
 
@@ -41,7 +41,8 @@ export async function getUsers(
       .leftJoin(permissionTable, eq(userTable.id, permissionTable.userId))
       .groupBy(userTable.active, userTable.email, userTable.id, userTable.role)
       .limit(limit)
-      .offset(offset);
+      .offset(offset)
+      .orderBy(asc(userTable.id));
     if (search) {
       const searchWithWildcard = `%${search}%`;
       usersQuery.where(
