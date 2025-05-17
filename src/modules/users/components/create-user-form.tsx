@@ -125,7 +125,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
             cols={2}
             id="permissions"
             label="Permissions"
-            options={permissionsGroups[form.watch("role")].map((p) => ({
+            options={permissionsGroups[role].map((p) => ({
               label: p,
               value: p,
             }))}
