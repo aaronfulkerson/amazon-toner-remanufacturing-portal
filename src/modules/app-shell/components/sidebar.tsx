@@ -1,5 +1,5 @@
-import { NavigationItem, NavigationContainer } from "@/modules/app-shell";
 import { PERMISSIONS, ROUTES } from "@/modules";
+import { NavigationItem, NavigationContainer } from "@/modules/app-shell";
 
 import type { IconName } from "lucide-react/dynamic";
 import type { AllowedRoles } from "@/lib";
