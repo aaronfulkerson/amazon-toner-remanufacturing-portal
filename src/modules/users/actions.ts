@@ -26,7 +26,7 @@ export async function createUser(
     };
     await insertUserWithPermissions(user, permissions);
 
-    return { message: "User successfully created", type: RESULT_TYPE.SUCCESS };
+    return { message: "User successfully created.", type: RESULT_TYPE.SUCCESS };
   } catch (e) {
     if (e instanceof Error)
       return { message: e.message, type: RESULT_TYPE.ERROR };
