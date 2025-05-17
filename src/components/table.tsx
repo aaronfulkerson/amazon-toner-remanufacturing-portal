@@ -90,9 +90,7 @@ function TableBody<TData>({
 }
 
 interface TableBodyPlaceholderProps
-  extends Pick<React.ComponentProps<"td">, "colSpan"> {
-  children: React.ReactNode;
-}
+  extends Pick<React.ComponentProps<"td">, "children" | "colSpan"> {}
 
 function TableBodyPlaceholder({
   children,
@@ -158,9 +156,8 @@ function TableHead<TData>({ className, getHeaderGroups }: TableHead<TData>) {
   );
 }
 
-interface TableContainerProps {
-  children: React.ReactNode;
-}
+interface TableContainerProps
+  extends Pick<React.ComponentProps<"div">, "children"> {}
 
 function TableContainer({ children }: TableContainerProps) {
   return (
