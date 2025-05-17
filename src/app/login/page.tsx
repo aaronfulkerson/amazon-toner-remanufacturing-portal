@@ -1,5 +1,10 @@
-import { LoginModulePage } from "@/modules/login";
+import { SessionlessFormContainer } from "@/components";
+import { LoginForm } from "@/modules/login";
 
-export default function LoginPage() {
-  return <LoginModulePage />;
+export function LoginModulePage() {
+  return (
+    <SessionlessFormContainer>
+      <LoginForm />
+    </SessionlessFormContainer>
+  );
 }

@@ -1,5 +1,10 @@
-import { SetupModulePage } from "@/modules/setup";
+import { SessionlessFormContainer } from "@/components";
+import { SetupForm } from "@/modules/setup";
 
-export default function SetupPage() {
-  return <SetupModulePage />;
+export function SetupModulePage() {
+  return (
+    <SessionlessFormContainer>
+      <SetupForm />
+    </SessionlessFormContainer>
+  );
 }
