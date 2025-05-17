@@ -58,7 +58,7 @@ export function TablePagination<TData>(props: TablePaginationProps<TData>) {
         Showing&nbsp;
         <Text weight="medium">{props.getState().pagination.pageIndex + 1}</Text>
         &nbsp;of&nbsp;
-        <Text weight="medium">{props.getPageCount()}</Text>&nbsp;pages&nbsp;
+        <Text weight="medium">{props.getPageCount()}</Text>&nbsp;pages
       </PaginationStats>
       <ButtonContainer>
         <Button
