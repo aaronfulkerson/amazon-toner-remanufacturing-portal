@@ -89,9 +89,9 @@ function TableBody<TData>({
   );
 }
 
-interface TableBodyPlaceholderProps {
+interface TableBodyPlaceholderProps
+  extends Pick<React.ComponentProps<"td">, "colSpan"> {
   children: React.ReactNode;
-  colSpan: number;
 }
 
 function TableBodyPlaceholder({
