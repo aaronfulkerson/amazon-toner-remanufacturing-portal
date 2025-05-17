@@ -1,7 +1,7 @@
 import { SessionlessFormContainer } from "@/components";
 import { LoginForm } from "@/modules/login";
 
-export function LoginModulePage() {
+export default function LoginPage() {
   return (
     <SessionlessFormContainer>
       <LoginForm />

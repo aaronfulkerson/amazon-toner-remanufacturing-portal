@@ -1,7 +1,7 @@
 import { SessionlessFormContainer } from "@/components";
 import { SetupForm } from "@/modules/setup";
 
-export function SetupModulePage() {
+export default function SetupPage() {
   return (
     <SessionlessFormContainer>
       <SetupForm />

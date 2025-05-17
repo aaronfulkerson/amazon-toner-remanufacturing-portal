@@ -24,7 +24,7 @@ function PageActions() {
   );
 }
 
-export function UsersModuleAdminPage() {
+export default function UsersPage() {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 500);
   const handleSetSearch: ChangeEventHandler<HTMLInputElement> = (e) =>
