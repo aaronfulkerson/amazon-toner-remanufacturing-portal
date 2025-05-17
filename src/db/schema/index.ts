@@ -18,6 +18,8 @@ export * from "./part";
 export * from "./part.types";
 export * from "./permission";
 export * from "./permission.types";
+export * from "./reset-token";
+export * from "./reset-token.types";
 export * from "./session";
 export * from "./session.types";
 export * from "./toner";

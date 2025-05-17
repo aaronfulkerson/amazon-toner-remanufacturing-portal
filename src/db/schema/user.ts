@@ -24,10 +24,11 @@ export const userTable = pgTable(
   "user",
   {
     id: serial("id").primaryKey(),
-    active: boolean("active").notNull().default(true),
+    active: boolean("active").notNull().default(false),
     email: text("email").notNull().unique(),
     name: text("name").notNull(),
-    passwordHash: text("passwordHash").notNull(),
+    passwordHash: text("password_hash").notNull(),
+    passwordReset: boolean("password_reset").notNull().default(false),
     role: roleEnum("role").notNull(),
   },
   (table) => [uniqueIndex("email").on(table.email)]
