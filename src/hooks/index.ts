@@ -1,1 +1,1 @@
-export * from "./query-with-toast";
+export * from "./use-query-with-toast";

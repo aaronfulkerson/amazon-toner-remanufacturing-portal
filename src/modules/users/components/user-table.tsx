@@ -57,13 +57,13 @@ interface UserTableProps {
   search?: string;
 }
 
-export function UserTable(props: UserTableProps) {
+export function UserTable({ search }: UserTableProps) {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const queryObj = props.search ? { search: props.search } : undefined;
+  const queryObj = search ? { search } : undefined;
   const fetchUrl = getApiUrl("/users", pagination, queryObj);
 
   const { data, isError, isLoading } = useQueryWithToast<GetUsersSuccess>(
