@@ -7,7 +7,7 @@ export async function deleteSecureTokenById(id: SelectSecureToken["id"]) {
 }
 
 export async function getSecureToken(
-  token: string,
+  token: SelectSecureToken["token"],
   type: SelectSecureToken["type"]
 ): Promise<SelectSecureToken | undefined> {
   const result = await db
