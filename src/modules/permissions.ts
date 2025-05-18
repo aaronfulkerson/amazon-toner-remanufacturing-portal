@@ -11,7 +11,7 @@ type Permissions = {
 export const PERMISSIONS: Permissions = {
   CARTRIDGES: {
     [USER_ROLE.ADMIN]: true,
-    [USER_ROLE.CUSTOMER]: [PERMISSION_NAME.TONER],
+    [USER_ROLE.CUSTOMER]: false,
     [USER_ROLE.EMPLOYEE]: [PERMISSION_NAME.TONER],
     [USER_ROLE.TECHNICIAN]: false,
   },
