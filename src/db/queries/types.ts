@@ -1,8 +1,9 @@
 import { db } from "@/db";
 
-import type { TablesRelationalConfig } from "drizzle-orm";
+import type { ExtractTablesWithRelations } from "drizzle-orm";
 import type { NeonTransaction } from "drizzle-orm/neon-serverless";
 
+type FullSchema = typeof db._.fullSchema;
 export type DbExecutor =
-  | NeonTransaction<typeof db._.fullSchema, TablesRelationalConfig>
+  | NeonTransaction<FullSchema, ExtractTablesWithRelations<FullSchema>>
   | typeof db;
