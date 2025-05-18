@@ -6,7 +6,7 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { userTable } from "./user";
+import { userTable } from "@/db/schema";
 
 export const SECURE_TOKEN_TYPE = {
   EMAIL_CONFIRMATION: "email_confirmation",
