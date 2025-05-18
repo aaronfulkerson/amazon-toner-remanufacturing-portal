@@ -1,6 +1,11 @@
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { permissionTable, sessionTable, userTable } from "@/db/schema";
+import {
+  permissionTable,
+  sessionTable,
+  userTable,
+  userTableNoPasswordHash,
+} from "@/db/schema";
 
 import type { SelectSession } from "@/db/schema";
 import type { ValidSession } from "@/lib";
@@ -11,15 +16,9 @@ export async function getSessionById(
 ): Promise<ValidSession | undefined> {
   const result = await db
     .select({
-      permissions: sql<UserPermissions>`json_agg(${permissionTable.permission})`,
+      permissions: sql<UserPermissions>`json_agg(${permissionTable.name})`,
       session: sessionTable,
-      user: {
-        active: userTable.active,
-        email: userTable.email,
-        id: userTable.id,
-        name: userTable.name,
-        role: userTable.role,
-      },
+      user: userTableNoPasswordHash,
     })
     .from(sessionTable)
     .innerJoin(userTable, eq(sessionTable.userId, userTable.id))

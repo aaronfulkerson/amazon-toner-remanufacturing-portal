@@ -10,6 +10,12 @@ export async function getUserByEmail(
   const result = await db
     .select()
     .from(userTable)
-    .where(and(eq(userTable.email, email), eq(userTable.active, true)));
+    .where(
+      and(
+        eq(userTable.email, email),
+        eq(userTable.active, true),
+        eq(userTable.emailConfirmed, true)
+      )
+    );
   if (result.length) return result[0];
 }

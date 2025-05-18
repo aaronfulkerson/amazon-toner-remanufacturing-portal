@@ -12,7 +12,7 @@ export async function createUser(
   formData: FormData
 ): Promise<ServerResult> {
   try {
-    const { email, name, permissions, role } = await validate(formData);
+    const { email, name, permissions, role } = validate(formData);
 
     const bytes = new Uint8Array(20);
     crypto.getRandomValues(bytes);

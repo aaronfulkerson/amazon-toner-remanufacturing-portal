@@ -11,19 +11,19 @@ import {
   FormTextField,
 } from "@/components/form-components";
 import { useToast } from "@/components/toast.context";
-import { PERMISSION, USER_ROLE } from "@/db/schema";
+import { PERMISSION_NAME, USER_ROLE } from "@/db/schema";
 import { createUser, createUserSchema } from "@/modules/users";
 
 import type { FormEventHandler } from "react";
 
 const permissionsGroups = {
-  [USER_ROLE.CUSTOMER]: [PERMISSION.TONER],
+  [USER_ROLE.CUSTOMER]: [PERMISSION_NAME.TONER],
   [USER_ROLE.EMPLOYEE]: [
-    PERMISSION.REMANUFACTURING,
-    PERMISSION.SERVICE,
-    PERMISSION.TONER,
+    PERMISSION_NAME.REMANUFACTURING,
+    PERMISSION_NAME.SERVICE,
+    PERMISSION_NAME.TONER,
   ],
-  [USER_ROLE.TECHNICIAN]: [PERMISSION.SERVICE],
+  [USER_ROLE.TECHNICIAN]: [PERMISSION_NAME.SERVICE],
 } as const;
 
 interface CreateUserFormProps {

@@ -1,22 +1,21 @@
 import { asc, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { permissionTable, userTable } from "@/db/schema";
+import {
+  permissionTable,
+  userTable,
+  userTableNoPasswordHash,
+} from "@/db/schema";
 
 import type {
   InsertPermission,
   InsertUser,
   SelectPermission,
-  SelectUser,
+  SelectUserOmitPasswordHash,
 } from "@/db/schema";
 
-export type UserPermissions = (SelectPermission["permission"] | null)[];
-interface User {
-  active: SelectUser["active"];
-  email: SelectUser["email"];
-  id: SelectUser["id"];
-  name: SelectUser["name"];
+export type UserPermissions = (SelectPermission["name"] | null)[];
+interface User extends SelectUserOmitPasswordHash {
   permissions: UserPermissions;
-  role: SelectUser["role"];
 }
 
 export async function getUsers(
@@ -27,15 +26,10 @@ export async function getUsers(
   const usersCte = db.$with("users_cte").as(() => {
     const usersQuery = db
       .select({
-        active: userTable.active,
-        email: userTable.email,
-        id: userTable.id,
-        name: userTable.name,
-        permissions:
-          sql<UserPermissions>`json_agg(${permissionTable.permission})`.as(
-            "permissions"
-          ),
-        role: userTable.role,
+        ...userTableNoPasswordHash,
+        permissions: sql<UserPermissions>`json_agg(${permissionTable.name})`.as(
+          "permissions"
+        ),
       })
       .from(userTable)
       .leftJoin(permissionTable, eq(userTable.id, permissionTable.userId))
@@ -68,7 +62,7 @@ export async function getUsers(
 
 export async function insertUserWithPermissions(
   user: InsertUser,
-  permissions: InsertPermission["permission"][]
+  permissions: InsertPermission["name"][]
 ) {
   await db.transaction(async (tx) => {
     const [{ userId }] = await tx
@@ -78,6 +72,6 @@ export async function insertUserWithPermissions(
     if (permissions.length)
       await tx
         .insert(permissionTable)
-        .values(permissions.map((permission) => ({ permission, userId })));
+        .values(permissions.map((name) => ({ name, userId })));
   });
 }

@@ -16,5 +16,5 @@ export type SessionValidationResult =
   | { permissions: null; session: null; user: null };
 
 export type AllowedRoles = {
-  [k in SelectUser["role"]]: boolean | SelectPermission["permission"][];
+  [k in SelectUser["role"]]: boolean | SelectPermission["name"][];
 };
