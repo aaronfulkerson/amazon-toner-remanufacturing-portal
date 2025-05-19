@@ -18,7 +18,7 @@ export function SetupForm() {
 
   useEffect(() => {
     if (state) createToast(state);
-  }, [state]);
+  }, [createToast, state]);
 
   const form = useForm({
     defaultValues: {

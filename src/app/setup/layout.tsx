@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
+import { SessionlessLayoutContainer } from "@/components";
 import { ROUTES } from "@/modules";
 import { verifyInitialSetup } from "@/modules/setup";
-import { SessionlessLayoutContainer } from "@/components";
 
 export default async function SetupLayout({
   children,

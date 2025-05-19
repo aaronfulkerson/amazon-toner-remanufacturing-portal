@@ -1,3 +1,4 @@
+import { getTableColumns } from "drizzle-orm";
 import {
   boolean,
   pgEnum,
@@ -13,7 +14,7 @@ export const USER_ROLE = {
   EMPLOYEE: "employee",
   TECHNICIAN: "technician",
 } as const;
-export const roleEnum = pgEnum("role", [
+export const userRoleEnum = pgEnum("user_role_enum", [
   USER_ROLE.ADMIN,
   USER_ROLE.CUSTOMER,
   USER_ROLE.EMPLOYEE,
@@ -26,9 +27,13 @@ export const userTable = pgTable(
     id: serial("id").primaryKey(),
     active: boolean("active").notNull().default(true),
     email: text("email").notNull().unique(),
+    emailConfirmed: boolean("email_confirmed").notNull().default(false),
     name: text("name").notNull(),
-    passwordHash: text("passwordHash").notNull(),
-    role: roleEnum("role").notNull(),
+    passwordHash: text("password_hash").notNull(),
+    role: userRoleEnum("role").notNull(),
   },
   (table) => [uniqueIndex("email").on(table.email)]
 );
+
+const { passwordHash, ...userTableRest } = getTableColumns(userTable);
+export { userTableRest as userTableNoPasswordHash };

@@ -1,12 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 import type { Dispatch, SetStateAction } from "react";
 import type { ServerResult } from "@/lib";
 
 export interface Toast extends NonNullable<ServerResult> {
-  id: number;
+  timestamp: number;
   duration?: number;
   title?: string;
 }
@@ -43,16 +43,17 @@ export function useToast() {
 
   const { setState, state } = context;
 
-  function createToast(toast: Omit<Toast, "id">) {
-    const id = (state.at(-1)?.id ?? 0) + 1;
-
-    setState((s) => [...s, { ...toast, id }]);
-
-    setTimeout(
-      () => setState((s) => s.filter((t) => t.id !== id)),
-      toast.duration ?? DEFAULT_TOAST_DURATION
-    );
-  }
+  const createToast = useCallback(
+    function createToast(toast: Omit<Toast, "timestamp">) {
+      const timestamp = new Date().valueOf();
+      setState((s) => [...s, { ...toast, timestamp }]);
+      setTimeout(
+        () => setState((s) => s.filter((t) => t.timestamp !== timestamp)),
+        toast.duration ?? DEFAULT_TOAST_DURATION
+      );
+    },
+    [setState]
+  );
 
   return { createToast, toastState: state };
 }

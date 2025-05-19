@@ -20,7 +20,7 @@ export const JOB_TIMESTAMP_TYPE = {
   REPAIR_END: "repair_end",
   REPAIR_START: "repair_start",
 } as const;
-export const jobTimestampTypeEnum = pgEnum("job_timestamp_type", [
+export const jobTimestampTypeEnum = pgEnum("job_timestamp_type_enum", [
   JOB_TIMESTAMP_TYPE.BREAK_END,
   JOB_TIMESTAMP_TYPE.BREAK_START,
   JOB_TIMESTAMP_TYPE.JOB_END,

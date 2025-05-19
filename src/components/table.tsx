@@ -89,10 +89,8 @@ function TableBody<TData>({
   );
 }
 
-interface TableBodyPlaceholderProps {
-  children: React.ReactNode;
-  colSpan: number;
-}
+interface TableBodyPlaceholderProps
+  extends Pick<React.ComponentProps<"td">, "children" | "colSpan"> {}
 
 function TableBodyPlaceholder({
   children,
@@ -158,9 +156,8 @@ function TableHead<TData>({ className, getHeaderGroups }: TableHead<TData>) {
   );
 }
 
-interface TableContainerProps {
-  children: React.ReactNode;
-}
+interface TableContainerProps
+  extends Pick<React.ComponentProps<"div">, "children"> {}
 
 function TableContainer({ children }: TableContainerProps) {
   return (
@@ -172,16 +169,13 @@ function TableContainer({ children }: TableContainerProps) {
   );
 }
 
-type RequiredTableOptions<TData> = Pick<
-  TableOptions<TData>,
-  "columns" | "data"
->;
-type OmittedTableOptions<TData> = RequiredTableOptions<TData> &
-  Pick<TableOptions<TData>, "getCoreRowModel">;
-export type CustomTableOptions<TData> = Omit<
-  TableOptions<TData>,
-  keyof OmittedTableOptions<TData>
->;
+interface RequiredTableOptions<TData>
+  extends Pick<TableOptions<TData>, "columns" | "data"> {}
+interface OmittedTableOptions<TData>
+  extends RequiredTableOptions<TData>,
+    Pick<TableOptions<TData>, "getCoreRowModel"> {}
+export interface CustomTableOptions<TData>
+  extends Omit<TableOptions<TData>, keyof OmittedTableOptions<TData>> {}
 interface TableProps<TData>
   extends RequiredTableOptions<TData>,
     Partial<Pick<UseQueryResult<TData>, "isError" | "isLoading">>,

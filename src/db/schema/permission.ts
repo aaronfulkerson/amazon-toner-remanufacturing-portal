@@ -1,15 +1,15 @@
 import { integer, pgEnum, pgTable, serial } from "drizzle-orm/pg-core";
 import { userTable } from "@/db/schema";
 
-export const PERMISSION = {
+export const PERMISSION_NAME = {
   REMANUFACTURING: "remanufacturing",
   SERVICE: "service",
   TONER: "toner",
 } as const;
-export const permissionEnum = pgEnum("permission_enum", [
-  PERMISSION.REMANUFACTURING,
-  PERMISSION.SERVICE,
-  PERMISSION.TONER,
+export const permissionNameEnum = pgEnum("permission_name_enum", [
+  PERMISSION_NAME.REMANUFACTURING,
+  PERMISSION_NAME.SERVICE,
+  PERMISSION_NAME.TONER,
 ]);
 
 export const permissionTable = pgTable("permission", {
@@ -17,5 +17,5 @@ export const permissionTable = pgTable("permission", {
   userId: integer("user_id")
     .notNull()
     .references(() => userTable.id),
-  permission: permissionEnum("permission").notNull(),
+  name: permissionNameEnum("name").notNull(),
 });

@@ -1,12 +1,16 @@
 import { asc, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { permissionTable, userTable } from "@/db/schema";
+import {
+  permissionTable,
+  userTable,
+  userTableNoPasswordHash,
+} from "@/db/schema";
 
 import type {
   InsertPermission,
   InsertUser,
   SelectPermission,
-  SelectUser,
+  SelectUserOmitPasswordHash,
 } from "@/db/schema";
 
 export type UserPermissions = SelectPermission["permission"][];
@@ -16,7 +20,6 @@ interface User {
   id: SelectUser["id"];
   name: SelectUser["name"];
   permissions: UserPermissions;
-  role: SelectUser["role"];
 }
 
 export async function getUsers(
@@ -27,15 +30,10 @@ export async function getUsers(
   const usersCte = db.$with("users_cte").as(() => {
     const usersQuery = db
       .select({
-        active: userTable.active,
-        email: userTable.email,
-        id: userTable.id,
-        name: userTable.name,
-        permissions:
-          sql<UserPermissions>`json_agg(${permissionTable.permission})`.as(
-            "permissions"
-          ),
-        role: userTable.role,
+        ...userTableNoPasswordHash,
+        permissions: sql<UserPermissions>`json_agg(${permissionTable.name})`.as(
+          "permissions"
+        ),
       })
       .from(userTable)
       .leftJoin(permissionTable, eq(userTable.id, permissionTable.userId))
@@ -80,6 +78,6 @@ export async function insertUserWithPermissions<
     if (permissions.length)
       await tx
         .insert(permissionTable)
-        .values(permissions.map((permission) => ({ permission, userId })));
+        .values(permissions.map((name) => ({ name, userId })));
   });
 }
