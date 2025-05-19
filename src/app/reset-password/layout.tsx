@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
+import { SessionlessLayoutContainer } from "@/components";
 import { getCurrentSession } from "@/lib/auth/session.cached";
 import { ROUTES } from "@/modules";
-import { SessionlessLayoutContainer } from "@/components";
 
 export default async function ResetPasswordLayout({
   children,
