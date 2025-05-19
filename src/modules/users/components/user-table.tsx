@@ -17,7 +17,7 @@ interface PermissionsCellProps<TData> {
 
 function PermissionsCell<TData>({ cell }: PermissionsCellProps<TData>) {
   const value = cell.getValue();
-  if (value.includes(null)) return "none";
+  if (value.some((v) => v == null)) return "none";
   return value.join(", ");
 }
 

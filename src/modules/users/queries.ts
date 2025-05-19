@@ -9,7 +9,7 @@ import type {
   SelectUser,
 } from "@/db/schema";
 
-export type UserPermissions = (SelectPermission["permission"] | null)[];
+export type UserPermissions = SelectPermission["permission"][];
 interface User {
   active: SelectUser["active"];
   email: SelectUser["email"];
@@ -66,10 +66,12 @@ export async function getUsers(
   return result[0];
 }
 
-export async function insertUserWithPermissions(
-  user: InsertUser,
-  permissions: InsertPermission["permission"][]
-) {
+export async function insertUserWithPermissions<
+  T extends [
+    InsertPermission["permission"],
+    ...InsertPermission["permission"][]
+  ]
+>(user: InsertUser, permissions: T) {
   await db.transaction(async (tx) => {
     const [{ userId }] = await tx
       .insert(userTable)
