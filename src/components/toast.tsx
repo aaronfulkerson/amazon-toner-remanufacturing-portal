@@ -43,7 +43,7 @@ function ToastContainer() {
   return (
     <Toast.Provider swipeDirection="right">
       {toastState.map((t) => (
-        <ToastItem key={t.id} {...t} />
+        <ToastItem key={t.timestamp} {...t} />
       ))}
       <Toast.Viewport className={toastViewportVariants()} />
     </Toast.Provider>

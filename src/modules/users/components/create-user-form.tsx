@@ -43,7 +43,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       closeModal();
     }
-  }, [state]);
+  }, [closeModal, createToast, queryClient, state]);
 
   const form = useForm({
     defaultValues: {

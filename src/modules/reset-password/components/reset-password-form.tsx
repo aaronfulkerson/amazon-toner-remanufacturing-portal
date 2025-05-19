@@ -19,7 +19,7 @@ export function ResetPasswordForm() {
   const { createToast } = useToast();
   useEffect(() => {
     if (state) createToast(state);
-  }, [state]);
+  }, [createToast, state]);
 
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
