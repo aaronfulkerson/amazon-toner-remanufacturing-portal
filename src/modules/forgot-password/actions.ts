@@ -21,13 +21,13 @@ export async function forgotPassword(prev: unknown, formData: FormData) {
   await deleteSecureTokenByUserId(user.id);
 
   const token = crypto.randomUUID();
-  const secureToken: InsertSecureToken = {
+  const passwordResetToken: InsertSecureToken = {
     expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
     token,
     type: SECURE_TOKEN_TYPE.PASSWORD_RESET,
     userId: user.id,
   };
-  await insertSecureToken(secureToken);
+  await insertSecureToken(passwordResetToken);
 
   console.log("SEND EMAIL");
 
