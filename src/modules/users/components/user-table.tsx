@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Table } from "@/components";
 import { useQueryWithToast } from "@/hooks";
 import { getApiUrl } from "@/lib/api";
+import { cnMerge } from "@/lib/ui";
+import { rowActionsVariants } from "@/modules/users/components/user-table.variants";
 
 import type { Cell, PaginationState, Row } from "@tanstack/react-table";
 import type { GetUsersSuccess } from "@/app/api/users/route";
@@ -21,15 +23,16 @@ function PermissionsCell<TData>({ cell }: PermissionsCellProps<TData>) {
   return value.join(", ");
 }
 
-interface RowActionsProps<TData> {
-  row: Row<TData>;
+interface RowActionsProps {
+  row: Row<User>;
 }
 
-function RowActions<TData>({ row }: RowActionsProps<TData>) {
+function RowActions({ row }: RowActionsProps) {
+  const disabled = row.original.role === "admin";
   return (
     <a
       href="#"
-      className="text-indigo-600 hover:text-indigo-900"
+      className={cnMerge(rowActionsVariants({ disabled }))}
       onClick={() => console.log(row)}
     >
       Edit
