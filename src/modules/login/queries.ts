@@ -4,7 +4,7 @@ import { userTable } from "@/db/schema";
 
 import type { SelectUser } from "@/db/schema";
 
-export async function getUserByEmail(
+export async function getUserForLogin(
   email: SelectUser["email"]
 ): Promise<SelectUser | undefined> {
   const result = await db

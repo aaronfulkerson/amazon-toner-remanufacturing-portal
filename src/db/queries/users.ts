@@ -1,8 +1,16 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { userTable } from "@/db/schema";
+import { userTable, userTableNoPasswordHash } from "@/db/schema";
 
 import type { InsertUser, SelectUser, UpdateUser } from "@/db/schema";
+
+export async function getUserByEmail(email: InsertUser["email"]) {
+  const result = await db
+    .select(userTableNoPasswordHash)
+    .from(userTable)
+    .where(eq(userTable.email, email));
+  if (result.length) return result[0];
+}
 
 export async function insertUser(
   user: InsertUser
