@@ -9,8 +9,8 @@ import {
 import { SECURE_TOKEN_TYPE, UpdateUser } from "@/db/schema";
 import { RESULT_TYPE } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
-import { ROUTES } from "@/modules";
-import { RESET_PASSWORD_ERRORS, validate } from "@/modules/reset-password";
+import { ROUTES, SECURE_TOKEN_ERRORS } from "@/modules";
+import { validate } from "@/modules/reset-password";
 
 export async function resetPassword(prev: unknown, formData: FormData) {
   try {
@@ -20,11 +20,11 @@ export async function resetPassword(prev: unknown, formData: FormData) {
       token,
       SECURE_TOKEN_TYPE.PASSWORD_RESET
     );
-    if (!passwordResetToken) throw Error(RESET_PASSWORD_ERRORS.TOKEN_NOT_FOUND);
+    if (!passwordResetToken) throw Error(SECURE_TOKEN_ERRORS.TOKEN_NOT_FOUND);
 
     if (Date.now() > passwordResetToken.expiresAt.getTime()) {
       await deleteSecureTokenById(passwordResetToken.id);
-      throw Error(RESET_PASSWORD_ERRORS.TOKEN_EXPIRED);
+      throw Error(SECURE_TOKEN_ERRORS.TOKEN_EXPIRED);
     }
 
     const user: UpdateUser = {
