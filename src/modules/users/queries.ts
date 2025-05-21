@@ -65,10 +65,7 @@ export async function getUsers(
 
 export async function insertUserWithPermissions(
   user: InsertUser,
-  permissions: [
-    InsertPermission["permission"],
-    ...InsertPermission["permission"][]
-  ]
+  permissions: [InsertPermission["name"], ...InsertPermission["name"][]]
 ) {
   return await db.transaction(async (tx) => {
     const [{ userId }] = await tx
