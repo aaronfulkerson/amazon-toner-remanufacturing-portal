@@ -1,12 +1,13 @@
 "use client";
 
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, useCallback, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { Button, Input, Modal, PageHeading } from "@/components";
 import { CreateUserForm, UserTable } from "@/modules/users";
 
 function PageActions() {
   const [open, setOpen] = useState(false);
+  const closeModal = useCallback(() => setOpen(false), [setOpen]);
 
   return (
     <Modal
@@ -19,7 +20,7 @@ function PageActions() {
         </Button>
       }
     >
-      <CreateUserForm closeModal={() => setOpen(false)} />
+      <CreateUserForm closeModal={closeModal} />
     </Modal>
   );
 }

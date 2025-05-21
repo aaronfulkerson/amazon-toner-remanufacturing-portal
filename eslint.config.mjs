@@ -14,6 +14,10 @@ const eslintConfig = [
           allowInterfaces: "with-single-extends",
         },
       ],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { ignoreRestSiblings: true },
+      ],
     },
   }),
 ];

@@ -22,7 +22,7 @@ export function useQueryWithToast<TQueryFnData>(
 
   useEffect(() => {
     if (error) createToast(error);
-  }, [error]);
+  }, [createToast, error]);
 
   return { error, ...rest };
 }

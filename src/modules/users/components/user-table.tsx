@@ -5,31 +5,34 @@ import { useState } from "react";
 import { Table } from "@/components";
 import { useQueryWithToast } from "@/hooks";
 import { getApiUrl } from "@/lib/api";
+import { cnMerge } from "@/lib/ui";
+import { rowActionsVariants } from "@/modules/users/components/user-table.variants";
 
 import type { Cell, PaginationState, Row } from "@tanstack/react-table";
 import type { GetUsersSuccess } from "@/app/api/users/route";
 import type { CustomTableOptions } from "@/components";
 
 type User = GetUsersSuccess["users"][number];
-interface PermissionsCellProps<TData> {
-  cell: Cell<TData, User["permissions"]>;
+interface PermissionsCellProps {
+  cell: Cell<User, User["permissions"]>;
 }
 
-function PermissionsCell<TData>({ cell }: PermissionsCellProps<TData>) {
+function PermissionsCell({ cell }: PermissionsCellProps) {
   const value = cell.getValue();
   if (value.includes(null)) return "none";
   return value.join(", ");
 }
 
-interface RowActionsProps<TData> {
-  row: Row<TData>;
+interface RowActionsProps {
+  row: Row<User>;
 }
 
-function RowActions<TData>({ row }: RowActionsProps<TData>) {
+function RowActions({ row }: RowActionsProps) {
+  const disabled = row.original.role === "admin";
   return (
     <a
       href="#"
-      className="text-indigo-600 hover:text-indigo-900"
+      className={cnMerge(rowActionsVariants({ disabled }))}
       onClick={() => console.log(row)}
     >
       Edit
@@ -57,14 +60,14 @@ interface UserTableProps {
   search?: string;
 }
 
-export function UserTable(props: UserTableProps) {
+export function UserTable({ search }: UserTableProps) {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const queryObj = props.search ? { search: props.search } : undefined;
-  const fetchUrl = getApiUrl("/users", pagination, queryObj);
+  const queryObj = search ? { search } : undefined;
+  const fetchUrl = getApiUrl("/users", { pagination, queryObj });
 
   const { data, isError, isLoading } = useQueryWithToast<GetUsersSuccess>(
     fetchUrl,

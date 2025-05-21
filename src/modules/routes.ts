@@ -10,7 +10,10 @@ export const FEATURE_ROUTES = {
 
 export const ROUTES = {
   ...FEATURE_ROUTES,
+  CONFIRM_EMAIL: "/confirm-email",
+  FORGOT_PASSWORD: "/forgot-password",
   LOGIN: "/login",
+  RESET_PASSWORD: "/reset-password",
   ROOT: "/",
   SETUP: "/setup",
 } as const;

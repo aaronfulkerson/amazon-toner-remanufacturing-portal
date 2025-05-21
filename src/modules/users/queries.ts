@@ -1,22 +1,24 @@
 import { asc, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { permissionTable, userTable } from "@/db/schema";
+import {
+  permissionTable,
+  SECURE_TOKEN_TYPE,
+  secureTokenTable,
+  userTable,
+  userTableNoPasswordHash,
+} from "@/db/schema";
+import { generateSecureToken } from "@/lib/auth/secure-tokens";
 
 import type {
   InsertPermission,
   InsertUser,
   SelectPermission,
-  SelectUser,
+  SelectUserOmitPasswordHash,
 } from "@/db/schema";
 
-export type UserPermissions = (SelectPermission["permission"] | null)[];
-interface User {
-  active: SelectUser["active"];
-  email: SelectUser["email"];
-  id: SelectUser["id"];
-  name: SelectUser["name"];
+export type UserPermissions = (SelectPermission["name"] | null)[];
+interface User extends SelectUserOmitPasswordHash {
   permissions: UserPermissions;
-  role: SelectUser["role"];
 }
 
 export async function getUsers(
@@ -27,15 +29,10 @@ export async function getUsers(
   const usersCte = db.$with("users_cte").as(() => {
     const usersQuery = db
       .select({
-        active: userTable.active,
-        email: userTable.email,
-        id: userTable.id,
-        name: userTable.name,
-        permissions:
-          sql<UserPermissions>`json_agg(${permissionTable.permission})`.as(
-            "permissions"
-          ),
-        role: userTable.role,
+        ...userTableNoPasswordHash,
+        permissions: sql<UserPermissions>`json_agg(${permissionTable.name})`.as(
+          "permissions"
+        ),
       })
       .from(userTable)
       .leftJoin(permissionTable, eq(userTable.id, permissionTable.userId))
@@ -73,14 +70,23 @@ export async function insertUserWithPermissions(
     ...InsertPermission["permission"][]
   ]
 ) {
-  await db.transaction(async (tx) => {
+  return await db.transaction(async (tx) => {
     const [{ userId }] = await tx
       .insert(userTable)
       .values(user)
       .returning({ userId: userTable.id });
+
+    const secureToken = generateSecureToken(
+      SECURE_TOKEN_TYPE.EMAIL_CONFIRMATION,
+      userId
+    );
+    await tx.insert(secureTokenTable).values(secureToken);
+
     if (permissions.length)
       await tx
         .insert(permissionTable)
-        .values(permissions.map((permission) => ({ permission, userId })));
+        .values(permissions.map((name) => ({ name, userId })));
+
+    return secureToken.token;
   });
 }

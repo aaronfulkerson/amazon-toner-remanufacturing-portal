@@ -21,6 +21,7 @@ export async function createAdmin(
     const passwordHash = await hashPassword(password);
     const user: InsertUser = {
       email,
+      emailConfirmed: true,
       name,
       passwordHash,
       role: USER_ROLE.ADMIN,

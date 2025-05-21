@@ -1,5 +1,5 @@
 {
-  "id": "d045d8fd-d229-463f-87bb-e495aca4735e",
+  "id": "fd9b01ca-bf16-4612-9cc6-b7f28cf294f0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -268,7 +268,7 @@
         },
         "type": {
           "name": "type",
-          "type": "job_timestamp_type",
+          "type": "job_timestamp_type_enum",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -467,9 +467,9 @@
           "primaryKey": false,
           "notNull": true
         },
-        "permission": {
-          "name": "permission",
-          "type": "permission_enum",
+        "name": {
+          "name": "name",
+          "type": "permission_name_enum",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -480,6 +480,64 @@
         "permission_user_id_user_id_fk": {
           "name": "permission_user_id_user_id_fk",
           "tableFrom": "permission",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.secure_token": {
+      "name": "secure_token",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "secure_token_type_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "secure_token_user_id_user_id_fk": {
+          "name": "secure_token_user_id_user_id_fk",
+          "tableFrom": "secure_token",
           "tableTo": "user",
           "columnsFrom": [
             "user_id"
@@ -560,14 +618,14 @@
         },
         "color": {
           "name": "color",
-          "type": "toner_color",
+          "type": "toner_color_enum",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
         "yield": {
           "name": "yield",
-          "type": "toner_yield",
+          "type": "toner_yield_enum",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -618,21 +676,28 @@
           "primaryKey": false,
           "notNull": true
         },
+        "email_confirmed": {
+          "name": "email_confirmed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
         "name": {
           "name": "name",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
-        "passwordHash": {
-          "name": "passwordHash",
+        "password_hash": {
+          "name": "password_hash",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
         "role": {
           "name": "role",
-          "type": "role",
+          "type": "user_role_enum",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -672,8 +737,8 @@
     }
   },
   "enums": {
-    "public.job_timestamp_type": {
-      "name": "job_timestamp_type",
+    "public.job_timestamp_type_enum": {
+      "name": "job_timestamp_type_enum",
       "schema": "public",
       "values": [
         "break_end",
@@ -688,8 +753,8 @@
         "repair_start"
       ]
     },
-    "public.permission_enum": {
-      "name": "permission_enum",
+    "public.permission_name_enum": {
+      "name": "permission_name_enum",
       "schema": "public",
       "values": [
         "remanufacturing",
@@ -697,8 +762,8 @@
         "toner"
       ]
     },
-    "public.toner_color": {
-      "name": "toner_color",
+    "public.toner_color_enum": {
+      "name": "toner_color_enum",
       "schema": "public",
       "values": [
         "black",
@@ -707,22 +772,30 @@
         "yellow"
       ]
     },
-    "public.toner_yield": {
-      "name": "toner_yield",
+    "public.toner_yield_enum": {
+      "name": "toner_yield_enum",
       "schema": "public",
       "values": [
         "high",
         "normal"
       ]
     },
-    "public.role": {
-      "name": "role",
+    "public.user_role_enum": {
+      "name": "user_role_enum",
       "schema": "public",
       "values": [
         "admin",
         "customer",
         "employee",
         "technician"
+      ]
+    },
+    "public.secure_token_type_enum": {
+      "name": "secure_token_type_enum",
+      "schema": "public",
+      "values": [
+        "email_confirmation",
+        "password_reset"
       ]
     }
   },

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PERMISSION, USER_ROLE } from "@/db/schema";
+import { PERMISSION_NAME, USER_ROLE } from "@/db/schema";
 
 const roleEnum = [
   USER_ROLE.CUSTOMER,
@@ -8,9 +8,9 @@ const roleEnum = [
 ] as const;
 
 const permissionsEnum = [
-  PERMISSION.REMANUFACTURING,
-  PERMISSION.SERVICE,
-  PERMISSION.TONER,
+  PERMISSION_NAME.REMANUFACTURING,
+  PERMISSION_NAME.SERVICE,
+  PERMISSION_NAME.TONER,
 ] as const;
 
 export const createUserSchema = z.object({

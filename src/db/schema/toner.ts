@@ -7,7 +7,7 @@ export const TONER_COLOR = {
   MAGENTA: "magenta",
   YELLOW: "yellow",
 } as const;
-export const tonerColorEnum = pgEnum("toner_color", [
+export const tonerColorEnum = pgEnum("toner_color_enum", [
   TONER_COLOR.BLACK,
   TONER_COLOR.CYAN,
   TONER_COLOR.MAGENTA,
@@ -18,7 +18,7 @@ export const TONER_YIELD = {
   HIGH: "high",
   NORMAL: "normal",
 } as const;
-export const tonerYieldEnum = pgEnum("toner_yield", [
+export const tonerYieldEnum = pgEnum("toner_yield_enum", [
   TONER_YIELD.HIGH,
   TONER_YIELD.NORMAL,
 ]);

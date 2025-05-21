@@ -22,7 +22,7 @@ export function LoginForm() {
 
   useEffect(() => {
     if (state) createToast(state);
-  }, [state]);
+  }, [createToast, state]);
 
   const form = useForm({
     defaultValues: {
