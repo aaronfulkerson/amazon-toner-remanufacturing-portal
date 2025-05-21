@@ -2,9 +2,12 @@ import { asc, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "@/db";
 import {
   permissionTable,
+  SECURE_TOKEN_TYPE,
+  secureTokenTable,
   userTable,
   userTableNoPasswordHash,
 } from "@/db/schema";
+import { generateSecureToken } from "@/lib/auth/secure-tokens";
 
 import type {
   InsertPermission,
@@ -64,14 +67,23 @@ export async function insertUserWithPermissions(
   user: InsertUser,
   permissions: InsertPermission["name"][]
 ) {
-  await db.transaction(async (tx) => {
+  return await db.transaction(async (tx) => {
     const [{ userId }] = await tx
       .insert(userTable)
       .values(user)
       .returning({ userId: userTable.id });
+
+    const secureToken = generateSecureToken(
+      SECURE_TOKEN_TYPE.EMAIL_CONFIRMATION,
+      userId
+    );
+    await tx.insert(secureTokenTable).values(secureToken);
+
     if (permissions.length)
       await tx
         .insert(permissionTable)
         .values(permissions.map((name) => ({ name, userId })));
+
+    return secureToken.token;
   });
 }

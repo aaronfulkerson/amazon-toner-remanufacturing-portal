@@ -2,9 +2,16 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { userTable, userTableNoPasswordHash } from "@/db/schema";
 
-import type { InsertUser, SelectUser, UpdateUser } from "@/db/schema";
+import type {
+  InsertUser,
+  SelectUser,
+  SelectUserOmitPasswordHash,
+  UpdateUser,
+} from "@/db/schema";
 
-export async function getUserByEmail(email: InsertUser["email"]) {
+export async function getUserByEmail(
+  email: InsertUser["email"]
+): Promise<SelectUserOmitPasswordHash | undefined> {
   const result = await db
     .select(userTableNoPasswordHash)
     .from(userTable)
