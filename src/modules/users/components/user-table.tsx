@@ -13,11 +13,11 @@ import type { GetUsersSuccess } from "@/app/api/users/route";
 import type { CustomTableOptions } from "@/components";
 
 type User = GetUsersSuccess["users"][number];
-interface PermissionsCellProps<TData> {
-  cell: Cell<TData, User["permissions"]>;
+interface PermissionsCellProps {
+  cell: Cell<User, User["permissions"]>;
 }
 
-function PermissionsCell<TData>({ cell }: PermissionsCellProps<TData>) {
+function PermissionsCell({ cell }: PermissionsCellProps) {
   const value = cell.getValue();
   if (value.includes(null)) return "none";
   return value.join(", ");
