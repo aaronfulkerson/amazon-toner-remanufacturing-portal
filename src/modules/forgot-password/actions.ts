@@ -15,7 +15,7 @@ import {
 import { generateSecureToken } from "@/lib/auth/secure-tokens";
 import { ROUTES } from "@/modules";
 import { validate } from "@/modules/forgot-password";
-import { RESULT_TYPE } from "@/lib";
+import { handleError } from "@/lib";
 
 import type { InsertUser, SelectUserOmitPasswordHash } from "@/db/schema";
 import type { ServerResult } from "@/lib";
@@ -24,17 +24,16 @@ export async function forgotPassword(
   prev: unknown,
   formData: FormData
 ): Promise<ServerResult> {
-  var user: SelectUserOmitPasswordHash | undefined;
-  var email: InsertUser["email"];
+  let user: SelectUserOmitPasswordHash | undefined;
+  let email: InsertUser["email"];
 
   try {
     const validated = validate(formData);
     email = validated.email;
 
     user = await getUserByEmail(email);
-  } catch (e) {
-    if (e instanceof Error)
-      return { message: e.message, type: RESULT_TYPE.ERROR };
+  } catch (e: unknown) {
+    return handleError(e);
   }
 
   if (!user) redirect(ROUTES.LOGIN);
@@ -57,9 +56,8 @@ export async function forgotPassword(
         token: passwordResetToken.token,
       }),
     });
-  } catch (e) {
-    if (e instanceof Error)
-      return { message: e.message, type: RESULT_TYPE.ERROR };
+  } catch (e: unknown) {
+    return handleError(e);
   }
 
   redirect(ROUTES.LOGIN);

@@ -2,7 +2,7 @@
 
 import { getEmailTemplate, resend } from "@/email";
 import { CREATE_USER_SUBJECT, CreateUserTemplate } from "@/email/templates";
-import { RESULT_TYPE } from "@/lib";
+import { handleError, RESULT_TYPE } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import { insertUserWithPermissions, validate } from "@/modules/users";
 
@@ -36,8 +36,7 @@ export async function createUser(
     });
 
     return { message: "User successfully created.", type: RESULT_TYPE.SUCCESS };
-  } catch (e) {
-    if (e instanceof Error)
-      return { message: e.message, type: RESULT_TYPE.ERROR };
+  } catch (e: unknown) {
+    return handleError(e);
   }
 }

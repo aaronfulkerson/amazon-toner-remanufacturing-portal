@@ -6,9 +6,6 @@ interface ForgotPasswordProps
   extends Pick<InsertUser, "name">,
     Pick<InsertSecureToken, "token"> {}
 
-export function ForgotPasswordTemplate({
-  name,
-  token,
-}: ForgotPasswordProps) {
+export function ForgotPasswordTemplate({ name, token }: ForgotPasswordProps) {
   return <></>;
 }

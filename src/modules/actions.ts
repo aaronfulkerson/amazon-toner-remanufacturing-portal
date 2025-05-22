@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { RESULT_TYPE, SESSION_ERRORS } from "@/lib";
+import { handleError, SESSION_ERRORS } from "@/lib";
 import {
   deleteSessionTokenCookie,
   invalidateSession,
@@ -18,9 +18,8 @@ export async function logout(): Promise<ServerResult> {
 
     await invalidateSession(session.id);
     await deleteSessionTokenCookie();
-  } catch (e) {
-    if (e instanceof Error)
-      return { message: e.message, type: RESULT_TYPE.ERROR };
+  } catch (e: unknown) {
+    return handleError(e);
   }
 
   redirect(ROUTES.LOGIN);

@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { insertUser } from "@/db/queries";
 import { USER_ROLE } from "@/db/schema";
-import { RESULT_TYPE } from "@/lib";
+import { handleError } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import { ROUTES } from "@/modules";
 import { validate } from "@/modules/setup";
@@ -27,9 +27,8 @@ export async function createAdmin(
       role: USER_ROLE.ADMIN,
     };
     await insertUser(user);
-  } catch (e) {
-    if (e instanceof Error)
-      return { message: e.message, type: RESULT_TYPE.ERROR };
+  } catch (e: unknown) {
+    return handleError(e);
   }
 
   redirect(ROUTES.LOGIN);

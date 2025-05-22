@@ -7,7 +7,7 @@ import {
   updateUser,
 } from "@/db/queries";
 import { SECURE_TOKEN_TYPE } from "@/db/schema";
-import { RESULT_TYPE } from "@/lib";
+import { handleError } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import { ROUTES, SECURE_TOKEN_ERRORS } from "@/modules";
 import { validate } from "@/modules/confirm-email";
@@ -39,9 +39,8 @@ export async function confirmEmail(
       passwordHash,
     });
     await deleteSecureTokenById(emailConfirmationToken.id);
-  } catch (e) {
-    if (e instanceof Error)
-      return { message: e.message, type: RESULT_TYPE.ERROR };
+  } catch (e: unknown) {
+    return handleError(e);
   }
 
   redirect(ROUTES.LOGIN);

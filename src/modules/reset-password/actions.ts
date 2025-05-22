@@ -7,7 +7,7 @@ import {
   updateUser,
 } from "@/db/queries";
 import { SECURE_TOKEN_TYPE, UpdateUser } from "@/db/schema";
-import { RESULT_TYPE } from "@/lib";
+import { handleError } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import { ROUTES, SECURE_TOKEN_ERRORS } from "@/modules";
 import { validate } from "@/modules/reset-password";
@@ -32,9 +32,8 @@ export async function resetPassword(prev: unknown, formData: FormData) {
     };
     await updateUser(passwordResetToken.userId, user);
     await deleteSecureTokenById(passwordResetToken.id);
-  } catch (e) {
-    if (e instanceof Error)
-      return { message: e.message, type: RESULT_TYPE.ERROR };
+  } catch (e: unknown) {
+    return handleError(e);
   }
 
   redirect(ROUTES.LOGIN);

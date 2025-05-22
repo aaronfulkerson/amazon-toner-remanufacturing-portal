@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { RESULT_TYPE } from "@/lib";
+import { handleError } from "@/lib";
 import {
   createSession,
   generateSessionToken,
@@ -22,9 +22,8 @@ export async function login(
     const token = generateSessionToken();
     const session = await createSession(token, user.id);
     await setSessionTokenCookie(token, session.expiresAt);
-  } catch (e) {
-    if (e instanceof Error)
-      return { message: e.message, type: RESULT_TYPE.ERROR };
+  } catch (e: unknown) {
+    return handleError(e);
   }
 
   redirect(ROUTES.DASHBOARD);
