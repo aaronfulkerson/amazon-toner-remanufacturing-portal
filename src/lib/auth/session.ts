@@ -15,6 +15,7 @@ import { getSessionById } from "@/lib/auth/session.queries";
 import type { InsertSession, SelectSession } from "@/db/schema";
 import type { SessionValidationResult } from "@/lib";
 
+export const SESSION_COOKIE_DAYS = 5;
 export const SESSION_COOKIE_NAME = "session";
 
 function encodeSessionId(token: string): string {
@@ -38,7 +39,7 @@ export async function createSession(
 ): Promise<SelectSession> {
   const sessionId = encodeSessionId(token);
   const session: InsertSession = {
-    expiresAt: daysFromToday(5),
+    expiresAt: daysFromToday(SESSION_COOKIE_DAYS),
     id: sessionId,
     userId,
   };

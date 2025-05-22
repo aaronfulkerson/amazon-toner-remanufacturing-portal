@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { SESSION_COOKIE_NAME } from "@/lib/auth/session";
+import { SESSION_COOKIE_DAYS, SESSION_COOKIE_NAME } from "@/lib/auth/session";
 
 import type { NextRequest } from "next/server";
 
@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       // a new session wasn't set when handling the request.
       response.cookies.set(SESSION_COOKIE_NAME, token, {
         path: "/",
-        maxAge: 60 * 60 * 24 * 5,
+        maxAge: 60 * 60 * 24 * SESSION_COOKIE_DAYS,
         sameSite: "lax",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
