@@ -5,6 +5,7 @@ import { handleError } from "@/lib";
 import {
   createSession,
   generateSessionToken,
+  invalidateAllSessions,
   setSessionTokenCookie,
 } from "@/lib/auth/session";
 import { ROUTES } from "@/modules";
@@ -18,6 +19,8 @@ export async function login(
 ): Promise<ServerResult> {
   try {
     const user = await validate(formData);
+
+    await invalidateAllSessions(user.id);
 
     const token = generateSessionToken();
     const session = await createSession(token, user.id);
