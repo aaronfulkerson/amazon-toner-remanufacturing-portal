@@ -38,7 +38,7 @@ export async function createSession(
 ): Promise<SelectSession> {
   const sessionId = encodeSessionId(token);
   const session: InsertSession = {
-    expiresAt: daysFromToday(30),
+    expiresAt: daysFromToday(5),
     id: sessionId,
     userId,
   };
