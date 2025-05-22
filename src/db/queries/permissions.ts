@@ -1,10 +1,12 @@
 import { db } from "@/db";
 import { permissionTable } from "@/db/schema";
 
+import type { DbContext } from "@/db/queries";
 import type { InsertPermission } from "@/db/schema";
 
-export async function insertPermission(
-  permission: InsertPermission
+export async function insertPermissions(
+  permissions: InsertPermission[],
+  ctx: DbContext = db
 ): Promise<void> {
-  await db.insert(permissionTable).values(permission);
+  await ctx.insert(permissionTable).values(permissions);
 }

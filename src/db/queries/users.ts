@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { userTable, userTableNoPasswordHash } from "@/db/schema";
 
+import type { DbContext } from "@/db/queries";
 import type {
   InsertUser,
   SelectUser,
@@ -20,9 +21,10 @@ export async function getUserByEmail(
 }
 
 export async function insertUser(
-  user: InsertUser
+  user: InsertUser,
+  ctx: DbContext = db
 ): Promise<{ userId: SelectUser["id"] }[]> {
-  return await db
+  return await ctx
     .insert(userTable)
     .values(user)
     .returning({ userId: userTable.id });
