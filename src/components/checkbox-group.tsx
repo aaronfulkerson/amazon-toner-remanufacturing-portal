@@ -5,14 +5,11 @@ import { Checkbox, Label } from "@/components";
 import type { ChangeEventHandler } from "react";
 import type { LabelProps } from "@/components";
 
-export type CheckboxGroupOption = {
-  label: string;
-  value: string | number;
-};
+export type CheckboxGroupOption = { label: string; value: string | number };
 interface CheckboxGroupOptionProps
   extends Omit<React.ComponentProps<"input">, "onChange" | "value">,
     CheckboxGroupOption {
-  onChange: (...args: unknown[]) => unknown;
+  onChange: CheckboxGroupProps["onChange"];
   groupValue: CheckboxGroupOption["value"][];
 }
 
@@ -57,7 +54,7 @@ export interface CheckboxGroupProps
     Pick<HTMLInputElement, "name"> {
   cols?: number;
   label?: string;
-  onChange: (...args: unknown[]) => unknown;
+  onChange: (...args: unknown[]) => void;
   options: CheckboxGroupOption[];
   value: string[] | number[];
   wrapperClassName?: string;
