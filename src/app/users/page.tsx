@@ -1,9 +1,11 @@
 "use client";
 
-import { ChangeEventHandler, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { Button, Input, Modal, PageHeading } from "@/components";
 import { CreateUserForm, UserTable } from "@/modules/users";
+
+import type { ChangeEventHandler } from "react";
 
 function PageActions() {
   const [open, setOpen] = useState(false);
