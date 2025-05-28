@@ -1,9 +1,12 @@
 "use client";
 
 import { Checkbox, Label } from "@/components";
+import { Error } from "@/components/error";
 
 import type { ChangeEventHandler } from "react";
+import type { FieldError } from "react-hook-form";
 import type { LabelProps } from "@/components";
+import type { ErrorProps } from "@/components/error";
 
 export type CheckboxGroupOption = { label: string; value: string | number };
 interface CheckboxGroupOptionProps
@@ -53,6 +56,7 @@ export interface CheckboxGroupProps
   extends Pick<HTMLDivElement, "id">,
     Pick<HTMLInputElement, "name"> {
   cols?: number;
+  error: FieldError["message"];
   label?: string;
   onChange: (...args: unknown[]) => void;
   options: CheckboxGroupOption[];
@@ -62,6 +66,8 @@ export interface CheckboxGroupProps
 
 export function CheckboxGroup({
   cols,
+  error,
+  id,
   label,
   name,
   onChange,
@@ -71,6 +77,11 @@ export function CheckboxGroup({
 }: CheckboxGroupProps) {
   const labelProps: LabelProps = {
     children: label,
+  };
+
+  const errorProps: ErrorProps = {
+    children: error,
+    ...(id && { id: `${id}-error` }),
   };
 
   return (
@@ -87,6 +98,7 @@ export function CheckboxGroup({
           />
         ))}
       </OptionGrid>
+      {error && <Error className="mt-1" {...errorProps} />}
     </div>
   );
 }

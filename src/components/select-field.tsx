@@ -2,13 +2,14 @@ import { Error } from "@/components/error";
 import { Select } from "@/components/select";
 import { Label } from "@/components/label";
 
+import type { FieldError } from "react-hook-form";
 import type { ErrorProps } from "@/components/error";
 import type { SelectProps } from "@/components/select";
 import type { LabelProps } from "@/components/label";
 import type { SelectFieldVariantProps } from "@/components/select-field.variants";
 
 export interface SelectFieldProps extends SelectProps, SelectFieldVariantProps {
-  error?: string;
+  error: FieldError["message"];
   label?: string;
   wrapperClassName?: string;
 }

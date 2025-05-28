@@ -54,7 +54,7 @@ export function ResetPasswordForm() {
         name="password"
         render={({ field, fieldState }) => (
           <FormTextField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="password"
             label="Password"
             type="password"
@@ -67,7 +67,7 @@ export function ResetPasswordForm() {
         name="passwordConfirmation"
         render={({ field, fieldState }) => (
           <FormTextField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="passwordConfirmation"
             label="Confirmation"
             type="password"

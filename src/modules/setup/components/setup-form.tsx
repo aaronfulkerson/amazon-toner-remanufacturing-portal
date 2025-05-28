@@ -51,7 +51,7 @@ export function SetupForm() {
         name="email"
         render={({ field, fieldState }) => (
           <FormTextField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="email"
             label="Email"
             type="email"
@@ -64,7 +64,7 @@ export function SetupForm() {
         name="name"
         render={({ field, fieldState }) => (
           <FormTextField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="name"
             label="Name"
             type="text"
@@ -77,7 +77,7 @@ export function SetupForm() {
         name="password"
         render={({ field, fieldState }) => (
           <FormTextField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="password"
             label="Password"
             type="password"
@@ -90,7 +90,7 @@ export function SetupForm() {
         name="passwordConfirmation"
         render={({ field, fieldState }) => (
           <FormTextField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="passwordConfirmation"
             label="Confirmation"
             type="password"

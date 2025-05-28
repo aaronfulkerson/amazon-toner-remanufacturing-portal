@@ -2,13 +2,14 @@ import { Error } from "@/components/error";
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 
+import type { FieldError } from "react-hook-form";
 import type { ErrorProps } from "@/components/error";
 import type { InputProps } from "@/components/input";
 import type { LabelProps } from "@/components/label";
 import type { TextFieldVariantProps } from "@/components/text-field.variants";
 
 export interface TextFieldProps extends InputProps, TextFieldVariantProps {
-  error?: string;
+  error: FieldError["message"];
   label?: string;
   wrapperClassName?: string;
 }

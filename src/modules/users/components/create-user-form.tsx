@@ -79,7 +79,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
         name="name"
         render={({ field, fieldState }) => (
           <FormTextField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="name"
             label="Name"
             type="text"
@@ -92,7 +92,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
         name="email"
         render={({ field, fieldState }) => (
           <FormTextField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="email"
             label="Email"
             type="email"
@@ -105,7 +105,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
         name="role"
         render={({ field, fieldState }) => (
           <FormSelectField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="role"
             label="Role"
             options={[
@@ -120,9 +120,10 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
       <Controller
         control={form.control}
         name="permissions"
-        render={({ field }) => (
+        render={({ field, fieldState }) => (
           <FormCheckboxGroup
             cols={2}
+            error={fieldState.error?.message}
             id="permissions"
             label="Permissions"
             options={permissionsGroups[role].map((p) => ({

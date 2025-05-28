@@ -49,7 +49,7 @@ export function ForgotPasswordForm() {
         name="email"
         render={({ field, fieldState }) => (
           <FormTextField
-            error={fieldState?.error?.message}
+            error={fieldState.error?.message}
             id="email"
             label="Email"
             type="email"
