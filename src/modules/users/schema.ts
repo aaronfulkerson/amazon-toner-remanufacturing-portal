@@ -16,7 +16,8 @@ const permissionsEnum = [
 export const createUserSchema = z.object({
   email: z.email(),
   name: z.string().nonempty(),
-  permissions: z.array(z.enum(permissionsEnum)).nonempty(),
+  // permissions: z.tuple([z.enum(permissionsEnum)], z.enum(permissionsEnum)),
+  permissions: z.array(z.enum(permissionsEnum)).min(1),
   role: z.enum(roleEnum),
 });
 
