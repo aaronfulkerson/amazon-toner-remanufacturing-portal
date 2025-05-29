@@ -11,9 +11,10 @@ import type {
 } from "@/db/schema";
 
 export async function getUserByEmail(
-  email: InsertUser["email"]
+  email: InsertUser["email"],
+  ctx: DbContext = db
 ): Promise<SelectUserOmitPasswordHash | undefined> {
-  const result = await db
+  const result = await ctx
     .select(userTableNoPasswordHash)
     .from(userTable)
     .where(eq(userTable.email, email));
@@ -30,6 +31,10 @@ export async function insertUser(
     .returning({ userId: userTable.id });
 }
 
-export async function updateUser(userId: SelectUser["id"], user: UpdateUser) {
-  await db.update(userTable).set(user).where(eq(userTable.id, userId));
+export async function updateUser(
+  userId: SelectUser["id"],
+  user: UpdateUser,
+  ctx: DbContext = db
+): Promise<void> {
+  await ctx.update(userTable).set(user).where(eq(userTable.id, userId));
 }

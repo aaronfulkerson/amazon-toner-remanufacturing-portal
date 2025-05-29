@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 import { PERMISSION_NAME, USER_ROLE } from "@/db/schema";
 
 const roleEnum = [
@@ -14,7 +14,7 @@ const permissionsEnum = [
 ] as const;
 
 export const createUserSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   name: z.string().nonempty(),
   permissions: z.array(z.enum(permissionsEnum)).nonempty(),
   role: z.enum(roleEnum),

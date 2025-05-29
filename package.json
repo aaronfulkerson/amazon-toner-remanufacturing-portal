@@ -23,7 +23,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.5.0",
-    "drizzle-orm": "^0.43.1",
+    "drizzle-orm": "^0.44.0",
     "lucide-react": "^0.511.0",
     "next": "^15.3.2",
     "radix-ui": "^1.4.2",
@@ -33,19 +33,19 @@
     "resend": "^4.5.1",
     "tailwind-merge": "^3.3.0",
     "use-debounce": "^10.0.4",
-    "zod": "^3.25.31"
+    "zod": "^3.25.34"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@tailwindcss/postcss": "^4.1.7",
-    "@types/node": "^22.15.23",
+    "@tailwindcss/postcss": "^4.1.8",
+    "@types/node": "^22.15.24",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "@types/ws": "^8.18.1",
     "drizzle-kit": "^0.31.1",
     "eslint": "^9.27.0",
     "eslint-config-next": "^15.3.2",
-    "tailwindcss": "^4.1.7",
+    "tailwindcss": "^4.1.8",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }

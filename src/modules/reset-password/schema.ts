@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 
 export const resetPasswordSchema = z
   .object({
@@ -6,12 +6,12 @@ export const resetPasswordSchema = z
     passwordConfirmation: z.string().min(8).max(24),
     token: z.string().nonempty(),
   })
-  .superRefine((arg, ctx) => {
-    if (arg.password !== arg.passwordConfirmation) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+  .check((ctx) => {
+    if (ctx.value.password !== ctx.value.passwordConfirmation) {
+      ctx.issues.push({
+        code: "custom",
+        input: ctx.value.passwordConfirmation,
         message: "Passwords do not match",
-        path: ["passwordConfirmation"],
       });
     }
   });

@@ -3,28 +3,35 @@ import { db } from "@/db";
 import { sessionTable } from "@/db/schema";
 
 import type { InsertSession, SelectSession, UpdateSession } from "@/db/schema";
+import type { DbContext } from "./types";
 
 export async function deleteSessionById(
-  sessionId: SelectSession["id"]
+  sessionId: SelectSession["id"],
+  ctx: DbContext = db
 ): Promise<void> {
-  await db.delete(sessionTable).where(eq(sessionTable.id, sessionId));
+  await ctx.delete(sessionTable).where(eq(sessionTable.id, sessionId));
 }
 
 export async function deleteSessionsByUserId(
-  userId: SelectSession["userId"]
+  userId: SelectSession["userId"],
+  ctx: DbContext = db
 ): Promise<void> {
-  await db.delete(sessionTable).where(eq(sessionTable.userId, userId));
+  await ctx.delete(sessionTable).where(eq(sessionTable.userId, userId));
 }
 
-export async function insertSession(session: InsertSession): Promise<void> {
-  await db.insert(sessionTable).values(session);
+export async function insertSession(
+  session: InsertSession,
+  ctx: DbContext = db
+): Promise<void> {
+  await ctx.insert(sessionTable).values(session);
 }
 
 export async function updateSession(
   sessionId: SelectSession["id"],
-  session: UpdateSession
+  session: UpdateSession,
+  ctx: DbContext = db
 ): Promise<void> {
-  await db
+  await ctx
     .update(sessionTable)
     .set(session)
     .where(eq(sessionTable.id, sessionId));

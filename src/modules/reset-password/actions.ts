@@ -6,11 +6,13 @@ import {
   getSecureToken,
   updateUser,
 } from "@/db/queries";
-import { SECURE_TOKEN_TYPE, UpdateUser } from "@/db/schema";
+import { SECURE_TOKEN_TYPE } from "@/db/schema";
 import { handleError } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import { ROUTES, SECURE_TOKEN_ERRORS } from "@/modules";
 import { validate } from "@/modules/reset-password";
+
+import type { UpdateUser } from "@/db/schema";
 
 export async function resetPassword(prev: unknown, formData: FormData) {
   try {

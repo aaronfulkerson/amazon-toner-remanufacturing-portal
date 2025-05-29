@@ -41,11 +41,11 @@ export async function getUsers(
       .offset(offset)
       .orderBy(asc(userTable.id));
     if (search) {
-      const searchWithWildcard = `%${search}%`;
+      const wildcardSearch = `%${search}%`;
       usersQuery.where(
         or(
-          ilike(userTable.email, searchWithWildcard),
-          ilike(userTable.name, searchWithWildcard)
+          ilike(userTable.email, wildcardSearch),
+          ilike(userTable.name, wildcardSearch)
         )
       );
     }
