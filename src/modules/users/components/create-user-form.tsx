@@ -1,6 +1,6 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { useQueryClient } from "@tanstack/react-query";
 import { useActionState, useEffect, useRef, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -52,7 +52,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
       permissions: [],
       role: "employee" as const,
     },
-    resolver: zodResolver(createUserSchema),
+    resolver: standardSchemaResolver(createUserSchema),
   });
 
   const role = form.watch("role");

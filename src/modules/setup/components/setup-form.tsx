@@ -1,6 +1,6 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { useActionState, useEffect, useRef, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components";
@@ -27,7 +27,7 @@ export function SetupForm() {
       password: "",
       passwordConfirmation: "",
     },
-    resolver: zodResolver(createAdminSchema),
+    resolver: standardSchemaResolver(createAdminSchema),
   });
 
   const formRef = useRef<HTMLFormElement>(null);

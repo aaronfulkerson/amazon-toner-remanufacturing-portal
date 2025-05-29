@@ -1,6 +1,6 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { redirect, useSearchParams } from "next/navigation";
 import { useActionState, useEffect, useRef, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -31,7 +31,7 @@ export function ResetPasswordForm() {
       passwordConfirmation: "",
       token,
     },
-    resolver: zodResolver(resetPasswordSchema),
+    resolver: standardSchemaResolver(resetPasswordSchema),
   });
 
   const formRef = useRef<HTMLFormElement>(null);

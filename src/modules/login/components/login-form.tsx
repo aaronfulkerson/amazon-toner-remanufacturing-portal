@@ -1,6 +1,6 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import {
   FormEventHandler,
   useActionState,
@@ -29,7 +29,7 @@ export function LoginForm() {
       email: "",
       password: "",
     },
-    resolver: zodResolver(loginSchema),
+    resolver: standardSchemaResolver(loginSchema),
   });
 
   const formRef = useRef<HTMLFormElement>(null);
