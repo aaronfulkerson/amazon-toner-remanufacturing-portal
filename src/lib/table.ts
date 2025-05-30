@@ -18,7 +18,7 @@ export function getTableHeaderAlignment<TData>(
     return "right";
   }
 
-  return "standard";
+  return "default";
 }
 
 export function getTableDataCellAlignment<TData>(
@@ -34,5 +34,5 @@ export function getTableDataCellAlignment<TData>(
     return "right";
   }
 
-  return "standard";
+  return "default";
 }

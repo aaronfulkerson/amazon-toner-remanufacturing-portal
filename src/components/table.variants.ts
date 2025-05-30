@@ -24,11 +24,11 @@ export const tableHeaderVariants = cva(
       alignment: {
         left: "pl-6 pr-3",
         right: "pl-3 pr-6",
-        standard: "px-3",
+        default: "px-3",
       },
     },
     defaultVariants: {
-      alignment: "standard",
+      alignment: "default",
     },
   }
 );
@@ -46,11 +46,11 @@ export const tableDataCellVariants = cva(
       alignment: {
         left: "pl-6 pr-3 font-medium text-gray-900",
         right: "pl-3 pr-6",
-        standard: "px-3",
+        default: "px-3",
       },
     },
     defaultVariants: {
-      alignment: "standard",
+      alignment: "default",
     },
   }
 );
