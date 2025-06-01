@@ -11,7 +11,7 @@ import { ROUTES } from "@/modules";
 
 import type { ServerResult } from "@/lib";
 
-export async function logout(): Promise<ServerResult> {
+export async function logout(): Promise<ServerResult | undefined> {
   try {
     const { session } = await getCurrentSession();
     if (!session) throw Error(SESSION_ERRORS.SESSION_NOT_FOUND);

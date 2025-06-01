@@ -5,7 +5,7 @@ import { createContext, useCallback, useContext, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import type { ServerResult } from "@/lib";
 
-export interface Toast extends NonNullable<ServerResult> {
+export interface Toast extends ServerResult {
   timestamp: number;
   duration?: number;
   title?: string;

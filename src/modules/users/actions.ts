@@ -2,7 +2,7 @@
 
 import { getEmailTemplate, resend } from "@/email";
 import { CREATE_USER_SUBJECT, CreateUserTemplate } from "@/email/templates";
-import { handleError, RESULT_TYPE } from "@/lib";
+import { getServerResult, handleError, RESULT_TYPE } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import {
   insertUserWithPermissions,
@@ -13,6 +13,11 @@ import {
 
 import type { InsertUser } from "@/db/schema";
 import type { ServerResult } from "@/lib";
+
+const USER_ACTION_RESULT = {
+  CREATE_SUCCESS: "User successfully created.",
+  UPDATE_SUCCESS: "User successfully updated.",
+};
 
 export async function createUser(
   prev: unknown,
@@ -41,7 +46,10 @@ export async function createUser(
       react: getEmailTemplate(CreateUserTemplate, { name, token }),
     });
 
-    return { message: "User successfully created.", type: RESULT_TYPE.SUCCESS };
+    return getServerResult(
+      USER_ACTION_RESULT.CREATE_SUCCESS,
+      RESULT_TYPE.SUCCESS
+    );
   } catch (e: unknown) {
     return handleError(e);
   }
@@ -56,7 +64,10 @@ export async function updateUser(
 
     await updateUserWithPermissions(user, permissions);
 
-    return { message: "User successfully updated.", type: RESULT_TYPE.SUCCESS };
+    return getServerResult(
+      USER_ACTION_RESULT.UPDATE_SUCCESS,
+      RESULT_TYPE.SUCCESS
+    );
   } catch (e: unknown) {
     return handleError(e);
   }

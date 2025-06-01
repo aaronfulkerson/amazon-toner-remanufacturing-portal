@@ -1,4 +1,4 @@
-import { API_URL } from "@/lib";
+import { API_URL_ERROR } from "@/lib";
 
 import type { PaginationState } from "@tanstack/react-table";
 
@@ -7,7 +7,7 @@ export function getApiUrl(
   params?: { pagination?: PaginationState; queryObj?: Record<string, string> }
 ): string {
   if (!/^\/(?:[a-zA-Z0-9\-._~%!$&'()*+,;=:@]+\/?)*$/.test(apiPath)) {
-    throw Error(API_URL.MALFORMED_PATH);
+    throw Error(API_URL_ERROR.MALFORMED_PATH);
   }
 
   const baseUrl = "/api" + apiPath;

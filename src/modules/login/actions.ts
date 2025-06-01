@@ -17,7 +17,7 @@ import type { ServerResult } from "@/lib";
 export async function login(
   prev: unknown,
   formData: FormData
-): Promise<ServerResult> {
+): Promise<ServerResult | undefined> {
   try {
     const data = validate(formData);
 

@@ -23,7 +23,7 @@ import type { ServerResult } from "@/lib";
 export async function forgotPassword(
   prev: unknown,
   formData: FormData
-): Promise<ServerResult> {
+): Promise<ServerResult | undefined> {
   let user: SelectUserOmitPasswordHash | undefined;
 
   try {

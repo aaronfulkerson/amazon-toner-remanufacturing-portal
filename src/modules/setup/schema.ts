@@ -1,4 +1,5 @@
 import { z } from "zod/v4";
+import { PASSWORD_VALIDATION_ERROR } from "@/lib";
 
 export const createAdminSchema = z
   .object({
@@ -8,7 +9,7 @@ export const createAdminSchema = z
     passwordConfirmation: z.string().min(8).max(24),
   })
   .refine((data) => data.password !== data.passwordConfirmation, {
-    message: "Passwords do not match.",
+    message: PASSWORD_VALIDATION_ERROR.INVALID_CONFIRMATION,
     path: ["passwordConfirmation"],
   });
 

@@ -8,13 +8,18 @@ import {
 
 import type { CreateUserSchema, UpdateUserSchema } from "@/modules/users";
 
+const USER_VALIDATION_ERROR = {
+  PREEXISTING_EMAIL: "An account with that email already exists.",
+  CANNOT_MODIFY_ROLE: "A user's role cannot be modified.",
+};
+
 export async function validateCreateUser(
   formData: FormData
 ): Promise<CreateUserSchema> {
   const unparsed = Object.fromEntries(formData.entries());
   const { data, error, success } = await createUserSchema
     .refine(async (data) => await emailIsAvailable(data.email), {
-      message: "An account with that email already exists.",
+      message: USER_VALIDATION_ERROR.PREEXISTING_EMAIL,
       path: ["email"],
     })
     .safeParseAsync({
@@ -32,7 +37,7 @@ export async function validateUpdateUser(
   const unparsed = Object.fromEntries(formData.entries());
   const { data, error, success } = await updateUserSchema
     .refine(async (data) => await userHasRole(data.id, data.role), {
-      message: "A user's role cannot be modified.",
+      message: USER_VALIDATION_ERROR.CANNOT_MODIFY_ROLE,
       path: ["role"],
     })
     .safeParseAsync({

@@ -1,4 +1,5 @@
 import { z } from "zod/v4";
+import { PASSWORD_VALIDATION_ERROR } from "@/lib";
 
 export const confirmEmailSchema = z
   .object({
@@ -7,7 +8,7 @@ export const confirmEmailSchema = z
     token: z.string().nonempty(),
   })
   .refine((data) => data.password !== data.passwordConfirmation, {
-    message: "Passwords do not match.",
+    message: PASSWORD_VALIDATION_ERROR.INVALID_CONFIRMATION,
     path: ["passwordConfirmation"],
   });
 

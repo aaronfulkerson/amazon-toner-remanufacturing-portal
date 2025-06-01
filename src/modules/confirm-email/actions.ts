@@ -17,7 +17,7 @@ import type { ServerResult } from "@/lib";
 export async function confirmEmail(
   prev: unknown,
   formData: FormData
-): Promise<ServerResult> {
+): Promise<ServerResult | undefined> {
   try {
     const { password, token } = validate(formData);
 

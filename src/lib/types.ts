@@ -7,6 +7,4 @@ export type InferRoute<T> = T extends (
   : never;
 
 export type ServerResultType = "error" | "info" | "success";
-export type ServerResult =
-  | { message: string; type: ServerResultType }
-  | undefined;
+export type ServerResult = { message: string; type: ServerResultType };

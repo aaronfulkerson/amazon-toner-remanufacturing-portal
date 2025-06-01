@@ -14,7 +14,7 @@ import type { ServerResult } from "@/lib";
 export async function createAdmin(
   prev: unknown,
   formData: FormData
-): Promise<ServerResult> {
+): Promise<ServerResult | undefined> {
   try {
     const setupComplete = await verifyInitialSetup();
     if (setupComplete) throw Error(SETUP_ERRORS.SETUP_COMPLETE);
