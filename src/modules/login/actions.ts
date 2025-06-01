@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { handleError } from "@/lib";
+import { verifyPasswordHash } from "@/lib/auth/password";
 import {
   createSession,
   generateSessionToken,
@@ -9,7 +10,7 @@ import {
   setSessionTokenCookie,
 } from "@/lib/auth/session";
 import { ROUTES } from "@/modules";
-import { validate } from "@/modules/login";
+import { getUserForLogin, LOGIN_ERRORS, validate } from "@/modules/login";
 
 import type { ServerResult } from "@/lib";
 
@@ -18,7 +19,16 @@ export async function login(
   formData: FormData
 ): Promise<ServerResult> {
   try {
-    const user = await validate(formData);
+    const data = validate(formData);
+
+    const user = await getUserForLogin(data.email);
+    if (!user) throw Error(LOGIN_ERRORS.INVALID_CREDENTIALS);
+
+    const authenticated = await verifyPasswordHash(
+      user.passwordHash,
+      data.password
+    );
+    if (!authenticated) throw Error(LOGIN_ERRORS.INVALID_CREDENTIALS);
 
     await invalidateAllSessions(user.id);
 

@@ -1,19 +1,12 @@
-import { FORM_ERRORS } from "@/modules";
-import {
-  createAdminSchema,
-  SETUP_ERRORS,
-  verifyInitialSetup,
-} from "@/modules/setup";
+import { prettifyError } from "zod/v4";
+import { createAdminSchema } from "@/modules/setup";
 
 import type { CreateAdminSchema } from "@/modules/setup";
 
-export async function validate(formData: FormData): Promise<CreateAdminSchema> {
-  const setupComplete = await verifyInitialSetup();
-  if (setupComplete) throw Error(SETUP_ERRORS.SETUP_COMPLETE);
-
+export function validate(formData: FormData): CreateAdminSchema {
   const unparsed = Object.fromEntries(formData);
-  const { data, success } = createAdminSchema.safeParse(unparsed);
-  if (!success) throw Error(FORM_ERRORS.VALIDATION_FAILED);
+  const { data, error, success } = createAdminSchema.safeParse(unparsed);
+  if (!success) throw Error(prettifyError(error));
 
   return data;
 }

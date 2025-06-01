@@ -7,14 +7,9 @@ export const createAdminSchema = z
     password: z.string().min(8).max(24),
     passwordConfirmation: z.string().min(8).max(24),
   })
-  .check((ctx) => {
-    if (ctx.value.password !== ctx.value.passwordConfirmation) {
-      ctx.issues.push({
-        code: "custom",
-        input: ctx.value.passwordConfirmation,
-        message: "Passwords do not match",
-      });
-    }
+  .refine((data) => data.password !== data.passwordConfirmation, {
+    message: "Passwords do not match.",
+    path: ["passwordConfirmation"],
   });
 
 export type CreateAdminSchema = z.infer<typeof createAdminSchema>;

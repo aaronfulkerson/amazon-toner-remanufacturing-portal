@@ -1,10 +1,10 @@
-import { FORM_ERRORS } from "@/modules";
+import { prettifyError } from "zod/v4";
 import { confirmEmailSchema } from "@/modules/confirm-email";
 
 export function validate(formData: FormData) {
   const unparsed = Object.fromEntries(formData.entries());
-  const { data, success } = confirmEmailSchema.safeParse(unparsed);
-  if (!success) throw Error(FORM_ERRORS.VALIDATION_FAILED);
+  const { data, error, success } = confirmEmailSchema.safeParse(unparsed);
+  if (!success) throw Error(prettifyError(error));
 
   return data;
 }

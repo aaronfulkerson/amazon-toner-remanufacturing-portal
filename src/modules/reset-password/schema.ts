@@ -6,14 +6,9 @@ export const resetPasswordSchema = z
     passwordConfirmation: z.string().min(8).max(24),
     token: z.string().nonempty(),
   })
-  .check((ctx) => {
-    if (ctx.value.password !== ctx.value.passwordConfirmation) {
-      ctx.issues.push({
-        code: "custom",
-        input: ctx.value.passwordConfirmation,
-        message: "Passwords do not match",
-      });
-    }
+  .refine((data) => data.password !== data.passwordConfirmation, {
+    message: "Passwords do not match.",
+    path: ["passwordConfirmation"],
   });
 
 export type ResetPasswordSchema = z.infer<typeof resetPasswordSchema>;

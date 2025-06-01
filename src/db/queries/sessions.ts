@@ -2,8 +2,8 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { sessionTable } from "@/db/schema";
 
+import type { DbContext } from "@/db/queries";
 import type { InsertSession, SelectSession, UpdateSession } from "@/db/schema";
-import type { DbContext } from "./types";
 
 export async function deleteSessionById(
   sessionId: SelectSession["id"],

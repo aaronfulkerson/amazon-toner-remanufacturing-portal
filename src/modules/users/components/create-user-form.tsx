@@ -11,20 +11,10 @@ import {
   FormTextField,
 } from "@/components/form-components";
 import { useToast } from "@/components/toast.context";
-import { PERMISSION_NAME, USER_ROLE } from "@/db/schema";
+import { VALID_ROLE_PERMISSIONS } from "@/modules/permissions";
 import { createUser, createUserSchema } from "@/modules/users";
 
 import type { FormEventHandler } from "react";
-
-const permissionsGroups = {
-  [USER_ROLE.CUSTOMER]: [PERMISSION_NAME.TONER],
-  [USER_ROLE.EMPLOYEE]: [
-    PERMISSION_NAME.REMANUFACTURING,
-    PERMISSION_NAME.SERVICE,
-    PERMISSION_NAME.TONER,
-  ],
-  [USER_ROLE.TECHNICIAN]: [PERMISSION_NAME.SERVICE],
-} as const;
 
 interface CreateUserFormProps {
   closeModal: () => void;
@@ -126,7 +116,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
             error={fieldState.error?.message}
             id="permissions"
             label="Permissions"
-            options={permissionsGroups[role].map((p) => ({
+            options={VALID_ROLE_PERMISSIONS[role].map((p) => ({
               label: p,
               value: p,
             }))}

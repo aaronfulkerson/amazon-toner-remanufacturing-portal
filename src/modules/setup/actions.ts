@@ -6,7 +6,7 @@ import { USER_ROLE } from "@/db/schema";
 import { handleError } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import { ROUTES } from "@/modules";
-import { validate } from "@/modules/setup";
+import { SETUP_ERRORS, validate, verifyInitialSetup } from "@/modules/setup";
 
 import type { InsertUser } from "@/db/schema";
 import type { ServerResult } from "@/lib";
@@ -16,7 +16,10 @@ export async function createAdmin(
   formData: FormData
 ): Promise<ServerResult> {
   try {
-    const { email, name, password } = await validate(formData);
+    const setupComplete = await verifyInitialSetup();
+    if (setupComplete) throw Error(SETUP_ERRORS.SETUP_COMPLETE);
+
+    const { email, name, password } = validate(formData);
 
     const passwordHash = await hashPassword(password);
     const user: InsertUser = {

@@ -1,6 +1,12 @@
-import { asc, eq, ilike, or, sql } from "drizzle-orm";
+import { and, asc, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { insertPermissions, insertSecureToken, insertUser } from "@/db/queries";
+import {
+  deletePermissions,
+  insertPermissions,
+  insertSecureToken,
+  insertUser,
+  updateUser,
+} from "@/db/queries";
 import {
   permissionTable,
   SECURE_TOKEN_TYPE,
@@ -9,11 +15,14 @@ import {
 } from "@/db/schema";
 import { generateSecureToken } from "@/lib/auth/secure-tokens";
 
+import type { DbContext } from "@/db/queries";
 import type {
   InsertPermission,
   InsertUser,
   SelectPermission,
+  SelectUser,
   SelectUserOmitPasswordHash,
+  UpdateUser,
 } from "@/db/schema";
 
 export type UserPermissions = (SelectPermission["name"] | null)[];
@@ -84,4 +93,43 @@ export async function insertUserWithPermissions(
 
     return secureToken.token;
   });
+}
+
+export async function updateUserWithPermissions(
+  { id: userId, ...user }: Pick<SelectUser, "id"> & Pick<UpdateUser, "name">,
+  permissions: InsertPermission["name"][]
+) {
+  return await db.transaction(async (tx) => {
+    await updateUser(userId, user, tx);
+    await deletePermissions(userId, tx);
+    await insertPermissions(
+      permissions.map((name) => ({ name, userId })),
+      tx
+    );
+  });
+}
+
+export async function userHasRole(
+  userId: SelectUser["id"],
+  role: SelectUser["role"],
+  ctx: DbContext = db
+): Promise<boolean> {
+  const result = await ctx
+    .select()
+    .from(userTable)
+    .where(and(eq(userTable.id, userId), eq(userTable.role, role)));
+
+  return !!result.length;
+}
+
+export async function emailIsAvailable(
+  email: SelectUser["email"],
+  ctx: DbContext = db
+): Promise<boolean> {
+  const result = await ctx
+    .select()
+    .from(userTable)
+    .where(eq(userTable.email, email));
+
+  return !result.length;
 }

@@ -33,7 +33,7 @@ export async function insertUser(
 
 export async function updateUser(
   userId: SelectUser["id"],
-  user: UpdateUser,
+  user: Omit<UpdateUser, "id">,
   ctx: DbContext = db
 ): Promise<void> {
   await ctx.update(userTable).set(user).where(eq(userTable.id, userId));

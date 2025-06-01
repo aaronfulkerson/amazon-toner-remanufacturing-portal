@@ -4,7 +4,12 @@ import { getEmailTemplate, resend } from "@/email";
 import { CREATE_USER_SUBJECT, CreateUserTemplate } from "@/email/templates";
 import { handleError, RESULT_TYPE } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
-import { insertUserWithPermissions, validate } from "@/modules/users";
+import {
+  insertUserWithPermissions,
+  updateUserWithPermissions,
+  validateCreateUser,
+  validateUpdateUser,
+} from "@/modules/users";
 
 import type { InsertUser } from "@/db/schema";
 import type { ServerResult } from "@/lib";
@@ -14,7 +19,8 @@ export async function createUser(
   formData: FormData
 ): Promise<ServerResult> {
   try {
-    const { email, name, permissions, role } = validate(formData);
+    const { email, name, permissions, role } =
+      await validateCreateUser(formData);
 
     const bytes = new Uint8Array(20);
     crypto.getRandomValues(bytes);
@@ -36,6 +42,21 @@ export async function createUser(
     });
 
     return { message: "User successfully created.", type: RESULT_TYPE.SUCCESS };
+  } catch (e: unknown) {
+    return handleError(e);
+  }
+}
+
+export async function updateUser(
+  prev: unknown,
+  formData: FormData
+): Promise<ServerResult> {
+  try {
+    const { permissions, role, ...user } = await validateUpdateUser(formData);
+
+    await updateUserWithPermissions(user, permissions);
+
+    return { message: "User successfully updated.", type: RESULT_TYPE.SUCCESS };
   } catch (e: unknown) {
     return handleError(e);
   }

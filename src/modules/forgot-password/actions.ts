@@ -17,7 +17,7 @@ import { ROUTES } from "@/modules";
 import { validate } from "@/modules/forgot-password";
 import { handleError } from "@/lib";
 
-import type { InsertUser, SelectUserOmitPasswordHash } from "@/db/schema";
+import type { SelectUserOmitPasswordHash } from "@/db/schema";
 import type { ServerResult } from "@/lib";
 
 export async function forgotPassword(
@@ -25,13 +25,11 @@ export async function forgotPassword(
   formData: FormData
 ): Promise<ServerResult> {
   let user: SelectUserOmitPasswordHash | undefined;
-  let email: InsertUser["email"];
 
   try {
-    const validated = validate(formData);
-    email = validated.email;
+    const data = validate(formData);
 
-    user = await getUserByEmail(email);
+    user = await getUserByEmail(data.email);
   } catch (e: unknown) {
     return handleError(e);
   }
