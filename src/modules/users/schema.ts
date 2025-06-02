@@ -1,6 +1,6 @@
 import { difference } from "lodash";
 import { z } from "zod/v4";
-import { PERMISSION_NAME, USER_ROLE } from "@/db/schema";
+import { InsertPermission, PERMISSION_NAME, USER_ROLE } from "@/db/schema";
 import { VALID_ROLE_PERMISSIONS } from "@/modules";
 
 const roleEnum = [
@@ -17,6 +17,14 @@ const permissionsEnum = [
 
 const INVALID_PERMISSIONS = "Invalid permissions for role.";
 
+function permissionsAreValid(
+  inputPermissions: InsertPermission["name"][],
+  permissions: Readonly<InsertPermission["name"][]>
+) {
+  const invalidPermissions = difference(inputPermissions, permissions);
+  return !invalidPermissions.length;
+}
+
 export const createUserSchema = z
   .object({
     email: z.email(),
@@ -25,13 +33,8 @@ export const createUserSchema = z
     role: z.enum(roleEnum),
   })
   .refine(
-    (data) => {
-      const invalidPermissions = difference(
-        data.permissions,
-        VALID_ROLE_PERMISSIONS[data.role]
-      );
-      return !invalidPermissions.length;
-    },
+    (data) =>
+      permissionsAreValid(data.permissions, VALID_ROLE_PERMISSIONS[data.role]),
     {
       message: INVALID_PERMISSIONS,
       path: ["permissions"],
@@ -45,13 +48,8 @@ export const updateUserSchema = z
     role: z.enum(roleEnum).readonly(),
   })
   .refine(
-    (data) => {
-      const invalidPermissions = difference(
-        data.permissions,
-        VALID_ROLE_PERMISSIONS[data.role]
-      );
-      return !invalidPermissions.length;
-    },
+    (data) =>
+      permissionsAreValid(data.permissions, VALID_ROLE_PERMISSIONS[data.role]),
     {
       abort: true,
       message: INVALID_PERMISSIONS,
