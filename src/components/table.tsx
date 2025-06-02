@@ -12,10 +12,7 @@ import {
   tableHeaderVariants,
   tableHeadVariants,
 } from "@/components/table.variants";
-import {
-  getTableDataCellAlignment,
-  getTableHeaderAlignment,
-} from "@/lib/table";
+import { getCellAlignment, getHeaderAlignment } from "@/lib/table";
 import { cnMerge } from "@/lib/ui";
 
 import type { UseQueryResult } from "@tanstack/react-query";
@@ -71,7 +68,7 @@ function TableBody<TData>({
       {getRowModel().rows.map((row) => (
         <tr key={row.id}>
           {row.getVisibleCells().map((cell) => {
-            const alignment = getTableDataCellAlignment(cell);
+            const alignment = getCellAlignment(cell);
             const isActionCell = cell.column.id === "actions";
             return (
               <TableDataCell
@@ -136,7 +133,7 @@ function TableHead<TData>({ className, getHeaderGroups }: TableHead<TData>) {
       {getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
           {headerGroup.headers.map((header) => {
-            const alignment = getTableHeaderAlignment(header);
+            const alignment = getHeaderAlignment(header);
             return (
               <TableHeader
                 alignment={alignment}

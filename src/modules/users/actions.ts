@@ -2,7 +2,7 @@
 
 import { getEmailTemplate, resend } from "@/email";
 import { CREATE_USER_SUBJECT, CreateUserTemplate } from "@/email/templates";
-import { getServerResult, handleError, RESULT_TYPE } from "@/lib";
+import { createServerResult, handleError, RESULT_TYPE } from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import {
   insertUserWithPermissions,
@@ -46,7 +46,7 @@ export async function createUser(
       react: getEmailTemplate(CreateUserTemplate, { name, token }),
     });
 
-    return getServerResult(
+    return createServerResult(
       USER_ACTION_RESULT.CREATE_SUCCESS,
       RESULT_TYPE.SUCCESS
     );
@@ -64,7 +64,7 @@ export async function updateUser(
 
     await updateUserWithPermissions(user, permissions);
 
-    return getServerResult(
+    return createServerResult(
       USER_ACTION_RESULT.UPDATE_SUCCESS,
       RESULT_TYPE.SUCCESS
     );

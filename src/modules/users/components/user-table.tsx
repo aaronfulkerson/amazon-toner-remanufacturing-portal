@@ -4,7 +4,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useState } from "react";
 import { Table } from "@/components";
 import { useQueryWithToast } from "@/hooks";
-import { getApiUrl } from "@/lib/api";
+import { createApiUrl } from "@/lib/api";
 import { cnMerge } from "@/lib/ui";
 import { rowActionsVariants } from "@/modules/users/components/user-table.variants";
 
@@ -67,7 +67,7 @@ export function UserTable({ search }: UserTableProps) {
   });
 
   const queryObj = search ? { search } : undefined;
-  const fetchUrl = getApiUrl("/users", { pagination, queryObj });
+  const fetchUrl = createApiUrl("/users", { pagination, queryObj });
 
   const { data, isError, isLoading } = useQueryWithToast<GetUsersSuccess>(
     fetchUrl,

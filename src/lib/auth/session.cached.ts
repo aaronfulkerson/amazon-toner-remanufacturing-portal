@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { cache } from "react";
-import { validatePermissions } from "@/lib/auth/permissions";
+import { hasPermission } from "@/lib/auth/permissions";
 import { SESSION_COOKIE_NAME, validateSessionToken } from "@/lib/auth/session";
 import { ROUTES } from "@/modules";
 
@@ -20,11 +20,11 @@ export const getCurrentSession = cache(
   }
 );
 
-export const authorizeCurrentSession = cache(
+export const requireAuthorizedSession = cache(
   async (allowedRoles: AllowedRoles): Promise<boolean | undefined> => {
     const { permissions, session, user } = await getCurrentSession();
     if (!session) redirect(ROUTES.LOGIN);
 
-    return validatePermissions(allowedRoles, user.role, permissions);
+    return hasPermission(allowedRoles, user.role, permissions);
   }
 );

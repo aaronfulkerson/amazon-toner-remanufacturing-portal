@@ -1,5 +1,5 @@
 import { NavigationMenu } from "radix-ui";
-import { authorizeCurrentSession } from "@/lib/auth/session.cached";
+import { requireAuthorizedSession } from "@/lib/auth/session.cached";
 import { NavigationLink } from "@/modules/app-shell";
 
 import type { Navigation as NavigationItemProps } from "@/modules/app-shell";
@@ -9,9 +9,9 @@ export async function NavigationItem({
   allowedRoles,
   ...item
 }: NavigationItemProps) {
-  const hasPermission = await authorizeCurrentSession(allowedRoles);
+  const isAuthorized = await requireAuthorizedSession(allowedRoles);
 
-  return hasPermission ? (
+  return isAuthorized ? (
     <NavigationMenu.Item>
       <NavigationLink {...item}>{name}</NavigationLink>
     </NavigationMenu.Item>

@@ -13,7 +13,7 @@ import {
   userTable,
   userTableNoPasswordHash,
 } from "@/db/schema";
-import { generateSecureToken } from "@/lib/auth/secure-tokens";
+import { createSecureToken } from "@/lib/auth/secure-tokens";
 
 import type { DbContext } from "@/db/queries";
 import type {
@@ -79,7 +79,7 @@ export async function insertUserWithPermissions(
   return await db.transaction(async (tx) => {
     const [{ userId }] = await insertUser(user, tx);
 
-    const secureToken = generateSecureToken(
+    const secureToken = createSecureToken(
       SECURE_TOKEN_TYPE.EMAIL_CONFIRMATION,
       userId
     );

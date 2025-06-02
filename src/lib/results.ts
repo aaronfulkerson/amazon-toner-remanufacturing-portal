@@ -1,6 +1,6 @@
 import type { ServerResult, ServerResultType } from "@/lib";
 
-export function getServerResult(
+export function createServerResult(
   message: string,
   type: ServerResultType
 ): ServerResult {

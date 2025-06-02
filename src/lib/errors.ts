@@ -1,4 +1,4 @@
-import { getServerResult, RESULT_TYPE } from "@/lib";
+import { createServerResult, RESULT_TYPE } from "@/lib";
 
 import type { ServerResult } from "@/lib";
 
@@ -12,5 +12,5 @@ export const PASSWORD_VALIDATION_ERROR = {
 
 export function handleError(e: unknown): ServerResult {
   const message = e instanceof Error ? e.message : String(e);
-  return getServerResult(message, RESULT_TYPE.ERROR);
+  return createServerResult(message, RESULT_TYPE.ERROR);
 }

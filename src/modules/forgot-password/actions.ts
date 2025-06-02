@@ -12,7 +12,7 @@ import {
   FORGOT_PASSWORD_SUBJECT,
   ForgotPasswordTemplate,
 } from "@/email/templates";
-import { generateSecureToken } from "@/lib/auth/secure-tokens";
+import { createSecureToken } from "@/lib/auth/secure-tokens";
 import { ROUTES } from "@/modules";
 import { validate } from "@/modules/forgot-password";
 import { handleError } from "@/lib";
@@ -39,7 +39,7 @@ export async function forgotPassword(
   try {
     await deleteSecureTokenByUserId(user.id);
 
-    const passwordResetToken = generateSecureToken(
+    const passwordResetToken = createSecureToken(
       SECURE_TOKEN_TYPE.PASSWORD_RESET,
       user.id
     );

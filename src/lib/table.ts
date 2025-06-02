@@ -7,7 +7,7 @@ import type { Cell, Header } from "@tanstack/react-table";
 type HeaderAlignment = NonNullable<TableHeaderVariantProps["alignment"]>;
 type CellAlignment = NonNullable<TableDataCellVariantProps["alignment"]>;
 
-export function getTableHeaderAlignment<TData>(
+export function getHeaderAlignment<TData>(
   header: Header<TData, unknown>
 ): HeaderAlignment {
   if (header.index === 0) {
@@ -21,7 +21,7 @@ export function getTableHeaderAlignment<TData>(
   return "default";
 }
 
-export function getTableDataCellAlignment<TData>(
+export function getCellAlignment<TData>(
   cell: Cell<TData, unknown>
 ): CellAlignment {
   const index = cell.column.getIndex();

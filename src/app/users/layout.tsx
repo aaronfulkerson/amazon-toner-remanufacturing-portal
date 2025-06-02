@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { authorizeCurrentSession } from "@/lib/auth/session.cached";
+import { requireAuthorizedSession } from "@/lib/auth/session.cached";
 import { PERMISSIONS, ROUTES } from "@/modules";
 
 interface UsersLayoutProps {
@@ -7,8 +7,8 @@ interface UsersLayoutProps {
 }
 
 export default async function UsersLayout({ children }: UsersLayoutProps) {
-  const hasPermission = await authorizeCurrentSession(PERMISSIONS.USERS);
-  if (!hasPermission) redirect(ROUTES.DASHBOARD);
+  const isAuthorized = await requireAuthorizedSession(PERMISSIONS.USERS);
+  if (!isAuthorized) redirect(ROUTES.DASHBOARD);
 
   return children;
 }

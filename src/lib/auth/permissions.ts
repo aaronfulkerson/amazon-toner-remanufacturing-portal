@@ -3,7 +3,7 @@ import { SelectUser } from "@/db/schema";
 import type { AllowedRoles } from "@/lib";
 import type { UserPermissions } from "@/modules/users";
 
-export function validatePermissions(
+export function hasPermission(
   allowedRoles: AllowedRoles,
   userRole: SelectUser["role"],
   userPermissions: UserPermissions

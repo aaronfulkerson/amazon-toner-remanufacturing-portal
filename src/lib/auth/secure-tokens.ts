@@ -1,6 +1,6 @@
 import type { InsertSecureToken } from "@/db/schema";
 
-export function generateSecureToken(
+export function createSecureToken(
   type: InsertSecureToken["type"],
   userId: InsertSecureToken["userId"]
 ): InsertSecureToken {

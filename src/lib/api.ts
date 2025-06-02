@@ -2,7 +2,7 @@ import { API_URL_ERROR } from "@/lib";
 
 import type { PaginationState } from "@tanstack/react-table";
 
-export function getApiUrl(
+export function createApiUrl(
   apiPath: string,
   params?: { pagination?: PaginationState; queryObj?: Record<string, string> }
 ): string {
