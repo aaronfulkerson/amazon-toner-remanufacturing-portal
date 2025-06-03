@@ -9,6 +9,7 @@ import {
   toastTitleVariants,
   toastViewportVariants,
 } from "@/components/toast.variants";
+import { RESULT_TYPE } from "@/lib";
 import { cnMerge } from "@/lib/ui";
 
 import type { IconName } from "lucide-react/dynamic";
@@ -23,7 +24,11 @@ const iconMap: ToastIcon = {
   success: "check",
 };
 
-function ToastItem({ message, title, type }: ToastItemProps) {
+function ToastItem({
+  message,
+  title,
+  type = RESULT_TYPE.INFO,
+}: ToastItemProps) {
   return (
     <Toast.Root className={cnMerge(toastRootVariants({ type }))} open>
       <Toast.Title className={toastTitleVariants({ type })}>
