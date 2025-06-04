@@ -56,7 +56,7 @@ export interface CheckboxGroupProps
   extends Pick<HTMLDivElement, "id">,
     Pick<HTMLInputElement, "name"> {
   cols?: number;
-  error: FieldError["message"];
+  error?: FieldError["message"];
   label?: string;
   onChange: (...args: unknown[]) => void;
   options: CheckboxGroupOption[];

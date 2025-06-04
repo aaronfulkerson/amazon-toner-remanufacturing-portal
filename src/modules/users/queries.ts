@@ -5,7 +5,6 @@ import {
   insertPermissions,
   insertSecureToken,
   insertUser,
-  updateUser,
 } from "@/db/queries";
 import {
   permissionTable,
@@ -22,7 +21,6 @@ import type {
   SelectPermission,
   SelectUser,
   SelectUserOmitPasswordHash,
-  UpdateUser,
 } from "@/db/schema";
 
 export type UserPermissions = (SelectPermission["name"] | null)[];
@@ -96,11 +94,10 @@ export async function insertUserWithPermissions(
 }
 
 export async function updateUserWithPermissions(
-  { id: userId, ...user }: Pick<SelectUser, "id"> & Pick<UpdateUser, "name">,
+  userId: InsertPermission["userId"],
   permissions: InsertPermission["name"][]
 ) {
   return await db.transaction(async (tx) => {
-    await updateUser(userId, user, tx);
     await deletePermissions(userId, tx);
     await insertPermissions(
       permissions.map((name) => ({ name, userId })),

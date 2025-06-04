@@ -12,6 +12,7 @@ export const inputVariants = cva(
     "py-1.5 pr-10 pl-3",
     "text-base text-gray-900 sm:text-sm/6",
     "outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600",
+    "disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:outline-gray-200",
   ],
   {
     variants: {

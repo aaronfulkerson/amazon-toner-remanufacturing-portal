@@ -43,9 +43,9 @@ export const createUserSchema = z
 
 export const updateUserSchema = z
   .object({
-    id: z.number().readonly(),
+    id: z.transform((id) => Number(id)),
     permissions: z.array(z.enum(permissionsEnum)).min(1),
-    role: z.enum(roleEnum).readonly(),
+    role: z.enum(roleEnum),
   })
   .refine(
     (data) =>

@@ -60,9 +60,9 @@ export async function updateUser(
   formData: FormData
 ): Promise<ServerResult> {
   try {
-    const { permissions, role, ...user } = await validateUpdateUser(formData);
+    const { permissions, ...user } = await validateUpdateUser(formData);
 
-    await updateUserWithPermissions(user, permissions);
+    await updateUserWithPermissions(user.id, permissions);
 
     return createServerResult(
       USER_ACTION_RESULT.UPDATE_SUCCESS,

@@ -1,18 +1,19 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
-import { useState } from "react";
-import { Table } from "@/components";
+import { useCallback, useState } from "react";
+import { Modal, Table } from "@/components";
 import { useQueryWithToast } from "@/hooks";
 import { createApiUrl } from "@/lib/api";
 import { cnMerge } from "@/lib/ui";
+import { EditUserForm } from "@/modules/users/components";
 import { rowActionsVariants } from "@/modules/users/components/user-table.variants";
 
 import type { Cell, PaginationState, Row } from "@tanstack/react-table";
 import type { GetUsersSuccess } from "@/app/api/users/route";
 import type { CustomTableOptions } from "@/components";
 
-type User = GetUsersSuccess["users"][number];
+export type User = GetUsersSuccess["users"][number];
 interface PermissionsCellProps {
   cell: Cell<User, User["permissions"]>;
 }
@@ -28,15 +29,23 @@ interface RowActionsProps {
 }
 
 function RowActions({ row }: RowActionsProps) {
+  const [open, setOpen] = useState(false);
+  const closeModal = useCallback(() => setOpen(false), [setOpen]);
   const disabled = row.original.role === "admin";
+
   return (
-    <a
-      href="#"
-      className={cnMerge(rowActionsVariants({ disabled }))}
-      onClick={() => console.log(row)}
+    <Modal
+      onOpenChange={setOpen}
+      open={open}
+      title="Edit User"
+      trigger={
+        <a href="#" className={cnMerge(rowActionsVariants({ disabled }))}>
+          Edit
+        </a>
+      }
     >
-      Edit
-    </a>
+      <EditUserForm closeModal={closeModal} user={row.original} />
+    </Modal>
   );
 }
 

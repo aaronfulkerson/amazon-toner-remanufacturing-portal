@@ -9,7 +9,7 @@ import type { LabelProps } from "@/components/label";
 import type { SelectFieldVariantProps } from "@/components/select-field.variants";
 
 export interface SelectFieldProps extends SelectProps, SelectFieldVariantProps {
-  error: FieldError["message"];
+  error?: FieldError["message"];
   label?: string;
   wrapperClassName?: string;
 }

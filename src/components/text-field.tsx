@@ -9,7 +9,7 @@ import type { LabelProps } from "@/components/label";
 import type { TextFieldVariantProps } from "@/components/text-field.variants";
 
 export interface TextFieldProps extends InputProps, TextFieldVariantProps {
-  error: FieldError["message"];
+  error?: FieldError["message"];
   label?: string;
   wrapperClassName?: string;
 }
