@@ -8,6 +8,13 @@
       "when": 1747530193715,
       "tag": "0000_demonic_king_bedlam",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1749180025494,
+      "tag": "0001_overjoyed_jackpot",
+      "breakpoints": true
     }
   ]
 }

@@ -12,12 +12,14 @@ export const USER_ROLE = {
   ADMIN: "admin",
   CUSTOMER: "customer",
   EMPLOYEE: "employee",
+  EMPLOYEE_DELEGATE: "employee_delegate",
   TECHNICIAN: "technician",
 } as const;
 export const userRoleEnum = pgEnum("user_role_enum", [
   USER_ROLE.ADMIN,
   USER_ROLE.CUSTOMER,
   USER_ROLE.EMPLOYEE,
+  USER_ROLE.EMPLOYEE_DELEGATE,
   USER_ROLE.TECHNICIAN,
 ]);
 
