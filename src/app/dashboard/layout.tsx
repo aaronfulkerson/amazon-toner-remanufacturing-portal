@@ -6,11 +6,13 @@ export default async function DashboardLayout({
   admin,
   customer,
   employee,
+  employee_delegate,
   technician,
 }: Readonly<{
   admin: React.ReactNode;
   customer: React.ReactNode;
   employee: React.ReactNode;
+  employee_delegate: React.ReactNode;
   technician: React.ReactNode;
 }>) {
   const { session, user } = await getCurrentSession();
@@ -20,6 +22,7 @@ export default async function DashboardLayout({
     admin,
     customer,
     employee,
+    employee_delegate,
     technician,
   };
 
