@@ -52,7 +52,6 @@ function RowActions({ row }: RowActionsProps) {
       title="Edit User"
       trigger={
         <a
-          href="#"
           className={cnMerge(
             rowActionsVariants({ disabled: !isStandardUser(row.original) })
           )}

@@ -7,6 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Button, SelectField, TextField } from "@/components";
 import { FormCheckboxGroup } from "@/components/form-components";
 import { useToast } from "@/components/toast.context";
+import { RESULT_TYPE } from "@/lib";
 import { VALID_ROLE_PERMISSIONS } from "@/modules/permissions";
 import { updateUser, updateUserSchema } from "@/modules/users";
 
@@ -34,7 +35,7 @@ export function EditUserForm({ closeModal, user }: EditUserFormProps) {
 
   useEffect(() => {
     if (state) createToast(state);
-    if (state?.type === "success") {
+    if (state?.type === RESULT_TYPE.SUCCESS) {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       closeModal();
     }

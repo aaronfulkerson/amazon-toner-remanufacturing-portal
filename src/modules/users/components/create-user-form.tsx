@@ -12,6 +12,7 @@ import {
 } from "@/components/form-components";
 import { useToast } from "@/components/toast.context";
 import { USER_ROLE } from "@/db/schema";
+import { RESULT_TYPE } from "@/lib";
 import { VALID_ROLE_PERMISSIONS } from "@/modules/permissions";
 import { createUser, createUserSchema } from "@/modules/users";
 
@@ -30,7 +31,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
 
   useEffect(() => {
     if (state) createToast(state);
-    if (state?.type === "success") {
+    if (state?.type === RESULT_TYPE.SUCCESS) {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       closeModal();
     }
