@@ -11,6 +11,7 @@ import {
   FormTextField,
 } from "@/components/form-components";
 import { useToast } from "@/components/toast.context";
+import { USER_ROLE } from "@/db/schema";
 import { VALID_ROLE_PERMISSIONS } from "@/modules/permissions";
 import { createUser, createUserSchema } from "@/modules/users";
 
@@ -40,7 +41,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
       email: "",
       name: "",
       permissions: [],
-      role: "employee" as const,
+      role: USER_ROLE.EMPLOYEE,
     },
     resolver: standardSchemaResolver(createUserSchema),
   });
