@@ -3,6 +3,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useCallback, useState } from "react";
 import { Modal, Table } from "@/components";
+import { USER_ROLE } from "@/db/schema";
 import { useQueryWithToast } from "@/hooks";
 import { createApiUrl } from "@/lib/api";
 import { cnMerge } from "@/lib/ui";
@@ -12,6 +13,8 @@ import { rowActionsVariants } from "@/modules/users/components/user-table.varian
 import type { Cell, PaginationState, Row } from "@tanstack/react-table";
 import type { GetUsersSuccess } from "@/app/api/users/route";
 import type { CustomTableOptions } from "@/components";
+import type { SelectUser } from "@/db/schema";
+import type { StandardUser } from "@/modules/users/components";
 
 export type User = GetUsersSuccess["users"][number];
 interface PermissionsCellProps {
@@ -24,6 +27,16 @@ function PermissionsCell({ cell }: PermissionsCellProps) {
   return value.join(", ");
 }
 
+const STANDARD_ROLES: SelectUser["role"][] = [
+  USER_ROLE.CUSTOMER,
+  USER_ROLE.EMPLOYEE,
+  USER_ROLE.TECHNICIAN,
+];
+
+function isStandardUser(user: User): user is StandardUser {
+  return STANDARD_ROLES.includes(user.role);
+}
+
 interface RowActionsProps {
   row: Row<User>;
 }
@@ -31,7 +44,6 @@ interface RowActionsProps {
 function RowActions({ row }: RowActionsProps) {
   const [open, setOpen] = useState(false);
   const closeModal = useCallback(() => setOpen(false), [setOpen]);
-  const disabled = row.original.role === "admin";
 
   return (
     <Modal
@@ -39,12 +51,19 @@ function RowActions({ row }: RowActionsProps) {
       open={open}
       title="Edit User"
       trigger={
-        <a href="#" className={cnMerge(rowActionsVariants({ disabled }))}>
+        <a
+          href="#"
+          className={cnMerge(
+            rowActionsVariants({ disabled: !isStandardUser(row.original) })
+          )}
+        >
           Edit
         </a>
       }
     >
-      <EditUserForm closeModal={closeModal} user={row.original} />
+      {isStandardUser(row.original) && (
+        <EditUserForm closeModal={closeModal} user={row.original} />
+      )}
     </Modal>
   );
 }

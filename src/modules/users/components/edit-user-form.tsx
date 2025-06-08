@@ -11,11 +11,18 @@ import { VALID_ROLE_PERMISSIONS } from "@/modules/permissions";
 import { updateUser, updateUserSchema } from "@/modules/users";
 
 import type { FormEventHandler } from "react";
+import type { SelectUserOmitPasswordHash } from "@/db/schema";
 import type { User } from "@/modules/users";
 
+export interface StandardUser extends User {
+  role: Exclude<
+    SelectUserOmitPasswordHash["role"],
+    "admin" | "employee_delegate"
+  >;
+}
 interface EditUserFormProps {
   closeModal: () => void;
-  user: User;
+  user: StandardUser;
 }
 
 export function EditUserForm({ closeModal, user }: EditUserFormProps) {
