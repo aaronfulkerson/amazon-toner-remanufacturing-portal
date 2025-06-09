@@ -4,6 +4,7 @@ import { FEATURE_ROUTES } from "@/modules";
 import type { AllowedRoles } from "@/lib";
 
 type FeatureRoutesKeys = keyof typeof FEATURE_ROUTES;
+// type CRUDKeys = "CREATE" | "READ" | "UPDATE" | "DELETE";
 type Permissions = {
   [k in FeatureRoutesKeys]: AllowedRoles;
 };

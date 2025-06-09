@@ -2,7 +2,12 @@
 
 import { getEmailTemplate, resend } from "@/email";
 import { CREATE_USER_SUBJECT, CreateUserTemplate } from "@/email/templates";
-import { createServerResult, handleError, RESULT_TYPE } from "@/lib";
+import {
+  AUTHORIZATION_ERRORS,
+  createServerResult,
+  handleError,
+  RESULT_TYPE,
+} from "@/lib";
 import { hashPassword } from "@/lib/auth/password";
 import { requireAuthorizedSession } from "@/lib/auth/session.cached";
 import { PERMISSIONS } from "@/modules";
@@ -25,9 +30,15 @@ export async function createUser(
   prev: unknown,
   formData: FormData
 ): Promise<ServerResult> {
-  try {
-    await requireAuthorizedSession(PERMISSIONS.USERS);
+  const isAuthorized = await requireAuthorizedSession(PERMISSIONS.USERS);
+  if (!isAuthorized) {
+    return createServerResult(
+      AUTHORIZATION_ERRORS.NOT_AUTHORIZED,
+      RESULT_TYPE.ERROR
+    );
+  }
 
+  try {
     const { email, name, permissions, role } =
       await validateCreateUser(formData);
 
@@ -63,9 +74,15 @@ export async function updateUser(
   prev: unknown,
   formData: FormData
 ): Promise<ServerResult> {
-  try {
-    await requireAuthorizedSession(PERMISSIONS.USERS);
+  const isAuthorized = await requireAuthorizedSession(PERMISSIONS.USERS);
+  if (!isAuthorized) {
+    return createServerResult(
+      AUTHORIZATION_ERRORS.NOT_AUTHORIZED,
+      RESULT_TYPE.ERROR
+    );
+  }
 
+  try {
     const { permissions, ...user } = await validateUpdateUser(formData);
 
     await updateUserWithPermissions(user.id, permissions);
