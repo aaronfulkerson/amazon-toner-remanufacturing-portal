@@ -48,7 +48,7 @@ export async function createDelegate(
 ): Promise<ServerResult | undefined> {
   try {
     const { hasDelegate } = await checkInitialUserRoles();
-    if (hasDelegate) throw Error(SETUP_ERRORS.SETUP_COMPLETE);
+    if (hasDelegate) throw Error(SETUP_ERRORS.HAS_DELEGATE);
 
     const { email, password } = validateCreateDelegate(formData);
 
