@@ -31,14 +31,10 @@ export async function createUser(
   formData: FormData
 ): Promise<ServerResult> {
   const isAuthorized = await requireAuthorizedSession(PERMISSIONS.USERS);
-  if (!isAuthorized) {
-    return createServerResult(
-      AUTHORIZATION_ERRORS.NOT_AUTHORIZED,
-      RESULT_TYPE.ERROR
-    );
-  }
 
   try {
+    if (!isAuthorized) throw new Error(AUTHORIZATION_ERRORS.NOT_AUTHORIZED);
+
     const { email, name, permissions, role } =
       await validateCreateUser(formData);
 
@@ -75,14 +71,10 @@ export async function updateUser(
   formData: FormData
 ): Promise<ServerResult> {
   const isAuthorized = await requireAuthorizedSession(PERMISSIONS.USERS);
-  if (!isAuthorized) {
-    return createServerResult(
-      AUTHORIZATION_ERRORS.NOT_AUTHORIZED,
-      RESULT_TYPE.ERROR
-    );
-  }
 
   try {
+    if (!isAuthorized) throw new Error(AUTHORIZATION_ERRORS.NOT_AUTHORIZED);
+
     const { permissions, ...user } = await validateUpdateUser(formData);
 
     await updateUserWithPermissions(user.id, permissions);
