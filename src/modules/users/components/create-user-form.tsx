@@ -127,7 +127,7 @@ export function CreateUserForm({ closeModal }: CreateUserFormProps) {
         )}
       />
       <Button className="mt-5" disabled={isPending} size="xl" type="submit">
-        Create User
+        Submit
       </Button>
     </form>
   );

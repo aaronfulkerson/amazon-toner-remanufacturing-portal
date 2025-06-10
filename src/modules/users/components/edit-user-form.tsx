@@ -111,7 +111,7 @@ export function EditUserForm({ closeModal, user }: EditUserFormProps) {
         )}
       />
       <Button className="mt-5" disabled={isPending} size="xl" type="submit">
-        Update User
+        Submit
       </Button>
     </form>
   );
