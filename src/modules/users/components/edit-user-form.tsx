@@ -9,7 +9,7 @@ import { FormCheckboxGroup } from "@/components/form-components";
 import { useToast } from "@/components/toast.context";
 import { RESULT_TYPE } from "@/lib";
 import { VALID_ROLE_PERMISSIONS } from "@/modules/permissions";
-import { updateUser, updateUserSchema } from "@/modules/users";
+import { updateUser, updateUserSchema, USERS_QUERY_KEY } from "@/modules/users";
 
 import type { FormEventHandler } from "react";
 import type { SelectUserOmitPasswordHash } from "@/db/schema";
@@ -36,7 +36,7 @@ export function EditUserForm({ closeModal, user }: EditUserFormProps) {
   useEffect(() => {
     if (state) createToast(state);
     if (state?.type === RESULT_TYPE.SUCCESS) {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: [USERS_QUERY_KEY] });
       closeModal();
     }
   }, [closeModal, createToast, queryClient, state]);

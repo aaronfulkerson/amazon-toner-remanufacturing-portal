@@ -16,6 +16,8 @@ import type { CustomTableOptions } from "@/components";
 import type { SelectUser } from "@/db/schema";
 import type { StandardUser } from "@/modules/users/components";
 
+export const USERS_QUERY_KEY = "users";
+
 export type User = GetUsersSuccess["users"][number];
 interface PermissionsCellProps {
   cell: Cell<User, User["permissions"]>;
@@ -99,7 +101,7 @@ export function UserTable({ search }: UserTableProps) {
   const { data, isError, isLoading } = useQueryWithToast<GetUsersSuccess>(
     fetchUrl,
     {
-      queryKey: ["users", pagination, queryObj],
+      queryKey: [USERS_QUERY_KEY, pagination, queryObj],
       retry: false,
     }
   );
